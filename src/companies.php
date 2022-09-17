@@ -4,13 +4,7 @@ require("../config.php");
 require("functions/basic_html_functions.php");
 require("functions/database_functions.php");
 require("functions/companies_form_function.php");
-/*
-if(isset($_GET["page"])){
 
-  $page = $_GET["page"];
-} else {
-  $page = "search";
-} */
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
 //If a form post lead the user here, we process the posted data in a function
@@ -31,22 +25,22 @@ require("includes/header.php");
   switch($page){
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
-      $students = get_company_by_name($string);
+      $companies = get_company_by_name($string);
       display_search_form();
-      display_company_list($students);
+      display_company_list($companies);
       break;
     case "add":
       display_company_form();
       break;
     case "edit":
-      $sid = isset($_GET["sid"])?$_GET["sid"]:"";
-      $student = get_company($sid);
-      display_company_form($student);
+      $cid = isset($_GET["cid"])?$_GET["cid"]:"";
+      $company = get_company($cid);
+      display_company_form($company);
       break;
-    case "student":
-      $sid = isset($_GET["sid"])?$_GET["sid"]:"";
-      $student = get_company($sid);
-      display_company_info($student);
+    case "company":
+      $cid = isset($_GET["cid"])?$_GET["cid"]:"";
+      $company = get_company($cid);
+      display_company_info($company);
       break;
 
   }

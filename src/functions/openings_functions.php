@@ -8,7 +8,7 @@ function display_openings_navigation($currentPage){
     $navHTML .= '<a href="openings.php?page=search" class="selected">Search Jobs</a>';
     $navHTML .= ' | ';
     $navHTML .= '<a href="openings.php?page=add">Add Jobs</a>';
-
+    $navHTML .= ' <div> </h4>';
     
     echo $navHTML;
 }
@@ -17,7 +17,7 @@ function get_job_by_name($word){
         return get_all_openings_from_db();
     }
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("SELECT * FROM job_opportunity WHERE title like :title");
+    $stmt = $pdo->prepare("SELECT * FROM job_opportunity WHERE title like :title ORDER BY title");
     $stmt->execute([':title' => "%".$word."%"]);
     $data = [];
     while($job =  $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -34,7 +34,7 @@ function get_all_openings_from_db(){
 /* Search Bar*/
 function display_search_form(){
     echo '<h2>Search For A Job Opening By Title:</h2><form method=get action="openings.php">
-        Enter Job Opening: <input name="search" type="text">
+        Enter Job Opening: <input name="search" type="text" autofocus>
         <input job="page" type="hidden" value="search">
         <input type="submit" value="Search">
     </form><br/><br/>';

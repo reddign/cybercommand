@@ -22,7 +22,7 @@ function display_student_form($student=""){
         Grad Year:<input name="grad_year" type="text" value="'.$student["gradYear"].'"><BR/>
         <input name="sid" type="hidden"  value="'.$student["studentID"].'">
         <input name="page" type="hidden" value="save">
-        alumni<input name="alumni" type="checkbox" value="1" $checked><BR/>
+        alumni<input name="alumni" type="checkbox" value="1" '.$checked.'><BR/>
         <input type="submit" value="'.$buttonString.'">
     </form>';
 
@@ -38,7 +38,7 @@ function display_student_page_navigation($currentPage){
 }
 function display_search_form(){
     echo '<h2>Search for a student by Name</h2><form method=get action="students.php">
-        Enter Student Name:<input name="search" type="text">
+        <label for="search">Enter Student Name:</label> <input id="name" name="search" type="text" autofocus>
         <input name="page" type="hidden" value="search">
         <input type="submit" value="Search">
     </form><br/><br/>';
@@ -46,8 +46,8 @@ function display_search_form(){
 }
 
 function display_student_list($data=null){
-    if(!is_array($data)){
-        echo "";
+    if(!is_array($data) || sizeof($data) == 0){
+        echo "No matching students found";
         return;
     }
     foreach ($data as $row) {
@@ -83,8 +83,8 @@ function get_student_by_name($word){
         return get_all_students_from_db();
     }
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("SELECT * FROM student WHERE firstName like :name or lastName like :name");
-    $stmt->execute([':name' => $word."%"]);
+    $stmt = $pdo->prepare("SELECT * FROM student WHERE concat(firstName, ' ', lastName) LIKE :name ORDER BY lastName,firstName");
+    $stmt->execute([':name' => "%".$word."%"]);
     $data = [];
     while($student =  $stmt->fetch(PDO::FETCH_ASSOC)){
         $data[] = $student;
@@ -94,7 +94,7 @@ function get_student_by_name($word){
 }    
 function get_all_students_from_db(){
     $pdo = connect_to_db();
-    $data = $pdo->query("SELECT * FROM student order by lastName,firstName")->fetchAll();
+    $data = $pdo->query("SELECT * FROM student ORDER BY lastName,firstName")->fetchAll();
     return $data;
 }
 function process_student_form_data($arrayData){

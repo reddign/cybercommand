@@ -109,15 +109,16 @@ function addOrEditCompany($arrayData) {
 ////////// SEARCHING FOR CONTACTS //////////
 function display_contact_search_form(){
     echo '<h2>Search for an industry contact by name</h2><form method=get action="contacts.php">
-        Enter Industry Contact Name: <input name="search" type="text">
+        Enter Industry Contact Name: <input name="search" type="text" autofocus>
         <input name="page" type="hidden" value="search">
         <input type="submit" value="Search">
     </form><br/><br/>';
 }
 
 function display_contact_list($data=null){
-    if(!is_array($data)|| sizeof($data) == 0){
+    if(!is_array($data) || sizeof($data) == 0){
         echo "No matching contacts found";
+        return;
     }
     foreach ($data as $row) {
         echo "<a href='contacts.php?page=contact&id=".$row['contactID']."'>";
@@ -166,7 +167,7 @@ function get_contact_by_name($word){
         return get_all_contacts_from_db();
     }
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("SELECT * FROM contact WHERE CONCAT(firstName, ' ', lastName) LIKE :name");
+    $stmt = $pdo->prepare("SELECT * FROM contact WHERE CONCAT(firstName, ' ', lastName) LIKE :name ORDER BY lastName,firstName");
     $stmt->execute([':name' => "%".$word."%"]); 
     $data = [];
     while($student =  $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -177,12 +178,12 @@ function get_contact_by_name($word){
 }    
 function get_all_contacts_from_db(){
     $pdo = connect_to_db();
-    $data = $pdo->query("SELECT * FROM contact order by lastName,firstName")->fetchAll();
+    $data = $pdo->query("SELECT * FROM contact ORDER BY lastName,firstName")->fetchAll();
     return $data;
 }
 function get_associated_companies($contact) {
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("SELECT c.*, ctc.companyID FROM company c JOIN company_to_contact ctc ON c.companyID = ctc.companyID WHERE ctc.contactID=:id");
+    $stmt = $pdo->prepare("SELECT c.*, ctc.companyID FROM company c JOIN company_to_contact ctc ON c.companyID = ctc.companyID WHERE ctc.contactID=:id ORDER BY companyName");
     $stmt->execute([':id' => $contact['contactID']]); 
     $data = $stmt->fetchAll();
     return $data;
@@ -194,7 +195,7 @@ function display_contacts_page_navigation($currentPage){
     $navHTML .= '<a href="contacts.php?page=search" class="selected">Search</a>';
     $navHTML .= ' | ';
     $navHTML .= '<a href="contacts.php?page=add">Add Contact</a>';
-    $navHTML .= ' <div> </h4>';
+    $navHTML .= ' </div> </h4>';
     
     echo $navHTML;
 }

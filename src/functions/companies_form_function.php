@@ -1,30 +1,30 @@
 <?PHP
-function display_company_form($student=""){
+function display_company_form($company=""){
 
     //text entry
-    if($student==""){
+    if($company==""){
         $formHTML = "<h2>Add Company</h2>";
-        $student = [];
-        $student["companyID"] = "";
-        $student["companyName"] = "";
-        $student["address"] = "";
-        $student["city"] = "";
-        $student["state"] = "";
-        $student["zip"] = "";
-        $student["phone"] = "";
+        $company = [];
+        $company["companyName"] = "";
+        $company["address"] = "";
+        $company["city"] = "";
+        $company["state"] = "";
+        $company["zip"] = "";
+        $company["phone"] = "";
+        $company["companyID"] = "";
         $buttonString = "Add Company";
     }else{
         $formHTML = "<h2>Edit Company</h2>";
         $buttonString = "Edit Company Info";
     }
-    echo '<form method=post action=company.php>
-        Company Name:<input name="company_name" type="text" value="'.$student["companyName"].'"><BR/><BR/>
-        Address:<input name="address" type="text" value="'.$student["address"].'"><BR/><BR/>
-        City:<input name="city" type="text" value="'.$student["city"].'"><BR/><BR/>
-        State:<input name="state" type="text" value="'.$student["state"].'"><BR/><BR/>
-        Zip:<input name="zip" type="text" value="'.$student["zip"].'"><BR/><BR/>
-        Phone:<input name="phone" type="text" value="'.$student["phone"].'"><BR/><BR/>
-        <input name="companyid" type="hidden"  value="'.$student["companyID"].'">
+    echo '<form method=post action=companies.php>
+        Company Name: <input name="companyName" type="text" value="'.$company["companyName"].'"><BR/>
+        Address: <input name="address" type="text" value="'.$company["address"].'"><BR/>
+        City: <input name="city" type="text" value="'.$company["city"].'"><BR/>
+        State: <input name="state" type="text" value="'.$company["state"].'"><BR/>
+        Zip: <input name="zip" type="text" value="'.$company["zip"].'"><BR/>
+        Phone: <input name="phone" type="text" value="'.$company["phone"].'"><BR/>
+        <input name="companyID" type="hidden"  value="'.$company["companyID"].'">
         <input name="page" type="hidden" value="save">  
         <input type="submit" value="'.$buttonString.'">
     </form>';
@@ -43,7 +43,7 @@ function display_company_page_navigation($currentPage){
 //search
 function display_search_form(){
     echo '<h2>Search for a company by Name</h2><form method=get action="companies.php">
-        Enter Company Name:<input name="search" type="text">
+        Enter Company Name: <input name="search" type="text" autofocus>
         <input name="page" type="hidden" value="search">
         <input type="submit" value="Search">
     </form><br/><br/>';
@@ -51,65 +51,62 @@ function display_search_form(){
 }
 
 function display_company_list($data=null){
-    if(!is_array($data)){
-        echo "";
+    if(!is_array($data) || sizeof($data) == 0){
+        echo "No matching companies found";
         return;
     }
     foreach ($data as $row) {
-            echo "<a href='companies.php?page=student&sid=".$row['companyID']."'>";
+            echo "<a href='companies.php?page=company&cid=".$row['companyID']."'>";
             echo $row['companyName']."<br />\n";
             echo "</a>";
     }
 }
 
-function display_company_info($student){
-    if(!is_array($student)){
+function display_company_info($company){
+    if(!is_array($company)){
         echo "Company Information not found";
     }
-    echo "<h4><b>Name:</b> ".$student['companyName']."</h4>\n";
-    echo "<h4><b>Address:</b> ".$student['address']."</h4>\n";
-    echo "<h4><b>City:</b> ".$student['city']."</h4>\n";
-    echo "<h4><b>State:</b> ".$student['state']."</h4>\n";
-    echo "<h4><b>Zip:</b> ".$student['zip']."</h4>\n";
-    echo "<h4><b>Phone:</b> ".$student['phone']."</h4>\n";
-    echo "<a href='companies.php?page=edit&sid=".$student['companyID']."'> Edit Info </a>\n";
+    echo "<h4><b>Name:</b> ".$company['companyName']."</h4>\n";
+    echo "<h4><b>Address:</b> ".$company['address']."</h4>\n";
+    echo "<h4><b>City:</b> ".$company['city']."</h4>\n";
+    echo "<h4><b>State:</b> ".$company['state']."</h4>\n";
+    echo "<h4><b>Zip:</b> ".$company['zip']."</h4>\n";
+    echo "<h4><b>Phone:</b> ".$company['phone']."</h4>\n";
+    echo "<a href='companies.php?page=edit&cid=".$company['companyID']."'> Edit Info </a>\n";
     
 }
 
-function get_company($sid){
+function get_company($cid){
     $pdo = connect_to_db();
-    //TODO: update values for companies table
-    $stmt = $pdo->prepare("SELECT * FROM student WHERE studentID=:sid");
-    $stmt->execute([':sid' => $sid]); 
-    $student = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare("SELECT * FROM company WHERE companyID=:cid");
+    $stmt->execute([':cid' => $cid]); 
+    $company = $stmt->fetch(PDO::FETCH_ASSOC);
    
-    return $student;
+    return $company;
 } 
 function get_company_by_name($word){
     if($word==""){
-        return get_all_company_from_db();
+        return get_all_companies_from_db();
     }
     $pdo = connect_to_db();
-    //TODO: update values for companies table
-    $stmt = $pdo->prepare("SELECT * FROM student WHERE firstName like :name or lastName like :name");
-    $stmt->execute([':name' => $word."%"]);
+    $stmt = $pdo->prepare("SELECT * FROM company WHERE companyName LIKE :name ORDER BY companyName");
+    $stmt->execute([':name' => "%".$word."%"]);
     $data = [];
-    while($student =  $stmt->fetch(PDO::FETCH_ASSOC)){
-        $data[] = $student;
+    while($company =  $stmt->fetch(PDO::FETCH_ASSOC)){
+        $data[] = $company;
     } 
     
     return $data;
 }    
-function get_all_company_from_db(){
+function get_all_companies_from_db(){
     $pdo = connect_to_db();
-    //TODO: update values for companies table
-    $data = $pdo->query("SELECT * FROM student order by lastName,firstName")->fetchAll();
+    $data = $pdo->query("SELECT * FROM company ORDER BY companyName")->fetchAll();
     return $data;
 }
 function process_company_form_data($arrayData){
     print_r($arrayData);
-    $sid = $arrayData["sid"];
-    if($sid==""){
+    $cid = $arrayData["companyID"];
+    if($cid==""){
         addcompany($arrayData);
     }else{
         editcompany($arrayData);
@@ -124,24 +121,22 @@ function addcompany($arrayData){
     $zip = $arrayData["zip"];
     $phone = $arrayData["phone"];
     $pdo = connect_to_db();
-    //TODO: change pdo->prepare to company not student
-    $stmt = $pdo->prepare("insert into student (firstName,lastName,gradYear,alumni) VALUES (:first,:last,:gradYr,:alum)");
-    $stmt->execute([':first' => $first_name, ":last"=> $last_name, ":gradYr"=>$gradYear,":alum"=>$alumni]);
-    $sid = $pdo->lastInsertId();
-    header("location:companies.php?page=student&sid=".$sid."&message=Student Added");
+    $stmt = $pdo->prepare("insert into company (companyName, address, city, state, zip, phone) VALUES (:name, :address, :city, :state, :zip, :phone)");
+    $stmt->execute([':name' => $company_name, ":address"=> $address, ":city"=>$city, ":state"=>$state, ":zip"=>$zip, ":phone"=>$phone]);
+    $cid = $pdo->lastInsertId();
+    header("location:companies.php?page=company&cid=".$cid."&message=Company Added");
   
 }
 function editcompany($arrayData){
-    $company_name = $arrayData["company_name"];
+    $company_name = $arrayData["companyName"];
     $address = $arrayData["address"];
     $city = $arrayData["city"];
     $state = $arrayData["state"];
     $zip = $arrayData["zip"];
     $phone = $arrayData["phone"];
-    $sid = $arrayData["sid"];
+    $cid = $arrayData["companyID"];
     $pdo = connect_to_db();
-    //TODO: change pdo->prepare to company not student
-    $stmt = $pdo->prepare("update student  set firstName = :first, lastName = :last, gradYear = :gradYr,alumni=:alum where studentID=:sid");
-    $stmt->execute([':first' => $first_name, ":last"=> $last_name, ":gradYr"=>$gradYear,":alum"=>$alumni,":sid"=>$sid]);
-    header("location:companies.php?page=student&sid=".$sid."&message=Student Updated");
+    $stmt = $pdo->prepare("update company set companyName=:name, address=:address, city=:city, state=:state, zip=:zip, phone=:phone where companyID=:cid");
+    $stmt->execute([':name' => $company_name, ":address"=> $address, ":city"=>$city, ":state"=>$state, ":zip"=>$zip, ":phone"=>$phone, ":cid"=>$cid]);
+    header("location:companies.php?page=company&cid=".$cid."&message=Company Updated");
 }

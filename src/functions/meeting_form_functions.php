@@ -36,14 +36,14 @@ function display_meeting_page_navigation($currentPage){
     $navHTML .= '<a href="meetings.php?page=search" class="selected">Search</a>';
     $navHTML .= ' | ';
     $navHTML .= '<a href="meetings.php?page=add">Add Meeting</a>';
-    $navHTML .= ' <div> </h4>';
+    $navHTML .= ' </div> </h4>';
     
     echo $navHTML;
 }
 //displaying the ability to search meeting with functionalities 
 function display_search_meeting_form(){
-    echo '<h2>Search for a meeting:</h2><form method=get action="meetings.php">
-        Search By Name: <input style="margin-bottom:14px;" name="search" type="text"></br>
+    echo '<h2><b>Search for a meeting:</b></h2><form method=get action="meetings.php">
+        Search By Name: <input style="margin-bottom:14px;" name="search" type="text" autofocus></br>
         Search By Date: <input style="margin-bottom:14px;" name="searchDate" type="date"></br>
         Search By Location: <input style="margin-bottom:14px;" name="searchLoc" type="text"></br>
         <input name="page" type="hidden" value="search">
@@ -53,7 +53,7 @@ function display_search_meeting_form(){
 //function to specify if a meeting is in the system or not 
 function display_meeting_list($data=null){
     if($data==null){
-        echo "<h3><b>No Meetings Found...</b></h2>";
+        echo "<h3><b>No Meetings Found...</b></h3>";
     }
     else if(!is_array($data[0])){
         echo "";
@@ -71,13 +71,12 @@ function display_meeting_info($meeting){
     if(!is_array($meeting)){
         echo "Meeting Information not found";
     }
-    echo "<a href='meetings.php?page=edit&mid=".$meeting['meetingID']."'> Edit Info </a>\n";
     echo "<h4><b>Meeting Name:</b> ".$meeting['meetingName']."</h4>\n";
     echo "<h4><b>Date:</b> ".date('m/d/Y', strtotime($meeting['date']))."</h4>\n";
     echo "<h4><b>Start Time:</b> ".date('g:iA', strtotime($meeting['starttime']))."</h4>\n";
     echo "<h4><b>Location:</b> ".$meeting['location']."</h4>\n";
     echo "<h4><b>Notes:</b> ".$meeting['notes']."</h4>\n";
-
+    echo "<a href='meetings.php?page=edit&mid=".$meeting['meetingID']."'> Edit Info </a>\n";
 }
 //function to tell the system where to pull the meeting info from 
 function get_meeting($mid){
@@ -94,7 +93,7 @@ function get_meetings_by_name($word){
     }
     $pdo = connect_to_db();
     $stmt = $pdo->prepare("SELECT * FROM meeting WHERE meetingName LIKE :mName;");
-    $stmt->execute([':mName' => $word."%"]); 
+    $stmt->execute([':mName' => "%".$word."%"]); 
     $data = $stmt->fetchall();
     
     return $data;
@@ -119,7 +118,7 @@ function get_meetings_by_loc($mLoc){
     }
     $pdo = connect_to_db();
     $stmt = $pdo->prepare("SELECT * FROM meeting WHERE location LIKE :mLoc;");
-    $stmt->execute([':mLoc' => $mLoc."%"]); 
+    $stmt->execute([':mLoc' => "%".$mLoc."%"]); 
     $data = $stmt->fetchall();
     
     return $data;
@@ -131,7 +130,7 @@ function combined_search($mName, $mDate, $mLoc){
         $mDate="%";
     }
     $stmt = $pdo->prepare("SELECT * FROM meeting WHERE meetingName LIKE :mName AND location LIKE :mLoc AND date LIKE :mDate;");
-    $stmt->execute([':mName'=>$mName."%", ':mLoc'=>$mLoc."%", ':mDate'=>$mDate]);
+    $stmt->execute([':mName'=>"%".$mName."%", ':mLoc'=>"%".$mLoc."%", ':mDate'=>$mDate]);
     $data = $stmt->fetchall();
     return $data;
 }
