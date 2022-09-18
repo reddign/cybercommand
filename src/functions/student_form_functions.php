@@ -61,10 +61,10 @@ function display_student_info($student){
     if(!is_array($student)){
         echo "Student Information not found";
     }
-    echo "<h4><b>Name:</b> ".$student['firstName']." ".$student['lastName']."</h4>\n";
-    echo "<h4><b>Grad Year:</b> ".$student['gradYear']."</h4>\n";
-    echo "<h4><b>Alumni:</b> ".($student['alumni']?"YES":"NO")."</h4>\n";
-    echo "<a href='students.php?page=edit&sid=".$student['studentID']."'> Edit Info </a>\n";
+    echo "<h4><b>Name:</b> ".$student['firstName']." ".$student['lastName']."</h4>";
+    echo "<h4><b>Grad Year:</b> ".$student['gradYear']."</h4>";
+    echo "<h4><b>Alumni:</b> ".($student['alumni']?"YES":"NO")."</h4>";
+    echo "<a href='students.php?page=edit&sid=".$student['studentID']."'> Edit Info </a><BR/>";
     
     # Survey info here? And if no survey has been taken by the student, maybe a button here that would send the student an email directing them to take the survey.
     # See the email function in survey_fuctions.php
@@ -98,7 +98,6 @@ function get_all_students_from_db(){
     return $data;
 }
 function process_student_form_data($arrayData){
-    print_r($arrayData);
     $sid = $arrayData["sid"];
     if($sid==""){
         addStudent($arrayData);

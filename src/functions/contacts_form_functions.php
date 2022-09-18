@@ -4,7 +4,7 @@ function display_contact_form($contact=NULL){
 
     //Get all companies for use in associated companies selector
     $pdo = connect_to_db();
-    $companies = $pdo->query("SELECT companyID,companyName FROM company order by companyName")->fetchAll();
+    $companies = $pdo->query("SELECT companyID,companyName FROM company ORDER BY companyName")->fetchAll();
     
 
     if($contact==NULL){
@@ -130,29 +130,29 @@ function display_contact_list($data=null){
 function display_contact_info($contact){
     if(!is_array($contact)){
         echo "Contact Information not found";
+        return;
     }
-    else {
-        $companies = get_associated_companies($contact);
-        echo "<h4><b>Name:</b> ".$contact['firstName']." ".$contact['lastName']."</h4>\n";
-        echo "<h4><b>Work phone:</b> ".$contact['workphone']."</h4>\n";
-        echo "<h4><b>Cell phone:</b> ".$contact['cellphone']."</h4>\n";
-        echo "<h4><b>Home phone:</b> ".$contact['homephone']."</h4>\n";
-        echo "<h4><b>Alumni:</b> ".(($contact['formerStudentID'] == NULL) ? "NO" : "YES")."</h4>\n";
-        echo "<h4><b>Company:</b> "; 
-        $first = true;
-        if(is_array($companies)) {
-            foreach($companies as $company) {
-                if(!$first)
-                    echo ", ";
-                else
-                    $first = false;
-                echo "<a href='companies.php?page=student&sid=".$company['companyID']."'>".$company['companyName']."</a>";
-            }
-            unset($company);
+
+    $companies = get_associated_companies($contact);
+    echo "<h4><b>Name:</b> ".$contact['firstName']." ".$contact['lastName']."</h4>\n";
+    echo "<h4><b>Work phone:</b> ".$contact['workphone']."</h4>\n";
+    echo "<h4><b>Cell phone:</b> ".$contact['cellphone']."</h4>\n";
+    echo "<h4><b>Home phone:</b> ".$contact['homephone']."</h4>\n";
+    echo "<h4><b>Alumni:</b> ".(($contact['formerStudentID'] == NULL) ? "NO" : "YES")."</h4>\n";
+    echo "<h4><b>Company:</b> "; 
+    $first = true;
+    if(is_array($companies)) {
+        foreach($companies as $company) {
+            if(!$first)
+                echo ", ";
+            else
+                $first = false;
+            echo "<a href='companies.php?page=student&sid=".$company['companyID']."'>".$company['companyName']."</a>";
         }
-        echo "</h4>";
-        echo "<a href='contacts.php?page=edit&id=".$contact['contactID']."'> Edit Info </a>\n";
+        unset($company);
     }
+    echo "</h4>";
+    echo "<a href='contacts.php?page=edit&id=".$contact['contactID']."'> Edit Info </a>\n";
 }
 /////////// DATABASE ACCESS //////////
 function get_contact($id){

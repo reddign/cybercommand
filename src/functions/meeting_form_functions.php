@@ -60,9 +60,9 @@ function display_meeting_list($data=null){
     }
     else{
         foreach ($data as $row) {
-                echo "<a href='meetings.php?page=meeting&mid=".$row['meetingID']."'>";
-                echo $row['date'].", ".$row['meetingName']."<br/>\n";
-                echo "</a>";
+            echo "<a href='meetings.php?page=meeting&mid=".$row['meetingID']."'>";
+            echo $row['date'].", ".$row['meetingName']."<br/>\n";
+            echo "</a>";
         }
     }
 }
@@ -70,9 +70,10 @@ function display_meeting_list($data=null){
 function display_meeting_info($meeting){
     if(!is_array($meeting)){
         echo "Meeting Information not found";
+        return;
     }
     echo "<h4><b>Meeting Name:</b> ".$meeting['meetingName']."</h4>\n";
-    echo "<h4><b>Date:</b> ".date('m/d/Y', strtotime($meeting['date']))."</h4>\n";
+    echo "<h4><b>Date:</b> ".($meeting['date'] != '0000-00-00' ? date('m/d/Y', strtotime($meeting['date'])) : '' )."</h4>\n";
     echo "<h4><b>Start Time:</b> ".date('g:iA', strtotime($meeting['starttime']))."</h4>\n";
     echo "<h4><b>Location:</b> ".$meeting['location']."</h4>\n";
     echo "<h4><b>Notes:</b> ".$meeting['notes']."</h4>\n";

@@ -7,7 +7,7 @@ display_small_page_heading("About","");
   The EMCS database was a project from the CS341 Software Engineering during the Fall of 2022. 
   During the first 4 weeks of class students worked as part of the EC🗲DZ software team using a Git repository to share code.  The students used their programming skills to add functionality to the software and practiced working as an agile software team.  Below is a picture of the students in the class and a detailed list of contributors.
  
-  <img src="images/classPhoto.png" style="width:800px;margin-top:30px;margin-bottom:30px;">
+  <BR/><img src="images/classPhoto.png" style="width:800px;margin-top:30px;margin-bottom:30px;">
  
  
   <BR/>

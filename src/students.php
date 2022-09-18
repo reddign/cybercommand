@@ -4,15 +4,10 @@ require("../config.php");
 require("functions/basic_html_functions.php");
 require("functions/database_functions.php");
 require("functions/student_form_functions.php");
-/*
-if(isset($_GET["page"])){
 
-  $page = $_GET["page"];
-} else {
-  $page = "search";
-} */
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
+
 //If a form post lead the user here, we process the posted data in a function
 if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
   process_student_form_data($_POST);
@@ -20,7 +15,6 @@ if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
 }
 //otherwise we display the page
 require("includes/header.php");
-
 
   display_small_page_heading("Students","");
 
@@ -49,6 +43,10 @@ require("includes/header.php");
       break;
 
   }
-  
+/*
+//Displays message if available
+if(isset($_GET['message'])) {
+  echo '<BR/>'.$_GET['message'];
+}*/
 
 require("includes/footer.php");
