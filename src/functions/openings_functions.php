@@ -39,8 +39,19 @@ function display_job_form($job=""){
         Start Date: <input name="startdate" type="date" value="'.$job["startdate"].'"><BR/>
         End Date: <input name="enddate" type="date" value="'.$job["enddate"].'"><BR/>
         Job Type: <input name="type" type="text" value="'.$job["type"].'"><BR/>
-        Semester: <input name="semester" type="text" value="'.$job["type"].'"><BR/>
-        Student: <BR/>
+        Semester: <input name="semester" type="text" value="'.$job["type"].'"><BR/>';
+    echo '<label for="studentID">Student:</label>
+        <select name="studentID" id="studentID">';
+    echo '<option value="NONE"></option>';
+
+    if(is_array($students)) {
+        foreach($students as $student) {
+            $selected = $student['studentID'] == $job['studentID'] ? " selected" : "";
+            echo '<option value='.$student['studentID'].$selected.'>'.$student['firstName'].' '.$student['lastName'].'</option>';
+        }
+        unset($student);
+    }
+    echo '</select><BR/>
         Description: <BR/><textarea style="width:60%;" rows="5" name="description" type="text">'.$job["description"].'</textarea><BR/>
         <input name="jobID" type="hidden"  value="'.$job["jobID"].'">
         <input name="page" type="hidden" value="save">
