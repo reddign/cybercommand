@@ -1,6 +1,6 @@
 ﻿body,h1,h2,h3,h4,h5 {font-family: "Clarendon Bold Condensed", sans-serif}
 body {font-size:20px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:1;cursor:pointer}
+.w3-half img:hover{opacity:0.8}
 .w3-red,.w3-hover-red:hover{color:#fff!important;background-color:#0A2240!important}
 .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#004B98!important}
