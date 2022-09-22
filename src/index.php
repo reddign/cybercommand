@@ -5,6 +5,7 @@ require("includes/header.php");
 display_small_page_heading("Engineering, Mathematics, & Computer Science Career Database");
 
   echo "Welcome to the main page of the EMCS Database.";
+
   ?>
   
   <!-- Photo grid (modal) -->
@@ -24,7 +25,7 @@ display_small_page_heading("Engineering, Mathematics, & Computer Science Career 
 
   <!-- Modal for full size images on click-->
   <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
-    <span class="w3-button w3-black w3-xxlarge w3-display-topright">�</span>
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">X</span>
     <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
       <img id="img01" class="w3-image">
       <p id="caption"></p>

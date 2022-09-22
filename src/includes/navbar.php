@@ -3,7 +3,8 @@
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
    <img width="200px" src="<?php echo $path; ?>images/Etown_Black_&_White.png">
-   <!-- <h3 class="w3-padding-34"><b>EMCS Career DB</b></h3> -->
+   <h3 class="w3-padding-34"><b>DATABASE</b></h3>
+   <!-- <h3 class="w3-padding-34"><b>Database</b></h3> -->
   </div>
   <div class="w3-bar-block">
     <br/>
