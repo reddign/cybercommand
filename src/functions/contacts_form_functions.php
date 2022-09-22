@@ -147,7 +147,7 @@ function display_contact_info($contact){
                 echo ", ";
             else
                 $first = false;
-            echo "<a href='companies.php?page=student&sid=".$company['companyID']."'>".$company['companyName']."</a>";
+            echo "<a href='companies.php?page=company&cid=".$company['companyID']."'>".$company['companyName']."</a>";
         }
         unset($company);
     }
