@@ -6,6 +6,7 @@
    <!-- <h3 class="w3-padding-34"><b>EMCS Career DB</b></h3> -->
   </div>
   <div class="w3-bar-block">
+    <br/>
     <a href="<?php echo $path; ?>index.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
     <a href="<?php echo $path; ?>students.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Students</a> 
     <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Companies</a> 
