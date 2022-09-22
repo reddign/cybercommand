@@ -4,7 +4,8 @@ require("functions/basic_html_functions.php");
 require("includes/header.php");
 display_small_page_heading("EMCS Career","Database");
 
-  echo "Welcome to the main page of the EMCS database.";
+  echo "Welcome to the main page of the:"<br/>
+  echo "Engineering, Mathematics, & Computer Science Database.";
   ?>
   
   <!-- Photo grid (modal) -->
