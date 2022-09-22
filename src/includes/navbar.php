@@ -1,9 +1,9 @@
 ﻿<!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
+  <div class="w3-container ">
    <img width="200px" src="<?php echo $path; ?>images/Etown_Black_&_White.png">
-   <!-- <h3 class="w3-padding-34">DATABASE</h3> -->
+   <h3 class="w3-padding-34" font-family= "Poppins">DATABASE</h3>
    <!-- <h3 class="w3-padding-34"><b>Database</b></h3> -->
   </div>
   <div class="w3-bar-block">
