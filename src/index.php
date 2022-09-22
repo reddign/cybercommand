@@ -2,10 +2,9 @@
 $path = '';
 require("functions/basic_html_functions.php");
 require("includes/header.php");
-display_small_page_heading("EMCS Career","Database");
+display_small_page_heading("Engineering, Mathematics, & Computer Science Career Database");
 
-  echo "Welcome to the main page of the:"
-  echo "Engineering, Mathematics, & Computer Science Database.";
+  echo "Welcome to the main page of the EMCS Database.";
   ?>
   
   <!-- Photo grid (modal) -->
