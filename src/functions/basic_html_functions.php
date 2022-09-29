@@ -18,6 +18,6 @@ function display_small_page_heading($mainHeading = "Change Main Heading",$subHea
     if($subHeading != ""){
         echo '<h1 class="w3-xxlarge w3-text-red"><b>'.$subHeading.'.</b></h1>';
     }
-    echo '<hr style="width:50px;border:5px solid red" class="w3-round">';
+    echo '<hr style="width:300px;border:5px solid #3DB5E6" class="w3-round">';
     echo '</div>';
 }
