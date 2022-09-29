@@ -4,7 +4,7 @@ require("functions/basic_html_functions.php");
 require("includes/header.php");
 display_small_page_heading("Engineering, Mathematics, & Computer Science Career Database");
 
- "Welcome to the main page of the EMCS database.";
+echo '<h1 class="w3-large w3-text-black" style="margin-left:18px">Welcome to the main page of the EMCS database.<b></b></h1>';
 
   ?>
   
