@@ -34,6 +34,9 @@ display_small_page_heading("Engineering, Mathematics, & Computer Science Career 
     </div>
   </div>
 
-
+<br/>
+  <a href=https://www.instagram.com/etowncollege> <img src="images/Instagram Icon.png">
+  <a href=https://www.facebook.com/etowncollege> <img src="images/Facebook Icon.png">
+  <a href=https://www.linkedin.com/company/elizabethtown-college-school-of-engineering-math-and-computer-science> <img src ="images/LinkedIn Icon.png">
 <?PHP
 require("includes/footer.php");
