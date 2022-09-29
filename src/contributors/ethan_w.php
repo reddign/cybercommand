@@ -10,7 +10,7 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-  This is Ethan's page 6
+  This is Ethan's
 
 <?PHP
 require("../includes/footer.php");
