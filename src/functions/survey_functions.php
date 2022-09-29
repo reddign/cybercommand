@@ -63,13 +63,13 @@ function display_survey_form($student_survey=""){
     $student_survey["studentID"] = "";
     $buttonString = "Submit Survey";
     
-    echo '<form method=post action=survey.php>
-        Survey Code: <input name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
-        Interests: <input name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
-        Career Goals: <input name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
-        Student ID: <input name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
-        <input name="page" type="hidden" value="Submit Survey">
-        <input type="submit" value="'.$buttonString.'">
+    echo '<form  method=post action=survey.php>
+        Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
+        Interests: <input style="margin:10px" name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
+        Career Goals: <input style="margin:10px" name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
+        Student ID: <input style="margin:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
+        <input style="margin:10px" name="page" type="hidden" value="Submit Survey">
+        <input style="margin:10px" type="submit" value="'.$buttonString.'">
     </form>';
 
 }
