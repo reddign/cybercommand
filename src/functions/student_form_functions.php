@@ -9,6 +9,11 @@ function display_student_form($student=""){
         $student["firstName"] = "";
         $student["gradYear"] = "";
         $student["alumni"] = "";
+        $student["primaryMajor"] = "";
+        $student["otherMajors"] = "";
+        $student["minors"] = "";
+        $student["concentration"] = "";
+        $student["first_landingsID"] = "";
         $checked = "";
         $buttonString = "Add Student";
     }else{
@@ -17,12 +22,16 @@ function display_student_form($student=""){
         $buttonString = "Edit Student";
     }
     echo '<form method=post action=students.php>
-        First Name:<input name="first_name" type="text" value="'.$student["firstName"].'"><BR/>
-        Last Name:<input name="last_name" type="text" value="'.$student["lastName"].'"><BR/>
-        Grad Year:<input name="grad_year" type="text" value="'.$student["gradYear"].'"><BR/>
+        First Name: <input name="firstName" type="text" value="'.$student["firstName"].'"><BR/>
+        Last Name: <input name="lastName" type="text" value="'.$student["lastName"].'"><BR/>
+        Primary Major: <input name="primaryMajor" type="text" value="'.$student["primaryMajor"].'"><BR/>
+        Other Majors: <input name="otherMajors" type="text" value="'.$student["otherMajors"].'"><BR/>
+        Minors: <input name="minors" type="text" value="'.$student["minors"].'"><BR/>
+        Concentration: <input name="concentration" type="text" value="'.$student["concentration"].'"><BR/>
+        Grad Year: <input name="gradYear" type="text" value="'.$student["gradYear"].'"><BR/>
+        Alumni: <input name="alumni" type="checkbox" value="1" '.$checked.'><BR/>
         <input name="sid" type="hidden"  value="'.$student["studentID"].'">
         <input name="page" type="hidden" value="save">
-        alumni<input name="alumni" type="checkbox" value="1" '.$checked.'><BR/>
         <input type="submit" value="'.$buttonString.'">
     </form>';
 
@@ -52,7 +61,10 @@ function display_student_list($data=null){
     }
     foreach ($data as $row) {
             echo "<a href='students.php?page=student&sid=".$row['studentID']."'>";
-            echo $row['firstName']." ".$row['lastName']."<br />\n";
+            if(trim($row['firstName'] . $row['lastName']) == "")
+                echo "Unnamed";
+            else
+                echo $row['firstName']." ".$row['lastName']."<br />\n";
             echo "</a>";
     }
 }
@@ -64,6 +76,10 @@ function display_student_info($student){
     echo "<h4><b>Name:</b> ".$student['firstName']." ".$student['lastName']."</h4>";
     echo "<h4><b>Grad Year:</b> ".$student['gradYear']."</h4>";
     echo "<h4><b>Alumni:</b> ".($student['alumni']?"YES":"NO")."</h4>";
+    echo "<h4><b>Primary Major:</b> ".$student["primaryMajor"]."</h4>";
+    echo "<h4><b>Other Majors:</b> ".$student["otherMajors"]."</h4>";
+    echo "<h4><b>Minors:</b> ".$student["minors"]."</h4>";
+    echo "<h4><b>Concentration:</b> ".$student["concentration"]."</h4>";
     echo "<a href='students.php?page=edit&sid=".$student['studentID']."'> Edit Info </a><BR/>";
     
     # Survey info here? And if no survey has been taken by the student, maybe a button here that would send the student an email directing them to take the survey.
@@ -107,25 +123,19 @@ function process_student_form_data($arrayData){
     
 }
 function addStudent($arrayData){
-    $last_name = $arrayData["last_name"];
-    $first_name = $arrayData["first_name"];
-    $gradYear = $arrayData["grad_year"];
     $alumni = isset($arrayData["alumni"])?1:0;
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("insert into student (firstName,lastName,gradYear,alumni) VALUES (:first,:last,:gradYr,:alum)");
-    $stmt->execute([':first' => $first_name, ":last"=> $last_name, ":gradYr"=>$gradYear,":alum"=>$alumni]);
+    $stmt = $pdo->prepare("insert into student (firstName,lastName,gradYear,alumni,primaryMajor,otherMajors,minors,concentration) VALUES (:firstName,:lastName,:gradYear,:alumni,:primaryMajor,:otherMajors,:minors,:concentration)");
+    $stmt->execute([":firstName" => $arrayData['firstName'], ":lastName" => $arrayData['lastName'], ":gradYear" => $arrayData['gradYear'], ":primaryMajor" => $arrayData['primaryMajor'], ":otherMajors" => $arrayData['otherMajors'], ":minors" => $arrayData['minors'], ":concentration" => $arrayData['concentration'],":alumni"=>$alumni]);
     $sid = $pdo->lastInsertId();
     header("location:students.php?page=student&sid=".$sid."&message=Student Added");
   
 }
 function editStudent($arrayData){
-    $last_name = $arrayData["last_name"];
-    $first_name = $arrayData["first_name"];
-    $gradYear = $arrayData["grad_year"];
     $alumni = $arrayData["alumni"];
     $sid = $arrayData["sid"];
     $pdo = connect_to_db();
-    $stmt = $pdo->prepare("update student  set firstName = :first, lastName = :last, gradYear = :gradYr,alumni=:alum where studentID=:sid");
-    $stmt->execute([':first' => $first_name, ":last"=> $last_name, ":gradYr"=>$gradYear,":alum"=>$alumni,":sid"=>$sid]);
+    $stmt = $pdo->prepare("update student set firstName = :firstName, lastName = :lastName, gradYear = :gradYear, alumni=:alumni, primaryMajor=:primaryMajor, otherMajors=:otherMajors, minors=:minors, concentration=:concentration where studentID=:sid");
+    $stmt->execute([":firstName" => $arrayData['firstName'], ":lastName" => $arrayData['lastName'], ":gradYear" => $arrayData['gradYear'], ":primaryMajor" => $arrayData['primaryMajor'], ":otherMajors" => $arrayData['otherMajors'], ":minors" => $arrayData['minors'], ":concentration" => $arrayData['concentration'],":alumni"=>$alumni,":sid"=>$sid]);
     header("location:students.php?page=student&sid=".$sid."&message=Student Updated");
 }
