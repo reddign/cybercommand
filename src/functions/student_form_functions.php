@@ -13,7 +13,7 @@ function display_student_form($student=""){
         $student["otherMajors"] = "";
         $student["minors"] = "";
         $student["concentration"] = "";
-        $student["first_landingsID"] = "";
+        $student["first_landingsID"] = ""; //TODO
         $checked = "";
         $buttonString = "Add Student";
     }else{
