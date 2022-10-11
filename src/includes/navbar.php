@@ -12,12 +12,13 @@
     <a href="<?php echo $path; ?>students.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Students</a> 
     <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Companies</a> 
     <a href="<?php echo $path; ?>contacts.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Industry Contacts</a> 
-    <a href="<?php echo $path; ?>openings.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Job Openings</a> 
+    <a href="<?php echo $path; ?>internships.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Internships</a>
+    <a href="<?php echo $path; ?>first_landings.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">First Landings</a> 
     <a href="<?php echo $path; ?>meetings.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Meetings</a> 
-    <a href="<?php echo $path; ?>survey.php"="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student Interest Survey</a> 
-    <a href="<?php echo $path; ?>import.php"="w3_close()" class="w3-bar-item w3-button w3-hover-white">Data Import</a> 
+    <a href="<?php echo $path; ?>survey.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student Interest Survey</a> 
+    <a href="<?php echo $path; ?>import.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Data Import</a> 
     <a href="<?php echo $path; ?>about.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a>
-    
+    <a href="<?php echo $path; ?>login.php?logout=true" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" style="color: #FF4444;">Logout</a>
   </div>
 
 </nav>

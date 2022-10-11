@@ -9,6 +9,14 @@
 <link rel ="stylesheet" href="<?php echo $path; ?>css/style.css">
 </head>
 <?PHP
+require_once("../config.php");
+require_once("functions/database_functions.php");
+session_start();
+if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
+    header("location:login.php");
+    exit;
+}
+
 include "navbar.php";
 ?>
 <!-- !PAGE CONTENT! -->

@@ -1,12 +1,11 @@
 <?PHP
 //added the meetings page and functions that go with it
 $path = '';
-require("includes/header.php");
-require("../config.php");
-require("functions/basic_html_functions.php");
-require("functions/database_functions.php");
+require_once("../config.php");
+require_once("functions/basic_html_functions.php");
+require_once("functions/database_functions.php");
 #require("functions/student_form_functions.php");
-require("functions/meeting_form_functions.php");
+require_once("functions/meeting_form_functions.php");
 
 
 //added the ability to save info on meetings page
@@ -20,7 +19,8 @@ if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
 ?>
  <!-- Header -->
   <?php
-    display_page_heading("Meetings","");
+    require("includes/header.php");
+    display_small_page_heading("Meetings","");
     display_meeting_page_navigation("Meetings");
   ?>
     
