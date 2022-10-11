@@ -1,9 +1,9 @@
 <?PHP
 $path = '';
 require("includes/header.php");
-require("functions/basic_html_functions.php");
-require("functions/database_functions.php");
-require("functions/survey_functions.php");
+require_once("functions/basic_html_functions.php");
+require_once("functions/database_functions.php");
+require_once("functions/survey_functions.php");
 ?>
 
  <!-- Header -->

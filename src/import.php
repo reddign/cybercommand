@@ -1,7 +1,7 @@
 <?PHP
 $path = '';
-require("functions/basic_html_functions.php");
-require("includes/header.php");
+require_once("functions/basic_html_functions.php");
+require_once("includes/header.php");
 display_small_page_heading("Data Importer");
 
   echo "need to grab file from user ";

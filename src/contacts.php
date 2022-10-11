@@ -1,48 +1,52 @@
 <?PHP
 $path = '';
-require("includes/header.php");
-require("../config.php");
-require("functions/database_functions.php");
-require("functions/basic_html_functions.php");
-require("functions/contacts_form_functions.php");
+require_once("functions/basic_html_functions.php");
+require_once("../config.php");
+require_once("functions/database_functions.php");
+require_once("functions/generalized_functions.php");
 
+$fileName = "contacts.php";
+$table = new Table('contact', ['Contact ID','Company ID','First Name','Last Name','Job Title','Contact Type','Email','Phone Number','Primary Contact','Engagement Level','Etown Priority Partner','Company Domain','Industry','Major/Concentrations','Notes'], ['firstName','lastName']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
 //If a form post lead the user here, we process the posted data in a function
 if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
-  process_contact_form_data($_POST);
+  $table->updateDatabase($fileName, $_POST);
   exit;
 }
+//otherwise we display the page
+require("includes/header.php");
 
-#<!-- Header -->
-display_page_heading("Industry Contacts","");
-display_contacts_page_navigation($page);
-  
+  //page headings
+  display_small_page_heading("Industry Contacts","");
+
+  $table->display_page_navigation($fileName,"Contact",$page);
+ 
+
+//Display appropriate page based on the $page var
   switch($page){
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
-      $contacts = get_contact_by_name($string);
-      display_contact_search_form();
-      display_contact_list($contacts);
+      $records = $table->get_records_by_dispCols($string);
+      $table->display_search_form($fileName,"Contact");
+      $table->display_record_list($fileName, $records);
       break;
     case "add":
-      display_contact_form();
+      $table->display_form($fileName);
       break;
     case "edit":
       $id = isset($_GET["id"])?$_GET["id"]:"";
-      $contact = get_contact($id);
-      display_contact_form($contact);
+      $record = $table->get_record($id);
+      $table->display_form($fileName, $record);
       break;
-    case "contact":
+    case "display":
       $id = isset($_GET["id"])?$_GET["id"]:"";
-      $contact = get_contact($id);
-      display_contact_info($contact);
+      $record = $table->get_record($id);
+      $table->display_record_info($fileName, $record);
       break;
+
   }
-  ?>
   
 
-
-<?PHP
 require("includes/footer.php");

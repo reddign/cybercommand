@@ -1,6 +1,6 @@
 ﻿<?PHP
 $path = '';
-require("functions/basic_html_functions.php");
+require_once("functions/basic_html_functions.php");
 require("includes/header.php");
 display_small_page_heading("About","");
 ?>

@@ -1,6 +1,6 @@
 <?PHP
 $path = '';
-require("functions/basic_html_functions.php");
+require_once("functions/basic_html_functions.php");
 require("includes/header.php");
 echo '<h1 style="margin-left:18px; font-size:60px; font-family: Oswald;">Engineering, Mathematics, & Computer Science Career Database';
 
