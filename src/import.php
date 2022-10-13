@@ -2,7 +2,7 @@
 $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("includes/header.php");
-display_small_page_heading("Data Importer");
+display_small_page_heading("Data Exporter");
 
   echo "need to grab file from user ";
   echo "<br>";
