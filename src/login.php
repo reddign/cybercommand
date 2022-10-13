@@ -4,6 +4,7 @@ require_once("functions/database_functions.php");
 session_start();
 $messageStr = "";
 
+
 //Logout functionality
 if(isset($_GET['logout'])) {
     session_destroy();
@@ -45,12 +46,13 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins|Oswald">
 <link rel ="stylesheet" href="<?php echo $path; ?>css/style.css">
 </head>
-<body>
-    <div id="loginFormDiv" style="text-align: center; background-color: light_blue; margin-top: 10em;">
-    <h1>Login to the EMCS Database</h1>
+<body style = "background-color:  #004B98">
+<img style="margin-left: 670px; margin-top: 200px; display: flex; justify-content: center; " width="250px" height="200px" src="images/Etown_Black_&_White.png">
+<h3 class="w3-padding-34" style="margin-left: 673px;  margin-top: -4px; font-size: 30px; color: white; font-family:'Oswald', sans-serif;">DATABASE LOGIN</h3>
+    <div id="loginFormDiv" style="text-align: center; margin-top: 20px;">
     <form id="loginForm" method=post action=login.php>
-    Email: <input name="email" type="text" style="margin: 5px; width: 20em;"><BR/>
-    Password: <input name="password" type="password" style="margin: 5px; width: 20em;"><BR/>
+    <label style="color: white;" for= "email"> Email: </label><input name="email" type="text" id = "email" style="margin-left: 28px; width: 20em;"><BR/>
+    <label style="color: white;" for= "password"> Password: </label><input name="password" type="password" id="password" style="margin: 5px; width: 20em;"><BR/>
     <input type="hidden" name="login" value="login">
     <input type="submit" value="Submit" style="margin: 5px;"><BR/>
     </form>
