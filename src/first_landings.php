@@ -19,9 +19,9 @@ if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
 require("includes/header.php");
 
   //page headings
-  display_small_page_heading("First Landings","");
+  display_small_page_heading("First Destinations","");
 
-  $table->display_page_navigation($fileName,"First Landing",$page);
+  $table->display_page_navigation($fileName,"First Destinations",$page);
  
 
 //Display appropriate page based on the $page var
