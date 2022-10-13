@@ -47,8 +47,9 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
 <link rel ="stylesheet" href="<?php echo $path; ?>css/style.css">
 </head>
 <body style = "background-color:  #004B98">
-<img style="margin-left: 670px; margin-top: 200px; display: flex; justify-content: center; " width="250px" height="200px" src="images/Etown_Black_&_White.png">
-<h3 class="w3-padding-34" style="margin-left: 673px;  margin-top: -4px; font-size: 30px; color: white; font-family:'Oswald', sans-serif;">DATABASE LOGIN</h3>
+<div style = "margin: auto; width: 100%; height:50%; position: absolute; top:0; bottom:0; left:0; right:0; padding: 30px; background-color: #0A2240">
+<img style="margin-left:635px; display: flex; justify-content: center; " width="250px" height="200px" src="images/Etown_Black_&_White.png">
+<h3 class="w3-padding-34" style="text-align: center; margin-left: 20px; margin-top: -4px; font-size: 30px; color: white; font-family:'Oswald', sans-serif;">DATABASE LOGIN</h3>
     <div id="loginFormDiv" style="text-align: center; margin-top: 20px;">
     <form id="loginForm" method=post action=login.php>
     <label style="color: white;" for= "email"> Email: </label><input name="email" type="text" id = "email" style="margin-left: 28px; width: 20em;"><BR/>
@@ -58,5 +59,6 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
     </form>
     <?php echo $messageStr ?>
     </div>
+</div>
 </body>
 </html>
