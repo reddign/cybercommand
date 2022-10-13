@@ -28,7 +28,7 @@ require("includes/header.php");
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
       $records = $table->get_records_by_dispCols($string);
-      $table->display_search_form($fileName,"Coaching");
+      $table->display_search_form($fileName,"Coaching Session");
       $table->display_record_list($fileName, $records);
       break;
     case "add":
