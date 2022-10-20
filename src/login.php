@@ -27,7 +27,7 @@ if(isset($_POST['login']) && !$_SESSION['loggedIn']) {
         $_SESSION['lastName'] = $user['lastName'];
     }
     else if($username != "" || $password != "") {
-        $messageStr = "<h5 style='color: red;'>Error: Invalid login</h5>";
+        $messageStr = "<h5 style='margin-left: 75px; color: red;'>Error: Invalid login</h5>";
     }
 }
 //Redirection for already logged in users
