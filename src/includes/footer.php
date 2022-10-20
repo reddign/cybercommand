@@ -24,6 +24,7 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 </script>
-
+<!-- Script to make select elements fill in fields in forms -->
+<script src="<?php echo $path; ?>js/select.js" type="text/javascript"></script>
 </body>
 </html>

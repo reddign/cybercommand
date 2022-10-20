@@ -133,7 +133,7 @@ class Table {
                 else {
                     echo '<input type="text" name="'.$column->name.'" id="'.$column->name.'" value="'.$data[$column->name].'">';
                     if($column->options != NULL) {
-                        echo '<select name="'.$column->name.'_select">';
+                        echo '<select name="'.$column->name.'_select" id="'.$column->name.'_select" class="fillSelect">';
                         echo '<option value=""></option>';
                         foreach($column->options as $option) {
                             echo '<option value="'.$option.'">'.$option.'</option>';
