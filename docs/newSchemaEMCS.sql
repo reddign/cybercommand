@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema emcsdb
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `emcsdb` ;
 
 -- -----------------------------------------------------
 -- Schema emcsdb
@@ -21,13 +22,17 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
   `studentID` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
+  `gender` VARCHAR(45) NULL,
+  `URM` TINYINT NULL,
   `etownID` INT NULL,
   `gradYear` INT NULL,
   `alumni` TINYINT NULL,
+  `firstGen` TINYINT NULL,
+  `department` VARCHAR(55) NULL,
   `primaryMajor` VARCHAR(45) NULL,
+  `concentration` VARCHAR(65) NULL,
   `otherMajors` VARCHAR(150) NULL,
   `minors` VARCHAR(200) NULL,
-  `concentration` VARCHAR(65) NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`studentID`))
 ENGINE = InnoDB;
@@ -45,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `state` VARCHAR(45) NULL,
   `zip` INT NULL,
   `phone` VARCHAR(35) NULL,
+  `majorConcentrations` VARCHAR(120) NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`companyID`))
 ENGINE = InnoDB
@@ -135,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `companyID` INT NULL,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
+  `alumni` TINYINT NULL,
   `jobTitle` VARCHAR(100) NULL,
   `contactType` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
@@ -144,7 +151,6 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `etownPriorityPartner` VARCHAR(45) NULL,
   `companyDomain` VARCHAR(45) NULL,
   `industry` VARCHAR(45) NULL,
-  `majorConcentrations` VARCHAR(110) NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`contactID`),
   CONSTRAINT `fk_contact_companyID`
@@ -167,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`coaching` (
   `mode` VARCHAR(45) NULL,
   `reason` VARCHAR(45) NULL,
   `positionType` VARCHAR(45) NULL,
-  `followUpTasks` VARCHAR(100) NULL,
+  `followUpTasks` VARCHAR(400) NULL,
   `deadline` DATE NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`coachingID`),
@@ -196,6 +202,5 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",md5(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2"))),10);

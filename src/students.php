@@ -6,7 +6,8 @@ require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
 
 $fileName = "students.php";
-$table = new Table('student', ['Student ID','First Name','Last Name','Student ID','Grad Year','Alumni','Primary Major','Other Majors','Minors','Concentration','Notes'], ['firstName','lastName']);
+$table = new Table('student', ['Student ID','First Name','Last Name','Gender','URM','Student ID','Grad Year','Alumni','First Gen','Department','Primary Major','Concentration','Other Majors','Minors','Notes'], ['firstName','lastName']);
+$table->addOptionsToCol('gender', ['Female', 'Male', 'Non-binary', 'Trans', 'Prefer not to answer', 'Other']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
@@ -18,10 +19,10 @@ if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
 //otherwise we display the page
 require("includes/header.php");
 
-  //page headings
-  display_small_page_heading("Students","");
+//page headings
+display_small_page_heading("Students","");
 
-  $table->display_page_navigation($fileName,"Student",$page);
+$table->display_page_navigation($fileName,"Student",$page);
  
 
 //Display appropriate page based on the $page var

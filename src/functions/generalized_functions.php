@@ -19,6 +19,7 @@ class Column {
     public $pk;
     public $fk;
     public $searchable;
+    public $options = NULL; //Possible values for this field that will appear as a dropdown
     
     public function __construct($name, $dispName, $datatype, $pk=false, $fk=false, $searchable=false) {
     	$this->name = $name;
@@ -62,8 +63,15 @@ class Table {
     }
 	public function getPrimaryKey() {
     	foreach($this->columns as $column) {
-        	if($column->pk)
-            	return $column;
+            if($column->pk)
+                return $column;
+        }
+    }
+    public function addOptionsToCol($columnName, $options) {
+        foreach($this->columns as $column) {
+            if($column->name == $columnName) {
+                $column->options = $options;
+            }
         }
     }
     // Name: Display Form Function
@@ -116,11 +124,24 @@ class Table {
                 echo '<input type="checkbox" name="'.$column->name.'" id="'.$column->name.'" value="1"'.$checked.'"><BR/>';
             }
             else if(substr_compare($type, "VARCHAR",0,7,true) == 0) { 
-                $numChars = (int) (substr($type,0,strlen($type)-8));
-                $width = ($numChars > 50) ? 200 : 100;
-                $height = ceil($numChars / 100) * 15;
+                $numChars = (int) (substr($type,8,strlen($type)-9));
+                $rows = (int) ($numChars / 100);
                 
-                echo '<input type="text" name="'.$column->name.'" id="'.$column->name.'" value="'.$data[$column->name].'" width="'.$width.'px" height="'.$height.'px"><BR/>';
+                if($rows >= 1) {
+                    echo '<BR/><textarea type="text" style="width:60%" rows="'.$rows.'" name="'.$column->name.'" id="'.$column->name.'">'.$data[$column->name].'</textarea><BR/>';
+                }
+                else {
+                    echo '<input type="text" name="'.$column->name.'" id="'.$column->name.'" value="'.$data[$column->name].'">';
+                    if($column->options != NULL) {
+                        echo '<select name="'.$column->name.'_select">';
+                        echo '<option value=""></option>';
+                        foreach($column->options as $option) {
+                            echo '<option value="'.$option.'">'.$option.'</option>';
+                        }
+                        echo '</select>';
+                    }
+                    echo '<BR/>';
+                }
             }
             else {
                 echo "Type ".$type." not recognized<BR/>";
@@ -147,7 +168,6 @@ class Table {
             <input name="page" type="hidden" value="search">
             <input type="submit" value="Search">
         </form><br/><br/>';
-
     }
 
     // Get all records in the provided table
