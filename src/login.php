@@ -9,7 +9,7 @@ $messageStr = "";
 if(isset($_GET['logout'])) {
     session_destroy();
     session_start();
-    $messageStr = "<h5 style='color: green;'>You have successfully signed out</h5>";
+    $messageStr = "<h5 style='margin-left: 75px; color: white;'>You have successfully signed out</h5>";
 }
 
 if(!isset($_SESSION['loggedIn'])) {
@@ -55,7 +55,7 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
     <label style="color: white;" for= "email"> Email: </label><input name="email" type="text" id = "email" style="margin-left: 28px; width: 20em;"><BR/>
     <label style="color: white;" for= "password"> Password: </label><input name="password" type="password" id="password" style="margin: 5px; width: 20em;"><BR/>
     <input type="hidden" name="login" value="login">
-    <input type="submit" value="Submit" style="margin: 5px;"><BR/>
+    <input type="submit" value="Submit" style="margin: 5px; margin-left: 75px;"><BR/>
     </form>
     <?php echo $messageStr ?>
     </div>
