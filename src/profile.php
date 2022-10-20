@@ -10,10 +10,17 @@ require("includes/header.php");
   display_small_page_heading("Profile Page","");
   
 ?>
+<div style= "text-align: right;">
+        
+        <button>Edit Profile</button>
+        <button>View Profile</button>
+</div>
 <div style="height: 400px;">
-        First Name:<br>
-        <br>
 
+        First Name: <br>
+        <br>
+  
+  
         Last Name:<br>
         <br>
     
@@ -24,6 +31,7 @@ require("includes/header.php");
         <br>
         <br>
         <button style="text-align: center;">Change Password</button>
+        <button style="text-align: right;">Create New Account</button>
     </div>
 
     <?PHP
