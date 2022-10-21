@@ -6,7 +6,8 @@ require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
 
 $fileName = "coaching.php";
-$table = new Table('coaching', ['Coaching ID','Student ID','Date','Visit Type','Course Work','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
+$table = new Table('coaching', ['Coaching ID','Student ID','Date','Visit Type','For Coursework','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
+$table->addOptionsToCol('mode',['Virtual', 'In person', 'Other']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

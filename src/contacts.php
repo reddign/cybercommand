@@ -7,6 +7,8 @@ require_once("functions/generalized_functions.php");
 
 $fileName = "contacts.php";
 $table = new Table('contact', ['Contact ID','Company ID','First Name','Last Name','Job Title','Contact Type','Email','Phone Number','Primary Contact','Engagement Level','Etown Priority Partner','Company Domain','Industry','Major/Concentrations','Notes'], ['firstName','lastName']);
+$table->addOptionsToCol('contactType',['Employer', 'Community partner', 'Higher ed','Other']);
+$table->addOptionsToCol('engagementLevel',['Lead', 'Beginning', 'Developing', 'Strategic', 'Other']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

@@ -105,6 +105,16 @@ class Table {
             if($column->fk) {
                 echo 'FOREIGN KEY NOT IMPLEMENTED YET<BR/>';
                 echo '<input name="'.$column->name.'" type="hidden"  value="'.$data[$column->name].'">';
+                // Query table for values TODO
+                /*
+
+                echo '<select name="'.$column->name.'" id="'.$column->name.'">';
+                echo '<option value=""></option>';
+                foreach($column->options as $option) {
+                    echo '<option value="'.$option.'">'.$option.'</option>';
+                }
+                echo '</select>';
+                echo '<BR/>';*/
                 continue;
             }
             // Check data type to see what html input must be used
@@ -121,7 +131,7 @@ class Table {
             }
             else if(substr_compare($type, "TINYINT",0,7,true) == 0) {
                 $checked = ($data[$column->name] == 1) ? " checked" : "";
-                echo '<input type="checkbox" name="'.$column->name.'" id="'.$column->name.'" value="1"'.$checked.'"><BR/>';
+                echo '<input type="checkbox" name="'.$column->name.'" id="'.$column->name.'" value="1"'.$checked.'><BR/>';
             }
             else if(substr_compare($type, "VARCHAR",0,7,true) == 0) { 
                 $numChars = (int) (substr($type,8,strlen($type)-9));
@@ -134,7 +144,7 @@ class Table {
                     echo '<input type="text" name="'.$column->name.'" id="'.$column->name.'" value="'.$data[$column->name].'">';
                     if($column->options != NULL) {
                         echo '<select name="'.$column->name.'_select" id="'.$column->name.'_select" class="fillSelect">';
-                        echo '<option value=""></option>';
+                        echo '<option value="">--Select--</option>';
                         foreach($column->options as $option) {
                             echo '<option value="'.$option.'">'.$option.'</option>';
                         }

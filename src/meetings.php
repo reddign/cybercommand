@@ -1,60 +1,53 @@
 <?PHP
-//added the meetings page and functions that go with it
 $path = '';
-require_once("../config.php");
 require_once("functions/basic_html_functions.php");
+require_once("../config.php");
 require_once("functions/database_functions.php");
-#require("functions/student_form_functions.php");
-require_once("functions/meeting_form_functions.php");
+require_once("functions/generalized_functions.php");
 
+$fileName = "meetings.php";
+$table = new Table('meeting', ['Meeting Type','Meeting Type','Date','Company ID','Contact ID','Etown Contact','Notes','Tasks'], ['meetingType','date']);
+$table->addOptionsToCol('meetingType', ['Virtual meeting', 'Phone call', 'On-campus meeting', 'Off-site meeting', 'Campus event']);
 
-//added the ability to save info on meetings page
+//Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
+//If a form post lead the user here, we process the posted data in a function
 if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
-  #debug_to_console($_POST);
-  process_meeting_form_data($_POST);
+  $table->updateDatabase($fileName, $_POST);
   exit;
 }
-//displaying heading and nav
-?>
- <!-- Header -->
-  <?php
-    require("includes/header.php");
-    display_small_page_heading("Meetings","");
-    display_meeting_page_navigation("Meetings");
-  ?>
-    
-  <?php
-  //making the searchbar be able to search by date, location and meetings
-  //also adding the add, edit, and meetings function
-  //$page = isset($_GET["page"])?$_GET["page"]:"search";
+//otherwise we display the page
+require("includes/header.php");
+
+//page headings
+display_small_page_heading("Meetings","");
+
+$table->display_page_navigation($fileName,"Meeting",$page);
+ 
+
+//Display appropriate page based on the $page var
   switch($page){
     case "search":
-      $search = isset($_GET["search"])?$_GET["search"]:"";
-      $searchDate = isset($_GET["searchDate"])?$_GET["searchDate"]:"";
-      $searchLoc = isset($_GET["searchLoc"])?$_GET["searchLoc"]:"";
-      #$meetings = get_meetings_by_name($search);
-      $meetings = get_meetings_by_search($search, $searchDate, $searchLoc);
-      display_search_meeting_form();
-      display_meeting_list($meetings);
+      $string = isset($_GET["search"])?$_GET["search"]:"";
+      $records = $table->get_records_by_dispCols($string);
+      $table->display_search_form($fileName,"Meeting");
+      $table->display_record_list($fileName, $records);
       break;
     case "add":
-      display_meeting_form();
+      $table->display_form($fileName);
       break;
     case "edit":
-      $mid = isset($_GET["mid"])?$_GET["mid"]:"";
-      $meeting = get_meeting($mid);
-      #echo "<h2><b>".$meeting["meetingID"]."</b></h2>";
-      display_meeting_list($meeting);
-      display_meeting_form($meeting);
+      $id = isset($_GET["id"])?$_GET["id"]:"";
+      $record = $table->get_record($id);
+      $table->display_form($fileName, $record);
       break;
-    case "meeting":
-      $mid = isset($_GET["mid"])?$_GET["mid"]:"";
-      $meeting = get_meeting($mid);
-      display_meeting_info($meeting);
+    case "display":
+      $id = isset($_GET["id"])?$_GET["id"]:"";
+      $record = $table->get_record($id);
+      $table->display_record_info($fileName, $record);
       break;
-  }
-  //adding footer
-  require("includes/footer.php");
-  ?>
 
+  }
+  
+
+require("includes/footer.php");

@@ -6,7 +6,7 @@ require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
 
 $fileName = "companies.php";
-$table = new Table('company', ['Company ID','Company Name','Address Line 1','Address Line 2','City','State','Zip','Phone Number','Majors/Concentrations','Notes'], ['companyName']);
+$table = new Table('company', ['Company ID','Company Name','Company ID','Address Line 1','Address Line 2','City','State','Zip','Phone Number','Company Domain','Majors/Concentrations','Notes'], ['companyName']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

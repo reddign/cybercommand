@@ -44,12 +44,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `companyID` INT NOT NULL AUTO_INCREMENT,
   `companyName` VARCHAR(75) NOT NULL,
+  `etown_companyID` INT NULL,
   `address` VARCHAR(125) NULL,
   `address2` VARCHAR(125) NULL,
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
   `zip` INT NULL,
   `phone` VARCHAR(35) NULL,
+  `companyDomain` VARCHAR(250) NULL,
   `majorConcentrations` VARCHAR(120) NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`companyID`))
@@ -58,24 +60,24 @@ COMMENT = '	';
 
 
 -- -----------------------------------------------------
--- Table `emcsdb`.`first_landings`
+-- Table `emcsdb`.`first_destination`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `emcsdb`.`first_landings` (
-  `first_landingsID` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `emcsdb`.`first_destination` (
+  `first_destinationID` INT NOT NULL AUTO_INCREMENT,
   `companyID` INT NULL,
   `studentID` INT NULL,
   `title` VARCHAR(45) NOT NULL,
   `location` VARCHAR(100) NULL,
-  `salary` VARCHAR(45) NULL,
+  `salaryRange` VARCHAR(45) NULL,
   `offerDate` DATE NULL,
   `afterGraduation` VARCHAR(250) NULL,
   `emcsNetwork` TINYINT NULL,
   `internship` TINYINT NULL,
-  `relationshipToMajor` VARCHAR(45) NULL,
-  `matchForCarrerPath` VARCHAR(150) NULL,
+  `relationshipToMajor` INT NULL,
+  `matchForCarrerPath` INT NULL,
   `department` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`first_landingsID`),
+  PRIMARY KEY (`first_destinationID`),
   CONSTRAINT `fk_first_landings_companyID`
     FOREIGN KEY (`companyID`)
     REFERENCES `emcsdb`.`company` (`companyID`)
@@ -111,13 +113,14 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`internship` (
   `title` VARCHAR(75) NULL,
   `department` VARCHAR(75) NULL,
   `experientalLearning` TINYINT NULL,
+  `workBasedLearning` VARCHAR(45) NULL,
   `term` VARCHAR(45) NULL,
   `sle` VARCHAR(45) NULL,
   `careerPath` VARCHAR(45) NULL,
   `mode` VARCHAR(45) NULL,
-  `rating` VARCHAR(45) NULL,
+  `rating` INT NULL,
   `wageRange` VARCHAR(45) NULL,
-  `emcsNetwork` VARCHAR(45) NULL,
+  `emcsNetwork` TINYINT NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`internshipID`),
   CONSTRAINT `fk_internship_studentID`
@@ -146,9 +149,9 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `contactType` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
   `phoneNumber` VARCHAR(35) NULL,
-  `primaryContact` VARCHAR(100) NULL,
+  `primaryContact` TINYINT NULL,
   `engagementLevel` VARCHAR(45) NULL,
-  `etownPriorityPartner` VARCHAR(45) NULL,
+  `etownPriorityPartner` TINYINT NULL,
   `companyDomain` VARCHAR(45) NULL,
   `industry` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
@@ -169,9 +172,9 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`coaching` (
   `studentID` INT NULL,
   `date` DATE NULL,
   `typeOfVisit` VARCHAR(45) NULL,
-  `coursework` VARCHAR(45) NULL,
+  `coursework` TINYINT NULL,
   `mode` VARCHAR(45) NULL,
-  `reason` VARCHAR(45) NULL,
+  `reason` VARCHAR(65) NULL,
   `positionType` VARCHAR(45) NULL,
   `followUpTasks` VARCHAR(400) NULL,
   `deadline` DATE NULL,
@@ -196,6 +199,32 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`user` (
   `passwordHash` VARCHAR(128) NULL,
   `permissionLevel` INT NULL,
   PRIMARY KEY (`userID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `emcsdb`.`meeting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `emcsdb`.`meeting` (
+  `meetingID` INT NOT NULL AUTO_INCREMENT,
+  `meetingType` VARCHAR(55) NULL,
+  `date` DATE NULL,
+  `companyID` INT NULL,
+  `contactID` INT NULL,
+  `etownContact` VARCHAR(90) NULL,
+  `notes` VARCHAR(500) NULL,
+  `tasks` VARCHAR(400) NULL,
+  PRIMARY KEY (`meetingID`),
+  CONSTRAINT `fk_meeting_companyID`
+    FOREIGN KEY (`companyID`)
+    REFERENCES `emcsdb`.`company` (`companyID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_meeting_contactID`
+    FOREIGN KEY (`contactID`)
+    REFERENCES `emcsdb`.`contact` (`contactID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

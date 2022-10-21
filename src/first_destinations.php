@@ -5,8 +5,8 @@ require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
 
-$fileName = "first_landings.php";
-$table = new Table('first_landings', ['First Landing ID','Company ID','Student ID','Title','Location','Salary','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
+$fileName = "first_destinations.php";
+$table = new Table('first_destination', ['First Destination ID','Company ID','Student ID','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
@@ -21,7 +21,7 @@ require("includes/header.php");
   //page headings
   display_small_page_heading("First Destinations","");
 
-  $table->display_page_navigation($fileName,"First Destinations",$page);
+  $table->display_page_navigation($fileName,"First Destination",$page);
  
 
 //Display appropriate page based on the $page var
@@ -29,7 +29,7 @@ require("includes/header.php");
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
       $records = $table->get_records_by_dispCols($string);
-      $table->display_search_form($fileName,"First Landing");
+      $table->display_search_form($fileName,"First Destination");
       $table->display_record_list($fileName, $records);
       break;
     case "add":
