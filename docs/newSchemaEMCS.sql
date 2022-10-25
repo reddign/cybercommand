@@ -168,7 +168,7 @@ ENGINE = InnoDB;
 -- Table `emcsdb`.`coaching`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `emcsdb`.`coaching` (
-  `coachingID` INT NOT NULL,
+  `coachingID` INT NOT NULL AUTO_INCREMENT,
   `studentID` INT NULL,
   `date` DATE NULL,
   `typeOfVisit` VARCHAR(45) NULL,
@@ -192,7 +192,7 @@ ENGINE = InnoDB;
 -- Table `emcsdb`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `emcsdb`.`user` (
-  `userID` INT NOT NULL,
+  `userID` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NULL,
   `firstName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NULL,

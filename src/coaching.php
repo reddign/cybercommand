@@ -6,44 +6,45 @@ require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
 require_once("functions/tables.php");
 
-$fileName = "coaching.php";
 $table = getTable('coaching');
+$heading = "Coaching";
+$itemName = "Coaching Session";
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
 //If a form post lead the user here, we process the posted data in a function
 if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
-  $table->updateDatabase($fileName, $_POST);
+  $table->updateDatabase($_POST);
   exit;
 }
 //otherwise we display the page
 require("includes/header.php");
 
   //page headings
-  display_small_page_heading("Coaching","");
+  display_small_page_heading($heading,"");
 
-  $table->display_page_navigation($fileName,"Coaching Session",$page);
+  $table->display_page_navigation($itemName,$page);
  
 //Display appropriate page based on the $page var
   switch($page){
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
       $records = $table->get_records_by_dispCols($string);
-      $table->display_search_form($fileName,"Coaching Session");
-      $table->display_record_list($fileName, $records);
+      $table->display_search_form($itemName);
+      $table->display_record_list($records);
       break;
     case "add":
-      $table->display_form($fileName);
+      $table->display_form($itemName);
       break;
     case "edit":
       $id = isset($_GET["id"])?$_GET["id"]:"";
       $record = $table->get_record($id);
-      $table->display_form($fileName, $record);
+      $table->display_form($itemName, $record);
       break;
     case "display":
       $id = isset($_GET["id"])?$_GET["id"]:"";
       $record = $table->get_record($id);
-      $table->display_record_info($fileName, $record);
+      $table->display_record_info($record);
       break;
 
   }

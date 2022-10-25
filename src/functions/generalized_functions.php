@@ -68,6 +68,12 @@ class Table {
                 return $column;
         }
     }
+    public function getColumn($name) {
+    	foreach($this->columns as $column) {
+            if($column->name == $name)
+                return $column;
+        }
+    }
     public function addOptionsToCol($columnName, $options) {
         foreach($this->columns as $column) {
             if($column->name == $columnName) {
@@ -82,21 +88,19 @@ class Table {
     //  - data: Array of prior data if editing an item
     //
     // Description: Displays a form that allows the user to input all fields for a row in the specified table
-    function display_form($fileName, $data=null){
+    function display_form($itemName, $data=null){
         if($data == null){
-            $formHTML = "<h2>Add ".$this->getDispName()."</h2>";
+            $formHTML = "<h2>Add ".$itemName."</h2>";
             $data = [];
             foreach($this->columns as $column) {
                 $data[$column->name] = "";
             }
-            //$checked = "";
-            $buttonString = "Add ".$this->getDispName();
+            $buttonString = "Add ".$itemName;
         }else{
-            $formHTML = "<h2>Edit ".$this->getDispName()."</h2>";
-            //$checked = ($internship["alumni"]==1)? " checked " : "";
-            $buttonString = "Edit ".$this->getDispName();
+            $formHTML = "<h2>Edit ".$itemName."</h2>";
+            $buttonString = "Edit ".$itemName;
         }
-        echo '<form method=post action='.$fileName.'>';
+        echo '<form method=post action='.$this->fileName.'>';
         foreach($this->columns as $column) {
             // Primary Key is a hidden value
             if($column->pk) {
@@ -180,18 +184,18 @@ class Table {
         </form>';
     }
     // Display Links to Add and Search pages
-    function display_page_navigation($fileName, $pageName, $currentPage){
+    function display_page_navigation($itemName, $currentPage){
         $navHTML  = '<h4><div style="margin-top:5px;margin-bottom:45px;">';
-        $navHTML .= '<a href="'.$fileName.'?page=search"'.($currentPage == "search" ? ' class="selected"' : '').'>Search</a>';
+        $navHTML .= '<a href="'.$this->fileName.'?page=search"'.($currentPage == "search" ? ' class="selected"' : '').'>Search</a>';
         $navHTML .= ' | ';
-        $navHTML .= '<a href="'.$fileName.'?page=add"'.($currentPage == "add" ? ' class="selected"' : '').'>Add '.$pageName.'</a>';
+        $navHTML .= '<a href="'.$this->fileName.'?page=add"'.($currentPage == "add" ? ' class="selected"' : '').'>Add '.$itemName.'</a>';
         $navHTML .= ' <div> </h4>';
         
         echo $navHTML;
     }
     // Display a text box for searching
-    function display_search_form($fileName, $pageName){
-        echo '<h2>Search for a '.$pageName.'</h2><form method=get action="'.$fileName.'">
+    function display_search_form($itemName){
+        echo '<h2>Search for a '.$itemName.'</h2><form method=get action="'.$this->fileName.'">
             <label for="search">Enter Search text:</label> <input id="name" name="search" type="text" autofocus>
             <input name="page" type="hidden" value="search">
             <input type="submit" value="Search">
@@ -252,28 +256,49 @@ class Table {
     }    
 
     // Displays a list of records that link to the page for that record
-    function display_record_list($fileName, $data=null){
+    function display_record_list($data=null){
         if(!is_array($data) || sizeof($data) == 0){
             echo "No matching records found";
             return;
         }
         foreach ($data as $row) {
-                echo "<a href='".$fileName."?page=display&id=".$row[$this->getPrimaryKey()->name]."'>";
-                $dc = $this->dispColumns;
-                $dispName = $row[$dc[0]];
-                for($i=1; $i <  count($dc); $i++) {
-                    $dispName .= " ".$row[$dc[$i]];
+            echo "<a href='".$this->fileName."?page=display&id=".$row[$this->getPrimaryKey()->name]."'>";
+            $dc = $this->dispColumns;
+            $dispName = "";
+            for($i=0; $i <  count($dc); $i++) {
+                if($i !== 0) {
+                    $dispName .= ' ';
                 }
-                if(trim($dispName) == "")
-                    echo "Unnamed<BR/>";
-                else
-                    echo $dispName."<BR/>";
-                echo "</a>";
+                //Display foreign keys using their display columns instead of displaying ids
+                $column = $this->getColumn($dc[$i]);
+                if($column->fk) {
+                    $fkTable = $this->getFKTable($column->name);
+                    $fkRecord = $fkTable->get_record($row[$column->name]);
+                    if(!is_array($fkRecord))
+                        continue;
+                    $pkName = $fkTable->getPrimaryKey()->name;
+
+                    $len = count($fkTable->dispColumns);
+                    for($j=0; $j < $len; $j++) {
+                        if($j != 0)
+                            echo ' ';
+                        echo $fkRecord[$fkTable->dispColumns[$j]];
+                    }
+                }
+                else {
+                    $dispName .= $row[$dc[$i]];
+                }
+            }
+            if(trim($dispName) == "")
+                echo "Unnamed<BR/>";
+            else
+                echo $dispName."<BR/>";
+            echo "</a>";
         }
     }
 
     // Displays all fields for one record in a human-readable way
-    function display_record_info($fileName, $record) {
+    function display_record_info($record) {
         if(!is_array($record)) {
             echo $this->getDispName()." Information not found";
             return;
@@ -327,7 +352,7 @@ class Table {
                 }
             }
         }
-        echo "<a href='".$fileName."?page=edit&id=".$record[$this->getPrimaryKey()->name]."'> Edit Info </a><BR/>";
+        echo "<a href='".$this->fileName."?page=edit&id=".$record[$this->getPrimaryKey()->name]."'> Edit Info </a><BR/>";
     }
 
 
@@ -340,7 +365,7 @@ class Table {
     // Description:
     // 	Updates an existing record or adds a record to the database
     // 	Redirects to a page displaying the record afterwards
-    function updateDatabase($fileName, $data) {
+    function updateDatabase($data) {
         $pdo = connect_to_db();
         $id = $data[$this->getPrimaryKey()->name];
         
@@ -369,7 +394,7 @@ class Table {
             $stmt = $pdo->prepare($stmtpt1.$stmtpt2.");");
             $stmt->execute($boundParams);
             $id = $pdo->lastInsertId();
-            header("location:".$fileName."?page=display&id=".$id."&message=".$this->getDispName()." Added");
+            header("location:".$this->fileName."?page=display&id=".$id."&message=".$this->getDispName()." Added");
         } 
         else { //Edit
             $stmtpt1 = "UPDATE ".$this->name." SET ";
@@ -409,7 +434,7 @@ class Table {
             exit;*/
             $stmt = $pdo->prepare($stmtpt1.$stmtpt2.";");
             $stmt->execute($boundParams);
-            header("location:".$fileName."?page=display&id=".$id."&message=".$this->getDispName()." Updated");
+            header("location:".$this->fileName."?page=display&id=".$id."&message=".$this->getDispName()." Updated");
         }
     }
 
