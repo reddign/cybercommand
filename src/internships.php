@@ -4,12 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "internships.php";
-$table = new Table('internship', ['Internship ID','Student ID','Company ID','Title','Department','Experimental Learning','Work-based Learning','Term','SLE/Credit','Career Path','Mode','Rating','Wage Range','EMCS Network','Notes'], ['title']);
-$table->addOptionsToCol('workBasedLearning',['Internship', 'SCARP', 'REU', 'Trade', 'Co-op', 'Field placement', 'Other']);
-$table->addOptionsToCol('careerPath',['Yes','No','Maybe']);
-$table->addOptionsToCol('mode',['Virtual', 'In person', 'Hybrid']);
+$table = getTable('internship');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

@@ -4,9 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "first_destinations.php";
-$table = new Table('first_destination', ['First Destination ID','Company ID','Student ID','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
+$table = getTable('first_destination');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

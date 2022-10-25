@@ -4,10 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "coaching.php";
-$table = new Table('coaching', ['Coaching ID','Student ID','Date','Visit Type','For Coursework','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
-$table->addOptionsToCol('mode',['Virtual', 'In person', 'Other']);
+$table = getTable('coaching');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

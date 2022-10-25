@@ -4,9 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "companies.php";
-$table = new Table('company', ['Company ID','Company Name','Company ID','Address Line 1','Address Line 2','City','State','Zip','Phone Number','Company Domain','Majors/Concentrations','Notes'], ['companyName']);
+$table = getTable('company');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

@@ -4,10 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "students.php";
-$table = new Table('student', ['Student ID','First Name','Last Name','Gender','URM','Student ID','Grad Year','Alumni','First Gen','Department','Primary Major','Concentration','Other Majors','Minors','Notes'], ['firstName','lastName']);
-$table->addOptionsToCol('gender', ['Female', 'Male', 'Non-binary', 'Trans', 'Prefer not to answer', 'Other']);
+$table = getTable('student');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

@@ -26,5 +26,7 @@ function onClick(element) {
 </script>
 <!-- Script to make select elements fill in fields in forms -->
 <script src="<?php echo $path; ?>js/select.js" type="text/javascript"></script>
+<!-- Script to make search boxes narrow down # of items in select -->
+<script src="<?php echo $path; ?>js/selectSearch.js" type="text/javascript"></script>
 </body>
 </html>

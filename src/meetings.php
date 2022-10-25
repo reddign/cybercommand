@@ -4,10 +4,10 @@ require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
 require_once("functions/generalized_functions.php");
+require_once("functions/tables.php");
 
 $fileName = "meetings.php";
-$table = new Table('meeting', ['Meeting Type','Meeting Type','Date','Company ID','Contact ID','Etown Contact','Notes','Tasks'], ['meetingType','date']);
-$table->addOptionsToCol('meetingType', ['Virtual meeting', 'Phone call', 'On-campus meeting', 'Off-site meeting', 'Campus event']);
+$table = getTable('meeting');
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

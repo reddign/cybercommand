@@ -1,6 +1,6 @@
 <?php
-require_once("../config.php");
-require_once("functions/database_functions.php");
+require_once(__DIR__."/../../config.php");
+require_once(__DIR__."/database_functions.php");
 /*$pdo = connect_to_db();
 $data = $pdo->query("DESCRIBE INTERNSHIP")->fetchAll();
 for($i=0; $i < count($data); $i++) {
@@ -37,6 +37,7 @@ class Column {
 
 class Table {
 	public $name;
+    public $fileName;
 	public $columns;
     public $dispColumns; //ie name, title, etc.
     
@@ -102,24 +103,41 @@ class Table {
                 echo '<input name="'.$column->name.'" type="hidden"  value="'.$data[$column->name].'">';
                 continue;
             }
-            if($column->fk) {
-                echo 'FOREIGN KEY NOT IMPLEMENTED YET<BR/>';
-                echo '<input name="'.$column->name.'" type="hidden"  value="'.$data[$column->name].'">';
-                // Query table for values TODO
-                /*
+            //Prepare label that shows the human-readable column name
+            echo $column->getLabelStr();
 
-                echo '<select name="'.$column->name.'" id="'.$column->name.'">';
+            if($column->fk) {
+                // Query foreign key table for values
+                $fkTable = $this->getFKTable($column->name);
+                $records = $fkTable->get_all_records_from_db();
+                $pkName = $fkTable->getPrimaryKey()->name;
+                
+                //Generate select statement with all values from fk table
+                echo '<select style="margin-right: 1em;" name="'.$column->name.'" id="'.$column->name.'">';
                 echo '<option value=""></option>';
-                foreach($column->options as $option) {
-                    echo '<option value="'.$option.'">'.$option.'</option>';
+                foreach($records as $record) {
+                    $selected = ($data[$column->name] == $record[$pkName]) ? " selected" : "";
+                    //Display the dispColumns to represent each record as an option
+                    echo '<option value="'.$record[$pkName].'"'.$selected.'>';
+                    $first = true;
+                    foreach($fkTable->dispColumns as $dispCol) {
+                        if($first)
+                            $first = false;
+                        else
+                            echo ' ';
+                        echo $record[$dispCol];
+                    }
+                    echo '</option>';
                 }
                 echo '</select>';
-                echo '<BR/>';*/
+                echo '<input type="search" style="margin-right:0.5em;" id="'.$column->name.'_search" placeholder="Search..." oninput="searchInput(event)" onfocus="onSearchFocus(event)" onblur="onSearchBlur(event)">';
+                echo '<label for="'.$column->name.'_search" id="'.$column->name.'_matches"></label>';
+                echo '<BR/>';
                 continue;
             }
             // Check data type to see what html input must be used
             $type = $column->datatype;
-            echo $column->getLabelStr();
+
             if(substr_compare($type, "INT",0,3,true) == 0) {
                 echo '<input type="number" name="'.$column->name.'" id="'.$column->name.'" value="'.$data[$column->name].'"><BR/>';
             }
@@ -266,7 +284,23 @@ class Table {
                 continue;
                 
             else if($column->fk) {
-                echo "Foreign key display not yet implemented<BR/>";
+                echo "<h4><b>".$column->dispName.":</b> ";
+                $fkTable = $this->getFKTable($column->name);
+                $fkRecord = $fkTable->get_record($record[$column->name]);
+                if(!is_array($fkRecord))
+                    continue;
+                $pkName = $fkTable->getPrimaryKey()->name;
+
+                echo '<a href="'.$fkTable->fileName.'?page=display&id='.$record[$column->name].'">';
+                $first = true;
+                foreach($fkTable->dispColumns as $dispCol) {
+                    if($first)
+                        $first = false;
+                    else
+                        echo ' ';
+                    echo $fkRecord[$dispCol];
+                }
+                echo "</a></h4>";
                 continue;
             }
             //Make sure first and last name display together if they exist
@@ -318,7 +352,7 @@ class Table {
             foreach($this->columns as $column) {
                 if($column->pk)
                     continue;
-                if($column->fk && $data[$column->name] == "")
+                if(($column->fk || substr_compare($column->datatype, "INT",0,3,true) == 0) && $data[$column->name] == "")
                     continue;
                 
                 if($firstNoComma) {
@@ -344,7 +378,15 @@ class Table {
             $firstNoComma = true;
             foreach($this->columns as $column) {
                 $name = $column->name;
-                $boundParams[$name] = $data[$name];
+                if(!isset($data[$name]))
+                    $data[$name] = NULL;
+
+                if($data[$name] == "" && ($column->fk || substr_compare($column->datatype, "INT",0,3,true) == 0)) {
+                    $data[$name] = NULL;
+                } else if($data[$name] !== NULL) {
+                    $boundParams[$name] = $data[$name];
+                }
+
                 if($column->pk) {
                     $stmtpt2 .= $name."=:".$name;
                     continue;
@@ -355,12 +397,37 @@ class Table {
                 } else {
                     $stmtpt1 .= ",";
                 }
-                $stmtpt1 .= $name."=:".$name;
+
+                if($data[$name] === NULL) {
+                    $stmtpt1 .= $name."=NULL";
+                } else {
+                    $stmtpt1 .= $name."=:".$name;
+                }
             }
+            /*echo $stmtpt1.$stmtpt2.";";
+            var_dump($boundParams);
+            exit;*/
             $stmt = $pdo->prepare($stmtpt1.$stmtpt2.";");
             $stmt->execute($boundParams);
             header("location:".$fileName."?page=display&id=".$id."&message=".$this->getDispName()." Updated");
         }
+    }
+
+    function getFKTable($fkColumn) {
+        global $database;
+        $pdo = connect_to_db();
+        $sql = 'SELECT REFERENCED_TABLE_NAME';
+        $sql .= ' FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE';
+        $sql .= ' WHERE';
+        $sql .= " TABLE_SCHEMA = :database AND";
+        $sql .= " TABLE_NAME = :tablename AND";
+        $sql .= " COLUMN_NAME = :fkcolumn;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':database' => $database, 'tablename' => $this->name, ':fkcolumn' => $fkColumn]);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        require_once('tables.php');
+        return getTable($record['REFERENCED_TABLE_NAME']);
     }
 }
 ?>
