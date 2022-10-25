@@ -28,5 +28,7 @@ function onClick(element) {
 <script src="<?php echo $path; ?>js/select.js" type="text/javascript"></script>
 <!-- Script to make search boxes narrow down # of items in select -->
 <script src="<?php echo $path; ?>js/selectSearch.js" type="text/javascript"></script>
+<!-- Script to add confirmation before deleting records -->
+<script src="<?php echo $path; ?>js/delete.js" type="text/javascript"></script>
 </body>
 </html>

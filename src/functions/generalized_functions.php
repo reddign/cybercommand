@@ -352,7 +352,11 @@ class Table {
                 }
             }
         }
-        echo "<a href='".$this->fileName."?page=edit&id=".$record[$this->getPrimaryKey()->name]."'> Edit Info </a><BR/>";
+        echo "<a href='".$this->fileName."?page=edit&id=".$record[$this->getPrimaryKey()->name]."'>Edit Info</a>";
+        echo "<div id='deleteDiv' style='display: inline;'>";
+        //echo "<form id='deleteForm' name='deleteForm' style='display: inline;'></form>";  //Will be put here to allow submitting after the user clicks to confirm
+        echo "<button type='submit' id='delete' form='deleteForm' formaction='".$this->fileName."' formmethod='post' name='delete' value='".$record[$this->getPrimaryKey()->name]."' onclick='confirmDelete(event)'>Delete record</button>";
+        echo "</div><BR/>";
     }
 
 
@@ -438,6 +442,12 @@ class Table {
         }
     }
 
+    function deleteRecord($id) {
+        $pdo = connect_to_db();
+        $stmt = $pdo->prepare("DELETE FROM ".$this->name." WHERE ".$this->getPrimaryKey()->name." = :id;");
+        $stmt->execute([':id' => $id]);
+    }
+
     function getFKTable($fkColumn) {
         global $database;
         $pdo = connect_to_db();
@@ -448,7 +458,7 @@ class Table {
         $sql .= " TABLE_NAME = :tablename AND";
         $sql .= " COLUMN_NAME = :fkcolumn;";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':database' => $database, 'tablename' => $this->name, ':fkcolumn' => $fkColumn]);
+        $stmt->execute([':database' => $database, ':tablename' => $this->name, ':fkcolumn' => $fkColumn]);
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
         require_once('tables.php');

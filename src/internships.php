@@ -13,9 +13,17 @@ $itemName = "Internship";
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
 //If a form post lead the user here, we process the posted data in a function
-if(isset($_POST) && isset($_POST["page"]) && $_POST["page"]=="save"){
-  $table->updateDatabase($_POST);
-  exit;
+if(isset($_POST)) {
+  if(isset($_POST["page"]) && $_POST["page"]=="save"){
+    $table->updateDatabase($_POST);
+    exit;
+  }
+  //Delete a record if requested
+  else if(isset($_POST["delete"])) {
+    $table->deleteRecord($_POST["delete"]);
+    header("location:"+$table->fileName);
+    exit;
+  }
 }
 //otherwise we display the page
 require("includes/header.php");
