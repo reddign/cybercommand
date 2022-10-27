@@ -370,6 +370,7 @@ class Table {
     // 	Updates an existing record or adds a record to the database
     // 	Redirects to a page displaying the record afterwards
     function updateDatabase($data) {
+        $regex = "/(<([^>]+)>)/i";
         $pdo = connect_to_db();
         $id = $data[$this->getPrimaryKey()->name];
         
@@ -393,7 +394,7 @@ class Table {
                 $name = $column->name;
                 $stmtpt1 .= $name;
                 $stmtpt2 .= ":" . $name;
-                $boundParams[$name] = $data[$name];
+                $boundParams[$name] = ($data[$name] !== NULL) ? preg_replace($regex, "", $data[$name]) : NULL;
             }
             $stmt = $pdo->prepare($stmtpt1.$stmtpt2.");");
             $stmt->execute($boundParams);
@@ -401,6 +402,7 @@ class Table {
             header("location:".$this->fileName."?page=display&id=".$id."&message=".$this->getDispName()." Added");
         } 
         else { //Edit
+            $regex = "/(<([^>]+)>)/i";
             $stmtpt1 = "UPDATE ".$this->name." SET ";
             $stmtpt2 = " WHERE ";
             $boundParams = [];
@@ -413,7 +415,8 @@ class Table {
                 if($data[$name] == "" && ($column->fk || substr_compare($column->datatype, "INT",0,3,true) == 0)) {
                     $data[$name] = NULL;
                 } else if($data[$name] !== NULL) {
-                    $boundParams[$name] = $data[$name];
+                    echo preg_replace($regex, "", $data[$name]);
+                    $boundParams[$name] = preg_replace($regex, "", $data[$name]);
                 }
 
                 if($column->pk) {
