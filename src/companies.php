@@ -21,7 +21,7 @@ if(isset($_POST)) {
   //Delete a record if requested
   else if(isset($_POST["delete"])) {
     $table->deleteRecord($_POST["delete"]);
-    header("location:"+$table->fileName);
+    header("location:".$table->fileName);
     exit;
   }
 }
