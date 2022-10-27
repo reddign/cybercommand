@@ -3,7 +3,6 @@ $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
-session_start();
 
 require("includes/header.php");
 
