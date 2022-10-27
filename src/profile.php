@@ -36,7 +36,12 @@ require("includes/header.php");
         <br>
         <br>
         <button style="text-align: center;">Change Password</button>
-        <button style="text-align: right;">Create New Account</button>
+        
+        <?PHP if  ($_SESSION['permissionLevel'] > 5){
+                echo '<button style="text-align: right;">Create New Account</button>';
+        }
+        ?>
+
     </div>
 
     <?PHP
