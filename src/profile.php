@@ -3,6 +3,7 @@ $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("../config.php");
 require_once("functions/database_functions.php");
+session_start();
 
 require("includes/header.php");
 
@@ -10,6 +11,7 @@ require("includes/header.php");
   display_small_page_heading("Profile Page","");
   
 ?>
+
 <div style= "text-align: right;">
         
         <button>Edit Profile</button>
@@ -17,17 +19,20 @@ require("includes/header.php");
 </div>
 <div style="height: 400px;">
 
-        First Name: <br>
+        First Name: <?PHP echo $_SESSION['firstName']?>
+        <br>
         <br>
   
   
-        Last Name:<br>
+        Last Name: <?PHP echo $_SESSION['lastName']?>
+        <br>
         <br>
     
-        Email:<br>
+        Email: <?PHP echo $_SESSION['email']?>
+        <br>
         <br>
 
-        Permission Level: 
+        Permission Level: <?PHP echo  $_SESSION['permissionLevel']?>
         <br>
         <br>
         <button style="text-align: center;">Change Password</button>

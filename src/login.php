@@ -25,6 +25,8 @@ if(isset($_POST['login']) && !$_SESSION['loggedIn']) {
     if($_SESSION['loggedIn']) {
         $_SESSION['firstName'] = $user['firstName'];
         $_SESSION['lastName'] = $user['lastName'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['permissionLevel'] = $user['permissionLevel'];
     }
     else if($username != "" || $password != "") {
         $messageStr = "<h5 style='margin-left: 75px; color: red;'>Error: Invalid login</h5>";
