@@ -17,6 +17,9 @@ if(isset($_POST)) {
         $data = $table->get_all_records_from_db();
         
         //Create csv file and write to it
+        if (!file_exists('export')) {
+            mkdir('export', 0777, true);
+        }
         $fp = fopen('export/'.$tables[$table->name].'.csv', 'w');
         if($fp == NULL) {
             echo 'Error: Failed to create new csv file. Please try again.';
@@ -99,7 +102,7 @@ display_small_page_heading("Data Exporter");
 echo '<h4><div style="margin-top:5px;margin-bottom:45px;">';
 echo '<a href="import.php?page=export"'.($page == "export" ? ' class="selected"' : '').'>Export</a>';
 echo ' | ';
-echo '<a href="import?page=import"'.($page == "import" ? ' class="selected"' : '').'>Import</a>';
+echo '<a href="import.php?page=import"'.($page == "import" ? ' class="selected"' : '').'>Import</a>';
 echo '<div></h4>';
 
 switch($page) {
