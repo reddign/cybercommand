@@ -5,7 +5,5 @@ body {font-size:20px;}
 .w3-blue,.w3-hover-blue:hover{color:rgb(255, 255, 255)!important;background-color:#0A2240!important}
 .w3-blue,.w3-hover-blue:hover{color:rgb(255, 255, 255)!important;background-color:#004B98!important}
 
-#delete {
-    margin-left: 35px;
-
-}
+#delete {margin-left: 35px;}
+.selected {font-weight: bold;}
