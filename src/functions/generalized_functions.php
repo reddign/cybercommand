@@ -51,8 +51,15 @@ class Table {
         $pdo = connect_to_db();
         $data = $pdo->query("DESCRIBE ".$tableName.";")->fetchAll();
         
+        $numCols = count($data);
+        if($numCols != count($dispNames)) {
+            echo $numCols." ".count($dispNames)."<BR/>";
+            echo 'Error: tried to build '.$tableName.' table but failed due to display name / database column mismatch';
+            exit;
+        }
+
         // Get column information from database
-        for($i=0; $i < count($data); $i++) {
+        for($i=0; $i < $numCols; $i++) {
         	$colInfo = $data[$i];
         	$column = new Column($colInfo['Field'], $dispNames[$i], $colInfo['Type'], $colInfo['Key']=="PRI", $colInfo['Key']=="MUL", false);
             array_push($this->columns, $column);

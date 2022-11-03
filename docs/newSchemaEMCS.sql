@@ -7,7 +7,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema emcsdb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `emcsdb` ;
 
 -- -----------------------------------------------------
 -- Schema emcsdb
@@ -18,6 +17,8 @@ USE `emcsdb` ;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`student`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`student` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
   `studentID` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
@@ -41,6 +42,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`company`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`company` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `companyID` INT NOT NULL AUTO_INCREMENT,
   `companyName` VARCHAR(75) NOT NULL,
@@ -62,6 +65,8 @@ COMMENT = '	';
 -- -----------------------------------------------------
 -- Table `emcsdb`.`first_destination`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`first_destination` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`first_destination` (
   `first_destinationID` INT NOT NULL AUTO_INCREMENT,
   `companyID` INT NULL,
@@ -74,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`first_destination` (
   `emcsNetwork` TINYINT NULL,
   `internship` TINYINT NULL,
   `relationshipToMajor` INT NULL,
-  `matchForCarrerPath` INT NULL,
+  `matchForCareerPath` INT NULL,
   `department` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`first_destinationID`),
@@ -94,6 +99,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`survey`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`survey` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`survey` (
   `surveyID` INT NOT NULL AUTO_INCREMENT,
   `etownID` INT NULL,
@@ -106,6 +113,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`internship`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`internship` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`internship` (
   `internshipID` INT NOT NULL AUTO_INCREMENT,
   `studentID` INT NULL,
@@ -139,6 +148,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`contact`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`contact` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `contactID` INT NOT NULL AUTO_INCREMENT,
   `companyID` INT NULL,
@@ -167,6 +178,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`coaching`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`coaching` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`coaching` (
   `coachingID` INT NOT NULL AUTO_INCREMENT,
   `studentID` INT NULL,
@@ -191,6 +204,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`user`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`user` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`user` (
   `userID` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NULL,
@@ -205,6 +220,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `emcsdb`.`meeting`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`meeting` ;
+
 CREATE TABLE IF NOT EXISTS `emcsdb`.`meeting` (
   `meetingID` INT NOT NULL AUTO_INCREMENT,
   `meetingType` VARCHAR(55) NULL,
@@ -214,6 +231,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`meeting` (
   `etownContact` VARCHAR(90) NULL,
   `notes` VARCHAR(500) NULL,
   `tasks` VARCHAR(400) NULL,
+  `taskDeadline` DATE NULL,
   PRIMARY KEY (`meetingID`),
   CONSTRAINT `fk_meeting_companyID`
     FOREIGN KEY (`companyID`)
@@ -232,4 +250,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
+
+
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",md5(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2"))),10);
+INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("reddign@etown.edu","Nancy","Reddig",md5(CONCAT("SALT14PS",CONCAT("341mysqlEngineering","PSSALT2"))),10);
