@@ -1,6 +1,9 @@
 <?PHP
 require_once(__DIR__."/generalized_functions.php");
-$tables = ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Internships','meeting'=>'Meetings','student'=>'Students'];
+
+function getTableNameDict() {
+    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Internships','meeting'=>'Meetings','student'=>'Students'];
+}
 
 // Returns a table object for the given table
 function getTable($name) {
