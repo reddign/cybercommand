@@ -7,7 +7,7 @@ require_once("functions/generalized_functions.php");
 require_once("functions/tables.php");
 
 $table = getTable('student');
-$heading = "Students";
+$heading = "Blue Jays";
 $itemName = "Student";
 
 //Sets the page value for display
