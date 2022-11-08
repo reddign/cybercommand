@@ -66,6 +66,7 @@ function display_survey_form($student_survey=""){
     $student_survey["company"] = "";
     $student_survey["title"] = "";
     $student_survey["timeFrame"] = "";
+    $student_survey["rate"] = "";
 
 
     $student_survey["surveyID"] = "";
@@ -90,35 +91,87 @@ function display_survey_form($student_survey=""){
         <option value= "Student Teaching">Student Teaching</option>
         <option value = "Other">Other</option>
         <option value = "None">None</option>
-        </select><BR/>
+        </select><BR/><BR/>
         What was the Company/ School that you did the work-based learning experience with? <input style="margin-bottom:10px" name="company" type="text" value="'.$student_survey["company"].'"><BR/>
         What was your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
         What was the timeframe that you completed this experience?  <input style="margin-bottom:10px" name="timeFrame" type="text" value="'.$student_survey["timeFrame"].'"><BR/>
-        Why did you choose to take this opportunity? <select>
-        <option value = "--Select--">--Select--</option>
-        <option value = "For credit">For credit</option>
-        <option value = "Zero credit but listed on my transcript/resume">Zero credit but listed on my transcript/resume</option>
-        <option value = "For a Signature learning experience">For a Signature learning experience</option>
-        <option value = "Through Wings of Success Program (Career Services)">Through Wings of Success Program (Career Services)</option>
-        <option value = "For Credit for Student Teaching">For Credit for Student Teaching</option>
-        <option value = "Not for Credit or SLE">Not for Credit or SLE</option>
-        <option value = "Other">Other</option>
-        </select><BR/>
+        Why did you choose to take this opportunity? (Check all that apply):</br>
+        <input type="checkbox">
+        <label for="Internship">Internship</label><br>
+        <input type="checkbox">
+        <label for="SCARP">SCARP</label><br>
+        <input type="checkbox">
+        <label for="REU">REU</label><br>
+        <input type="checkbox">
+        <label for="Trade Employment">Trade Employment</label><br>
+        <input type="checkbox">
+        <label for="Student Teaching">Student Teaching</label><br>
+        <input type="checkbox">
+        <label for="Other">Other</label><br>
+        <input type="checkbox">
+        <label for="None">None</label><br></br>
+        
         Did this experience align to your desired career path? <select>
         <option value = "--Select--">--Select--</option>
         <option value = "Yes">Yes</option>
         <option value = "No">No</option>
         <option value = "Maybe">Maybe</option>
-        </select><BR/>
+        </select><BR/><BR/>
         Was this experience virtual or in-person? <select>
         <option value = "--Select--">--Select--</option>
         <option value = "Virtual">Virtual</option>
         <option value = "In-person">In-person</option>
         <option value = "Hybrid">Hybrid</option>
-        </select><BR/>
+        </select><BR/><BR/>
         Rate this experience on a scale of 0 to 5 (0 being poor and 5 being excellent): <input style="margin-bottom:10px" name="rate" type="number" value="'.$student_survey["rate"].'"><BR/>
+        Please choose the appropriate wage range for the experience:<br>
+        <input type="radio" name = "wage">
+        <label for="Unpaid">Unpaid</label><br>
+        <input type="radio" name = "wage">
+        <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="$10-$12/ hour">$10-$12/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="$12-$15/ hour">$12-$15/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="$15-$17/ hour">$15-$17/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="$17-$20/ hour">$17-$20/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="$20-$22/ hour">$20-$22/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="More than $22/ hour">More than $22/ hour</label><br>
+        <input type="radio" name = "wage">
+        <label for="Stipend">Stipend</label><br>
+        <input type="radio" name = "wage">
+        <label for="Other">Other</label><br></br>
 
+        Did anyone at the college help you with the process of obtaining this experience? (Check all that apply):</br>
+        <input type="checkbox">
+        <label for="Career Development Center">Career Development Center</label><br>
+        <input type="checkbox">
+        <label for="Ms. Zegers">Ms. Zegers</label><br>
+        <input type="checkbox">
+        <label for="Faculty Member">Faculty Member</label><br>
+        <input type="checkbox">
+        <label for="Fellow Etown Student">Fellow Etown Student</label><br>
+        <input type="checkbox">
+        <label for="Etown Alumni">Etown Alumni</label><br>
+        <input type="checkbox">
+        <label for="Field Placement Office">Field Placement Office</label><br>
+        <input type="checkbox">
+        <label for="Other">Other</label>
+        <input type="checkbox">
+        <label for="None">None</label><br></br>
 
+        Are you completing this survey for a class assignment?
+        <select>
+        <option value = "--Select--">--Select--</option>
+        <option value = "Yes">Yes</option>
+        <option value = "No">No</option>
+        </select><BR/>
+
+            
         <BR/><BR/><BR/>Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
         Interests: <input style="margin:10px" name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
         Career Goals: <input style="margin:10px" name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
