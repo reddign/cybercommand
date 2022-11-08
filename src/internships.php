@@ -7,8 +7,8 @@ require_once("functions/generalized_functions.php");
 require_once("functions/tables.php");
 
 $table = getTable('internship');
-$heading = "Internships";
-$itemName = "Internship";
+$heading = "Work-Based Learning Experiences";
+$itemName = "Work-Based Learning Experience";
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";

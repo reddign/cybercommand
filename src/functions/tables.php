@@ -9,7 +9,7 @@ function getTableNameDict() {
 function getTable($name) {
     switch($name) {
     case 'coaching':
-        $coachingTable = new Table('coaching', ['Coaching ID','Student','Date','Visit Type','For Coursework','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
+        $coachingTable = new Table('coaching', ['Coaching ID','Blue Jay','Date','Visit Type','For Coursework','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
         $coachingTable->addOptionsToCol('positionType',['Internship', 'Employment', 'REU', 'Graduate School', 'Other']);
         $coachingTable->addOptionsToCol('mode',['Virtual', 'In person', 'Other']);
         $coachingTable->fileName = "coaching.php";
@@ -28,12 +28,12 @@ function getTable($name) {
         return $contactTable;
 
     case 'first_destination':
-        $first_destinationTable = new Table('first_destination', ['First Destination ID','Company','Student','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
+        $first_destinationTable = new Table('first_destination', ['First Destination ID','Company','BLue Jay','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
         $first_destinationTable->fileName = "first_destinations.php";
         return $first_destinationTable;
 
     case 'internship':
-        $internshipTable = new Table('internship', ['Internship ID','Student','Company','Title','Department','Experiental Learning','Work-based Learning','Term','SLE/Credit','Career Path','Mode','Rating','Wage Range','EMCS Network','Notes'], ['title']);
+        $internshipTable = new Table('internship', ['Internship ID','Blue Jay','Company','Title','Department','Work-based Learning','Term','SLE/Credit','Career Path','Mode','Rating','Wage Range','EMCS Network','Notes'], ['title']);
         $internshipTable->addOptionsToCol('workBasedLearning',['Internship', 'SCARP', 'REU', 'Trade', 'Co-op', 'Field placement', 'Other']);
         $internshipTable->addOptionsToCol('careerPath',['Yes','No','Maybe']);
         $internshipTable->addOptionsToCol('mode',['Virtual', 'In person', 'Hybrid']);
@@ -47,7 +47,7 @@ function getTable($name) {
         return $meetingTable;
 
     case 'student':
-        $studentTable = new Table('student', ['Student ID','First Name','Last Name','Email','Gender','URM','Student ID','Grad Year','Alumni','Volunteer','First Gen','Department','Primary Major','Concentration','Other Majors','Minors','Notes'], ['firstName','lastName']);
+        $studentTable = new Table('student', ['Student ID','First Name','Last Name','Email','Phone Number','Student ID','Grad Year','Alumni','Volunteer','First Gen','Gender','URM','Department','Primary Major','Concentration','Other Majors','Minors','Current Employer', 'Position Title','Notes'], ['firstName','lastName']);
         $studentTable->addOptionsToCol('gender', ['Female', 'Male', 'Non-binary', 'Trans', 'Prefer not to answer', 'Other']);
         $studentTable->fileName = "students.php";
         return $studentTable;

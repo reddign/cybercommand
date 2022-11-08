@@ -8,7 +8,7 @@ require_once("functions/tables.php");
 
 $table = getTable('student');
 $heading = "Blue Jays";
-$itemName = "Student";
+$itemName = "Blue Jay";
 
 //Sets the page value for display
 $page = isset($_GET["page"])?$_GET["page"]:"search";
