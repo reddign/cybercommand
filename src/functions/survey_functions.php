@@ -57,14 +57,69 @@ function display_survey_form($student_survey=""){
 
     $formHTML = "<h2>Add Student</h2>";
     $student_survey = [];
+    $student_survey["studentFirst"]= "";
+    $student_survey["studentLast"]= "";
+    $student_survey["studentID"] = "";
+    $student_survey["gradYear"] = "";
+    $student_survey["primMajor"] = "";
+    $student_survey["concentration"] = "";
+    $student_survey["company"] = "";
+    $student_survey["title"] = "";
+    $student_survey["timeFrame"] = "";
+
+
     $student_survey["surveyID"] = "";
     $student_survey["interests"] = "";
     $student_survey["careerGoals"] = "";
-    $student_survey["studentID"] = "";
+    
     $buttonString = "Submit Survey";
     
     echo '<form  method=post action=survey.php>
-        Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
+        First Name: <input style="margin-bottom:10px" name="studentFirst" type="text" value="'.$student_survey["studentFirst"].'"><BR/>
+        Last Name: <input style="margin-bottom:10px" name="studentLast" type="text" value="'.$student_survey["studentLast"].'"><BR/>
+        Student ID #: <input style="margin-bottom:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
+        Graduation Year: <input style="margin-bottom:10px" name="gradYear" type="text" value="'.$student_survey["gradYear"].'"><BR/>
+        Primary Major: <input style="margin-bottom:10px" name="primMajor" type="text" value="'.$student_survey["primMajor"].'"><BR/>
+        Concentration: <input style="margin-bottom:10px" name="concentration" type="text" value="'.$student_survey["concentration"].'"><BR/>
+        What type of work-based learning experience did you complete over the summer? <select> 
+        <option value = "--Select--">--Select--</option>
+        <option value = "Internship">Internship</option>
+        <option value = "SCARP">SCARP</option>
+        <option value = "REU">REU</option>
+        <option value = "Trade Employment">Trade Employment</option>
+        <option value= "Student Teaching">Student Teaching</option>
+        <option value = "Other">Other</option>
+        <option value = "None">None</option>
+        </select><BR/>
+        What was the Company/ School that you did the work-based learning experience with? <input style="margin-bottom:10px" name="company" type="text" value="'.$student_survey["company"].'"><BR/>
+        What was your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
+        What was the timeframe that you completed this experience?  <input style="margin-bottom:10px" name="timeFrame" type="text" value="'.$student_survey["timeFrame"].'"><BR/>
+        Why did you choose to take this opportunity? <select>
+        <option value = "--Select--">--Select--</option>
+        <option value = "For credit">For credit</option>
+        <option value = "Zero credit but listed on my transcript/resume">Zero credit but listed on my transcript/resume</option>
+        <option value = "For a Signature learning experience">For a Signature learning experience</option>
+        <option value = "Through Wings of Success Program (Career Services)">Through Wings of Success Program (Career Services)</option>
+        <option value = "For Credit for Student Teaching">For Credit for Student Teaching</option>
+        <option value = "Not for Credit or SLE">Not for Credit or SLE</option>
+        <option value = "Other">Other</option>
+        </select><BR/>
+        Did this experience align to your desired career path? <select>
+        <option value = "--Select--">--Select--</option>
+        <option value = "Yes">Yes</option>
+        <option value = "No">No</option>
+        <option value = "Maybe">Maybe</option>
+        </select><BR/>
+        Was this experience virtual or in-person? <select>
+        <option value = "--Select--">--Select--</option>
+        <option value = "Virtual">Virtual</option>
+        <option value = "In-person">In-person</option>
+        <option value = "Hybrid">Hybrid</option>
+        </select><BR/>
+        Rate this experience on a scale of 0 to 5 (0 being poor and 5 being excellent): <input style="margin-bottom:10px" name="rate" type="number" value="'.$student_survey["rate"].'"><BR/>
+
+
+        <BR/><BR/><BR/>Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
         Interests: <input style="margin:10px" name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
         Career Goals: <input style="margin:10px" name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
         Student ID: <input style="margin:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
@@ -74,6 +129,7 @@ function display_survey_form($student_survey=""){
 
 }
 function addSurvey($arrayData){
+    $
     $surveyID = $arrayData["surveyID"];
     $interests = $arrayData["interests"];
     $careerGoals = $arrayData["careerGoals"];
