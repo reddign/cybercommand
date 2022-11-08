@@ -15,33 +15,6 @@ CREATE SCHEMA IF NOT EXISTS `emcsdb` DEFAULT CHARACTER SET utf8 ;
 USE `emcsdb` ;
 
 -- -----------------------------------------------------
--- Table `emcsdb`.`student`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emcsdb`.`student` ;
-
-CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
-  `studentID` INT NOT NULL AUTO_INCREMENT,
-  `firstName` VARCHAR(45) NOT NULL,
-  `lastName` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(150) NULL,
-  `gender` VARCHAR(45) NULL,
-  `URM` TINYINT NULL,
-  `etownID` INT NULL,
-  `gradYear` INT NULL,
-  `alumni` TINYINT NULL,
-  `volunteer` TINYINT NULL,
-  `firstGen` TINYINT NULL,
-  `department` VARCHAR(55) NULL,
-  `primaryMajor` VARCHAR(45) NULL,
-  `concentration` VARCHAR(65) NULL,
-  `otherMajors` VARCHAR(150) NULL,
-  `minors` VARCHAR(200) NULL,
-  `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`studentID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `emcsdb`.`company`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `emcsdb`.`company` ;
@@ -62,6 +35,42 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `etownPriorityPartner` TINYINT NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`companyID`))
+ENGINE = InnoDB
+COMMENT = '	';
+
+
+-- -----------------------------------------------------
+-- Table `emcsdb`.`student`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `emcsdb`.`student` ;
+
+CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
+  `studentID` INT NOT NULL AUTO_INCREMENT,
+  `firstName` VARCHAR(45) NOT NULL,
+  `lastName` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(150) NULL,
+  `phone` VARCHAR(25) NULL,
+  `etownID` INT NULL,
+  `gradYear` INT NULL,
+  `alumni` TINYINT NULL,
+  `volunteer` TINYINT NULL,
+  `firstGen` TINYINT NULL,
+  `gender` VARCHAR(45) NULL,
+  `URM` TINYINT NULL,
+  `department` VARCHAR(55) NULL,
+  `primaryMajor` VARCHAR(45) NULL,
+  `concentration` VARCHAR(65) NULL,
+  `otherMajors` VARCHAR(150) NULL,
+  `minors` VARCHAR(200) NULL,
+  `currentEmployer` INT NULL,
+  `positionTitle` VARCHAR(75) NULL,
+  `notes` VARCHAR(500) NULL,
+  PRIMARY KEY (`studentID`),
+  CONSTRAINT `fk_student_currentEmployer`
+    FOREIGN KEY (`currentEmployer`)
+    REFERENCES `emcsdb`.`company` (`companyID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -124,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`internship` (
   `companyID` INT NULL,
   `title` VARCHAR(75) NULL,
   `department` VARCHAR(75) NULL,
-  `experientalLearning` TINYINT NULL,
   `workBasedLearning` VARCHAR(45) NULL,
   `term` VARCHAR(45) NULL,
   `sle` VARCHAR(45) NULL,
@@ -250,7 +258,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 
 
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",md5(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2"))),10);
