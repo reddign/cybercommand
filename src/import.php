@@ -16,7 +16,7 @@ if(isset($_POST)) {
     if(isset($_POST["tableSelect"]) && array_key_exists($_POST["tableSelect"], $tables)){
         $filePath = exportToCSV($_POST["tableSelect"]);
         if($filePath != NULL)
-            header("location:".$filePath);  //Start actual download
+            header("location:download.php?path=".$filePath);  //Start actual download
         exit;
     }
 }
@@ -47,10 +47,17 @@ switch($page) {
         echo "<p><i>Please note that the exporting process may take some time.</i></p>";
         break;
     case "import":
-        echo '<form action="import.php" method="post" enctype="multipart/form-data">
-            <input type="file" id="myFile" name="myFile"><BR/>
-            <input type="submit">
-            </form>';
+        if(isset($_GET['filepath'])) {
+            if(dirname($_GET['filepath']) == 'upload')
+                display_import_form($_GET['filepath']);
+        }
+        else {
+            echo '<form action="upload.php?redirect=import.php" method="post" enctype="multipart/form-data">
+                <input type="file" id="csv_file" name="csv_file" accept=".csv"><BR/>
+                <input type="hidden" name="file_upload" value="yes">
+                <input type="submit">
+                </form>';
+        }
         break;
 }
 

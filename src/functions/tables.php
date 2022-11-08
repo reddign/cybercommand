@@ -10,19 +10,20 @@ function getTable($name) {
     switch($name) {
     case 'coaching':
         $coachingTable = new Table('coaching', ['Coaching ID','Student','Date','Visit Type','For Coursework','Mode','Reason','Position Type','Follow Up Tasks', 'Deadline', 'Notes'], ['studentID', 'date']);
+        $coachingTable->addOptionsToCol('positionType',['Internship', 'Employment', 'REU', 'Graduate School', 'Other']);
         $coachingTable->addOptionsToCol('mode',['Virtual', 'In person', 'Other']);
         $coachingTable->fileName = "coaching.php";
         return $coachingTable;
     
     case 'company':
-        $companyTable = new Table('company', ['Company ID','Company Name','Company ID','Address Line 1','Address Line 2','City','State','Zip','Phone Number','Company Domain','Majors/Concentrations','Notes'], ['companyName']);
+        $companyTable = new Table('company', ['Company ID','Company Name','Company ID','Address Line 1','Address Line 2','City','State','Zip','Phone Number','Company Domain','Majors/Concentrations','Engagement Level','Etown Priority Partner','Notes'], ['companyName']);
+        $companyTable->addOptionsToCol('engagementLevel',['Lead', 'Beginning', 'Developing', 'Strategic', 'Other']);
         $companyTable->fileName = "companies.php";
         return $companyTable;
 
     case 'contact':
-        $contactTable = new Table('contact', ['Contact ID','Company','First Name','Last Name','Alumni','Job Title','Contact Type','Email','Phone Number','Primary Contact','Engagement Level','Etown Priority Partner','Company Domain','Industry','Notes'], ['firstName','lastName']);
+        $contactTable = new Table('contact', ['Contact ID','Company','First Name','Last Name','Alumni','Job Title','Contact Type','Email','Phone Number','Primary Contact','Company Domain','Industry','Notes'], ['firstName','lastName']);
         $contactTable->addOptionsToCol('contactType',['Employer', 'Community partner', 'Higher ed','Other']);
-        $contactTable->addOptionsToCol('engagementLevel',['Lead', 'Beginning', 'Developing', 'Strategic', 'Other']);
         $contactTable->fileName = "contacts.php";
         return $contactTable;
 
@@ -46,7 +47,7 @@ function getTable($name) {
         return $meetingTable;
 
     case 'student':
-        $studentTable = new Table('student', ['Student ID','First Name','Last Name','Gender','URM','Student ID','Grad Year','Alumni','First Gen','Department','Primary Major','Concentration','Other Majors','Minors','Notes'], ['firstName','lastName']);
+        $studentTable = new Table('student', ['Student ID','First Name','Last Name','Email','Gender','URM','Student ID','Grad Year','Alumni','Volunteer','First Gen','Department','Primary Major','Concentration','Other Majors','Minors','Notes'], ['firstName','lastName']);
         $studentTable->addOptionsToCol('gender', ['Female', 'Male', 'Non-binary', 'Trans', 'Prefer not to answer', 'Other']);
         $studentTable->fileName = "students.php";
         return $studentTable;

@@ -22,12 +22,14 @@ DROP TABLE IF EXISTS `emcsdb`.`student` ;
 CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
   `studentID` INT NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NOT NULL,
-  `lastName` VARCHAR(45) NOT NULL,
+  `lastName` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(150) NULL,
   `gender` VARCHAR(45) NULL,
   `URM` TINYINT NULL,
   `etownID` INT NULL,
   `gradYear` INT NULL,
   `alumni` TINYINT NULL,
+  `volunteer` TINYINT NULL,
   `firstGen` TINYINT NULL,
   `department` VARCHAR(55) NULL,
   `primaryMajor` VARCHAR(45) NULL,
@@ -56,10 +58,11 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `phone` VARCHAR(35) NULL,
   `companyDomain` VARCHAR(250) NULL,
   `majorConcentrations` VARCHAR(120) NULL,
+  `engagementLevel` VARCHAR(45) NULL,
+  `etownPriorityPartner` TINYINT NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`companyID`))
-ENGINE = InnoDB
-COMMENT = '	';
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -161,8 +164,6 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `email` VARCHAR(100) NULL,
   `phoneNumber` VARCHAR(35) NULL,
   `primaryContact` TINYINT NULL,
-  `engagementLevel` VARCHAR(45) NULL,
-  `etownPriorityPartner` TINYINT NULL,
   `companyDomain` VARCHAR(45) NULL,
   `industry` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
@@ -249,7 +250,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
 
 
 
