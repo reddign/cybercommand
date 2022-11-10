@@ -177,16 +177,16 @@ function student_survey_form($student_survey=""){
         <input type="checkbox">
         <label for="Field Placement Office">Field Placement Office</label><br>
         <input type="checkbox">
-        <label for="Other">Other</label>
+        <label for="Other">Other</label></br>
         <input type="checkbox">
-        <label for="None">None</label><br></br>
+        <label for="None">None</label></br></br>
 
         Are you completing this survey for a class assignment?
         <select>
         <option value = "--Select--">--Select--</option>
         <option value = "Yes">Yes</option>
         <option value = "No">No</option>
-        </select><BR/>
+        </select></br></br>
 
         <input style="margin:10px" type="submit" value="'.$buttonString.'">
 
@@ -194,13 +194,14 @@ function student_survey_form($student_survey=""){
 
 }
 
-function spring_survey_form($student_survey=""){
-
+function summer_survey_form($student_survey=""){
+    $student_survey = [];
     $student_survey["company"] = "";
     $student_survey["title"] = "";
     $student_survey["timeFrame"] = "";
     $student_survey["rate"] = "";
-    
+    $buttonString = "Submit Survey";
+
     echo '<form  method=post action=survey.php>
 
     What type of work-based learning experience are you planning on for this summer? (Check all that apply):</br>
@@ -258,9 +259,9 @@ function spring_survey_form($student_survey=""){
     <input type="checkbox">
     <label for="Field Placement Office">Field Placement Office</label><br>
     <input type="checkbox">
-    <label for="Other">Other</label>
+    <label for="Other">Other</label></br>
     <input type="checkbox">
-    <label for="None">None</label><br></br>
+    <label for="None">None</label></br>
 
     <input style="margin:10px" type="submit" value="'.$buttonString.'">
     </form>';
@@ -282,11 +283,11 @@ function addSurvey($arrayData){
 
 function display_survey_page_navigation($currentPage){
     $navHTML  = '<h4><div style="margin-top:5px;margin-bottom:45px;">';
-    $navHTML .= '<a href="survey.php?page=add">Take Survey</a>';
+    $navHTML .= '<a href="survey.php?page=login">Take Survey</a>';
     $navHTML .= ' | ';
-    $navHTML .= '<a href="survey.php?page=search" class="selected">Fall Survey</a>';
+    $navHTML .= '<a href="survey.php?page=fall" class="selected">Fall Survey</a>';
     $navHTML .= ' | ';
-    $navHTML .= '<a href="survey.php?page=search" class="selected">Spring Survey</a>';
+    $navHTML .= '<a href="survey.php?page=spring" class="selected">Spring Survey</a>';
     $navHTML .= ' <div> </h4>';
     
     echo $navHTML;
