@@ -2,7 +2,7 @@
 </div>
 
 <!-- W3.CSS Container -->
-<div class="w3-light-grey w3-container w3-padding-15" style="margin-top:75px;display:block;"><p class="w3-center">Powered by: <a href="https://www.etown.edu/depts/computer-science/" title="W3.CSS" target="_blank" class="w3-hover-opacity">Etown College - Computer Science Department</a></p></div>
+<div class="w3-light-grey w3-container w3-padding-15" style="margin-top:50px; display:block;"><p class="w3-center">Powered by: <a href="https://www.etown.edu/depts/computer-science/" title="W3.CSS" target="_blank" class="w3-hover-opacity">Etown College - Computer Science Department</a></p></div>
 
 <script>
 // Script to open and close sidebar

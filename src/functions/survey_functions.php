@@ -54,6 +54,23 @@ function code_checker($Code) {
 
 */
 function display_survey_form($student_survey=""){
+    $student_survey = [];
+    $student_survey["surveyID"] = "";
+    $student_survey["interests"] = "";
+    $student_survey["careerGoals"] = "";
+    $student_survey["studentID"] = "";
+    $buttonString = "Submit Survey";
+
+    echo '<form  method=post action=survey.php>
+        Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
+        Interests: <input style="margin:10px" name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
+        Career Goals: <input style="margin:10px" name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
+        Student ID: <input style="margin:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
+        <input style="margin:10px" name="page" type="hidden" value="Submit Survey">
+        <input style="margin:10px" type="submit" value="'.$buttonString.'">';
+}
+
+function student_survey_form($student_survey=""){
 
     $formHTML = "<h2>Add Student</h2>";
     $student_survey = [];
@@ -74,7 +91,7 @@ function display_survey_form($student_survey=""){
     $student_survey["careerGoals"] = "";
     
     $buttonString = "Submit Survey";
-    
+
     echo '<form  method=post action=survey.php>
         First Name: <input style="margin-bottom:10px" name="studentFirst" type="text" value="'.$student_survey["studentFirst"].'"><BR/>
         Last Name: <input style="margin-bottom:10px" name="studentLast" type="text" value="'.$student_survey["studentLast"].'"><BR/>
@@ -171,18 +188,85 @@ function display_survey_form($student_survey=""){
         <option value = "No">No</option>
         </select><BR/>
 
-            
-        <BR/><BR/><BR/>Survey Code: <input style="margin-bottom:10px" name="surveyID" type="text" value="'.$student_survey["surveyID"].'"><BR/>
-        Interests: <input style="margin:10px" name="interests" type="text" value="'.$student_survey["interests"].'"><BR/>
-        Career Goals: <input style="margin:10px" name="careerGoals" type="text" value="'.$student_survey["careerGoals"].'"><BR/>
-        Student ID: <input style="margin:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
-        <input style="margin:10px" name="page" type="hidden" value="Submit Survey">
         <input style="margin:10px" type="submit" value="'.$buttonString.'">
+
     </form>';
 
 }
+
+function spring_survey_form($student_survey=""){
+
+    $student_survey["company"] = "";
+    $student_survey["title"] = "";
+    $student_survey["timeFrame"] = "";
+    $student_survey["rate"] = "";
+    
+    echo '<form  method=post action=survey.php>
+
+    What type of work-based learning experience are you planning on for this summer? (Check all that apply):</br>
+    <input type="checkbox">
+    <label for="Internship">Internship</label><br>
+    <input type="checkbox">
+    <label for="SCARP">SCARP</label><br>
+    <input type="checkbox">
+    <label for="REU">REU</label><br>
+    <input type="checkbox">
+    <label for="Trade Employment">Trade Employment</label><br>
+    <input type="checkbox">
+    <label for="Student Teaching">Student Teaching</label><br>
+    <input type="checkbox">
+    <label for="Other">Other</label><br>
+    <input type="checkbox">
+    <label for="None">None</label><br></br>
+
+    What is the Company/ School that you want to have the work-based learning experience with? <input style="margin-bottom:10px" name="company" type="text" value="'.$student_survey["company"].'"><BR/>
+    What will be your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
+
+    Please choose the appropriate wage range for the experience:<br>
+    <input type="radio" name = "wage">
+    <label for="Unpaid">Unpaid</label><br>
+    <input type="radio" name = "wage">
+    <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="$10-$12/ hour">$10-$12/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="$12-$15/ hour">$12-$15/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="$15-$17/ hour">$15-$17/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="$17-$20/ hour">$17-$20/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="$20-$22/ hour">$20-$22/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="More than $22/ hour">More than $22/ hour</label><br>
+    <input type="radio" name = "wage">
+    <label for="Stipend">Stipend</label><br>
+    <input type="radio" name = "wage">
+    <label for="Other">Other</label><br></br>
+
+    Did anyone at the college help you with the process of obtaining this experience? (Check all that apply):</br>
+    <input type="checkbox">
+    <label for="Career Development Center">Career Development Center</label><br>
+    <input type="checkbox">
+    <label for="Ms. Zegers">Ms. Zegers</label><br>
+    <input type="checkbox">
+    <label for="Faculty Member">Faculty Member</label><br>
+    <input type="checkbox">
+    <label for="Fellow Etown Student">Fellow Etown Student</label><br>
+    <input type="checkbox">
+    <label for="Etown Alumni">Etown Alumni</label><br>
+    <input type="checkbox">
+    <label for="Field Placement Office">Field Placement Office</label><br>
+    <input type="checkbox">
+    <label for="Other">Other</label>
+    <input type="checkbox">
+    <label for="None">None</label><br></br>
+
+    <input style="margin:10px" type="submit" value="'.$buttonString.'">
+    </form>';
+}
+
 function addSurvey($arrayData){
-    $
     $surveyID = $arrayData["surveyID"];
     $interests = $arrayData["interests"];
     $careerGoals = $arrayData["careerGoals"];
@@ -192,14 +276,17 @@ function addSurvey($arrayData){
     $stmt->execute([':surv' => $surveyID, ":inter"=> $interests, ":caree"=>$careerGoals,":stu"=>$studentID]);
     $sid = $pdo->lastInsertId();
     header("location:survey.php?page=survey&sid=".$sid."&message=Survey Accepted");
-  
+
+    
 }
 
 function display_survey_page_navigation($currentPage){
     $navHTML  = '<h4><div style="margin-top:5px;margin-bottom:45px;">';
     $navHTML .= '<a href="survey.php?page=add">Take Survey</a>';
     $navHTML .= ' | ';
-    $navHTML .= '<a href="survey.php?page=search" class="selected">View Results</a>';
+    $navHTML .= '<a href="survey.php?page=search" class="selected">Fall Survey</a>';
+    $navHTML .= ' | ';
+    $navHTML .= '<a href="survey.php?page=search" class="selected">Spring Survey</a>';
     $navHTML .= ' <div> </h4>';
     
     echo $navHTML;
