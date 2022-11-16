@@ -4,7 +4,7 @@ require_once("functions/basic_html_functions.php");
 require("includes/header.php");
 echo '<h1 style="margin-left:18px; font-size:60px; font-family: Oswald;">Engineering, Mathematics, & Computer Science\'s Flight Deck';
 
-echo '<h1 class="w3-large w3-text-black" style="margin-left:18px; font-family: Oswald;">Welcome to the main page of the EMCS database! The photos you see here are all from the Elizabethtown College Instagram Page. <b></b></h1>';
+echo '<h1 class="w3-large w3-text-black" style="margin-left:18px; font-family: Oswald;">Welcome to the main page of the EMCS Flight Deck! The photos you see here are all from the Elizabethtown College Instagram page. You can find a link to it at the bottom of the page. <b></b></h1>';
 
   ?>
   

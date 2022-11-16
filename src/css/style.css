@@ -10,3 +10,4 @@ body {font-size:20px;}
 td {min-width: 17em;}
 table, th, td { border: 2px solid black; border-collapse: collapse; }
 .hidden {visibility: hidden;}
+.nodisplay {display: none;}

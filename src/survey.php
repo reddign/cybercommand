@@ -15,16 +15,16 @@ require_once("functions/survey_functions.php");
 
 <?php
 $page = isset($_GET["page"])?$_GET["page"]:"login";
-display_survey_page_navigation("Survey");
+display_survey_page_navigation($page);
 
 switch($page){
     case "login":
       display_survey_form();
       break;
-    case "fall":
+    case "spring":
       student_survey_form();
       break;
-    case "spring":
+    case "fall":
       student_survey_form();
       summer_survey_form();
       break;

@@ -92,7 +92,7 @@ function student_survey_form($student_survey=""){
     
     $buttonString = "Submit Survey";
 
-    echo '<form  method=post action=survey.php>
+    echo '<form  method=post action=survey.php id="surveyForm">
         First Name: <input style="margin-bottom:10px" name="studentFirst" type="text" value="'.$student_survey["studentFirst"].'"><BR/>
         Last Name: <input style="margin-bottom:10px" name="studentLast" type="text" value="'.$student_survey["studentLast"].'"><BR/>
         Student ID #: <input style="margin-bottom:10px" name="studentID" type="text" value="'.$student_survey["studentID"].'"><BR/>
@@ -113,19 +113,19 @@ function student_survey_form($student_survey=""){
         What was your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
         What was the timeframe that you completed this experience?  <input style="margin-bottom:10px" name="timeFrame" type="text" value="'.$student_survey["timeFrame"].'"><BR/>
         Why did you choose to take this opportunity? (Check all that apply):</br>
-        <input type="checkbox">
+        <input type="checkbox" value="Internship">
         <label for="Internship">Internship</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value="SCARP">
         <label for="SCARP">SCARP</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value="REU">
         <label for="REU">REU</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value="Trade Employment">
         <label for="Trade Employment">Trade Employment</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value="Student Teaching">
         <label for="Student Teaching">Student Teaching</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value = "Other">
         <label for="Other">Other</label><br>
-        <input type="checkbox">
+        <input type="checkbox" value = "None">
         <label for="None">None</label><br></br>
         
         Did this experience align to your desired career path? <select>
@@ -142,53 +142,53 @@ function student_survey_form($student_survey=""){
         </select><BR/><BR/>
         Rate this experience on a scale of 0 to 5 (0 being poor and 5 being excellent): <input style="margin-bottom:10px" name="rate" type="number" value="'.$student_survey["rate"].'"><BR/>
         Please choose the appropriate wage range for the experience:<br>
-        <input type="radio" name = "wage">
-        <label for="Unpaid">Unpaid</label><br>
-        <input type="radio" name = "wage">
-        <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="$10-$12/ hour">$10-$12/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="$12-$15/ hour">$12-$15/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="$15-$17/ hour">$15-$17/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="$17-$20/ hour">$17-$20/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="$20-$22/ hour">$20-$22/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="More than $22/ hour">More than $22/ hour</label><br>
-        <input type="radio" name = "wage">
-        <label for="Stipend">Stipend</label><br>
-        <input type="radio" name = "wage">
-        <label for="Other">Other</label><br></br>
+        <input type="radio" value="Unpaid" name = "wage">
+            <label for="Unpaid">Unpaid</label><br>
+        <input type="radio" value="$7.25-$10" name = "wage">
+            <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
+        <input type="radio" value="$10-$12" name = "wage">
+            <label for="$10-$12/ hour">$10-$12/ hour</label><br>
+        <input type="radio" value="$12-$15" name = "wage">
+            <label for="$12-$15/ hour">$12-$15/ hour</label><br>
+        <input type="radio" value="$15-$17" name = "wage">
+            <label for="$15-$17/ hour">$15-$17/ hour</label><br>
+        <input type="radio" value="$17-$20" name = "wage">
+            <label for="$17-$20/ hour">$17-$20/ hour</label><br>
+        <input type="radio" value="$20-$22" name = "wage">
+            <label for="$20-$22/ hour">$20-$22/ hour</label><br>
+        <input type="radio" value="More than $22" name = "wage">
+            <label for="More than $22/ hour">More than $22/ hour</label><br>
+        <input type="radio" value="Stipend" name = "wage">
+            <label for="Stipend">Stipend</label><br>
+        <input type="radio" value="Other" name = "wage">
+            <label for="Other">Other</label><br></br>
 
         Did anyone at the college help you with the process of obtaining this experience? (Check all that apply):</br>
         <input type="checkbox">
-        <label for="Career Development Center">Career Development Center</label><br>
+            <label for="Career Development Center">Career Development Center</label><br>
         <input type="checkbox">
-        <label for="Ms. Zegers">Ms. Zegers</label><br>
+            <label for="Ms. Zegers">Ms. Zegers</label><br>
         <input type="checkbox">
-        <label for="Faculty Member">Faculty Member</label><br>
+            <label for="Faculty Member">Faculty Member</label><br>
         <input type="checkbox">
-        <label for="Fellow Etown Student">Fellow Etown Student</label><br>
+            <label for="Fellow Etown Student">Fellow Etown Student</label><br>
         <input type="checkbox">
-        <label for="Etown Alumni">Etown Alumni</label><br>
+            <label for="Etown Alumni">Etown Alumni</label><br>
         <input type="checkbox">
-        <label for="Field Placement Office">Field Placement Office</label><br>
+            <label for="Field Placement Office">Field Placement Office</label><br>
         <input type="checkbox">
-        <label for="Other">Other</label></br>
+            <label for="Other">Other</label></br>
         <input type="checkbox">
-        <label for="None">None</label></br></br>
+            <label for="None">None</label></br></br>
 
         Are you completing this survey for a class assignment?
         <select>
         <option value = "--Select--">--Select--</option>
         <option value = "Yes">Yes</option>
         <option value = "No">No</option>
-        </select></br></br>
+        </select></br> <br>
 
-        <input style="margin:10px" type="submit" value="'.$buttonString.'">
+        <input id="submit" style="margin:10px" type="submit" value="'.$buttonString.'">
 
     </form>';
 
@@ -202,69 +202,71 @@ function summer_survey_form($student_survey=""){
     $student_survey["rate"] = "";
     $buttonString = "Submit Survey";
 
-    echo '<form  method=post action=survey.php>
-
+    echo '
     What type of work-based learning experience are you planning on for this summer? (Check all that apply):</br>
-    <input type="checkbox">
-    <label for="Internship">Internship</label><br>
-    <input type="checkbox">
-    <label for="SCARP">SCARP</label><br>
-    <input type="checkbox">
-    <label for="REU">REU</label><br>
-    <input type="checkbox">
-    <label for="Trade Employment">Trade Employment</label><br>
-    <input type="checkbox">
-    <label for="Student Teaching">Student Teaching</label><br>
-    <input type="checkbox">
-    <label for="Other">Other</label><br>
-    <input type="checkbox">
-    <label for="None">None</label><br></br>
+    <input type="radio" id="learnExp1" class="learnExp" name="choice" value="Internship" form="surveyForm">
+        <label for="learnExp1">Internship</label><br>
+    <input type="radio" id="learnExp2" class="learnExp" name="choice" value="SCARP" form="surveyForm">
+        <label for="learnExp2">SCARP</label><br>
+    <input type="radio" id="learnExp3" class="learnExp" name="choice" value="REU" form="surveyForm">
+        <label for="learnExp3">REU</label><br>
+    <input type="radio" id="learnExp4" class="learnExp" name="choice" value="Trade Employment" form="surveyForm">
+        <label for="learnExp4">Trade Employment</label><br>
+    <input type="radio" id="learnExp5" class="learnExp" name="choice" value="Student Teaching" form="surveyForm">
+        <label for="learnExp5">Student Teaching</label><br>
+    <input type="radio" id="learnExp6" class="learnExp" name="choice" value="Other" form="surveyForm">
+        <label for="learnExp6">Other</label><br>    
+    <input type="radio" id="learnExp7" class="learnExp" name="choice" value="None" form="surveyForm">
+        <label for="learnExp7">None</label><br><br>
 
+    <div id="hiddenDiv" class="nodisplay">
     What is the Company/ School that you want to have the work-based learning experience with? <input style="margin-bottom:10px" name="company" type="text" value="'.$student_survey["company"].'"><BR/>
     What will be your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
 
     Please choose the appropriate wage range for the experience:<br>
-    <input type="radio" name = "wage">
-    <label for="Unpaid">Unpaid</label><br>
-    <input type="radio" name = "wage">
-    <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="$10-$12/ hour">$10-$12/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="$12-$15/ hour">$12-$15/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="$15-$17/ hour">$15-$17/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="$17-$20/ hour">$17-$20/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="$20-$22/ hour">$20-$22/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="More than $22/ hour">More than $22/ hour</label><br>
-    <input type="radio" name = "wage">
-    <label for="Stipend">Stipend</label><br>
-    <input type="radio" name = "wage">
-    <label for="Other">Other</label><br></br>
+    <input type="radio" value="Unpaid" name = "wage">
+        <label for="Unpaid">Unpaid</label><br>
+    <input type="radio" value="$7.25-$10" name = "wage">
+        <label for="$7.25-$10/ hour">$7.25-$10/ hour</label><br>
+    <input type="radio" value="$10-$12" name = "wage">
+        <label for="$10-$12/ hour">$10-$12/ hour</label><br>
+    <input type="radio" value="$12-$15" name = "wage">
+        <label for="$12-$15/ hour">$12-$15/ hour</label><br>
+    <input type="radio" value="$15-$17" name = "wage">
+        <label for="$15-$17/ hour">$15-$17/ hour</label><br>
+    <input type="radio" value="$17-$20" name = "wage">
+        <label for="$17-$20/ hour">$17-$20/ hour</label><br>
+    <input type="radio" value="$20-$22" name = "wage">
+        <label for="$20-$22/ hour">$20-$22/ hour</label><br>
+    <input type="radio" value="More than $22" name = "wage">
+        <label for="More than $22/ hour">More than $22/ hour</label><br>
+    <input type="radio" value="Stipend" name = "wage">
+        <label for="Stipend">Stipend</label><br>
+    <input type="radio" value="Other" name = "wage">
+        <label for="Other">Other</label><br></br>
 
     Did anyone at the college help you with the process of obtaining this experience? (Check all that apply):</br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Career Development Center">Career Development Center</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Ms. Zegers">Ms. Zegers</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Faculty Member">Faculty Member</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Fellow Etown Student">Fellow Etown Student</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Etown Alumni">Etown Alumni</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Field Placement Office">Field Placement Office</label><br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="Other">Other</label></br>
-    <input type="checkbox">
+    <input type="checkbox" form="surveyForm">
     <label for="None">None</label></br>
+    </div>
 
-    <input style="margin:10px" type="submit" value="'.$buttonString.'">
-    </form>';
+    <input style="margin:10px" type="submit" value="'.$buttonString.'">';
+
+    echo "<script src='js/survey.js'></script>";
 }
 
 function addSurvey($arrayData){
@@ -277,17 +279,16 @@ function addSurvey($arrayData){
     $stmt->execute([':surv' => $surveyID, ":inter"=> $interests, ":caree"=>$careerGoals,":stu"=>$studentID]);
     $sid = $pdo->lastInsertId();
     header("location:survey.php?page=survey&sid=".$sid."&message=Survey Accepted");
-
     
 }
 
 function display_survey_page_navigation($currentPage){
     $navHTML  = '<h4><div style="margin-top:5px;margin-bottom:45px;">';
-    $navHTML .= '<a href="survey.php?page=login">Take Survey</a>';
+    $navHTML .= '<a href="survey.php?page=login"'.($currentPage == 'login' ? 'class="selected"' : "").'>Take Survey</a>';
     $navHTML .= ' | ';
-    $navHTML .= '<a href="survey.php?page=fall" class="selected">Fall Survey</a>';
+    $navHTML .= '<a href="survey.php?page=spring"'.($currentPage == 'spring' ? 'class="selected"' : "").'>Spring Survey</a>';
     $navHTML .= ' | ';
-    $navHTML .= '<a href="survey.php?page=spring" class="selected">Spring Survey</a>';
+    $navHTML .= '<a href="survey.php?page=fall"'.($currentPage == 'fall' ? 'class="selected"' : "").'>Fall Survey</a>';
     $navHTML .= ' <div> </h4>';
     
     echo $navHTML;
