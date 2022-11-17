@@ -11,7 +11,8 @@
 <?PHP
 require_once(__DIR__."/../../config.php");
 require_once(__DIR__."/../functions/database_functions.php");
-session_start();
+if(!isset($_SESSION))
+    session_start();
 if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
     header("location:login.php");
     exit;
