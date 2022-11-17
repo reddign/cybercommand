@@ -2,7 +2,7 @@
 require_once(__DIR__."/generalized_functions.php");
 
 function getTableNameDict() {
-    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Internships','meeting'=>'Meetings','student'=>'Students'];
+    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays'];
 }
 
 // Returns a table object for the given table

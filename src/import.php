@@ -10,6 +10,8 @@ require_once("functions/tables.php");
 
 $page = isset($_GET["page"])?$_GET["page"]:"export";
 $tables = getTableNameDict();
+if(!isset($_SESSION))
+    session_start();
 
 if(isset($_POST)) {
     //If the user has requested an export, generate a csv file and make them download it
@@ -18,6 +20,11 @@ if(isset($_POST)) {
         if($filePath != NULL)
             header("location:download.php?path=".$filePath);  //Start actual download
         exit;
+    }
+    
+    //Data import
+    if(isset($_POST["availableRecords"])) {
+        completeImport($_POST, $_SESSION['filepath']);
     }
 }
 //Headers
@@ -48,8 +55,10 @@ switch($page) {
         break;
     case "import":
         if(isset($_GET['filepath'])) {
-            if(dirname($_GET['filepath']) == 'upload')
+            if(dirname($_GET['filepath']) == 'upload') {
+                $_SESSION['filepath'] = $_GET['filepath'];
                 display_import_form($_GET['filepath']);
+            }
         }
         else {
             echo '<form action="upload.php?redirect=import.php" method="post" enctype="multipart/form-data">

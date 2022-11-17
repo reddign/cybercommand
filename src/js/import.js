@@ -1,4 +1,3 @@
-
 let idnum = 1;
 let availableRecords = {};
 
@@ -56,6 +55,7 @@ function recalculateAvailRecs() {
         }
     });
     console.log(availableRecords);
+    id("availableRecords").value = JSON.stringify(availableRecords);
     updateTableAvailability();
 }
 
