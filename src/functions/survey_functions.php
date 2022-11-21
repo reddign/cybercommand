@@ -120,7 +120,7 @@ function student_survey_form($student_survey=""){
         What was your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
         What was the timeframe that you completed this experience?  <input style="margin-bottom:10px" name="timeFrame" type="text" value="'.$student_survey["timeFrame"].'"><BR/>
         Did you complete this experience for credit or an SLE?(Check all that apply):<br><br>
-        <input name="reason" type="checkbox" value="For credit" id="oppCheck1">
+        <input name="reason" type="checkbox" value="forCredit" id="oppCheck1">
             <label for="oppCheck1">For Credit</label><br>
         <input name="reason" type="checkbox" value="Zero credit, but listed on my transcript" id="oppCheck2">
             <label for="oppCheck2">Zero credit, but listed on my transcript</label><br>
@@ -148,7 +148,7 @@ function student_survey_form($student_survey=""){
         <option value = "Hybrid">Hybrid</option>
         </select><BR/><BR/>
         Rate this experience on a scale of 0 to 5 (0 being poor and 5 being excellent): 
-        <input style="margin-bottom:10px" name="rate" type="number" value="'.$student_survey["rate"].'"><BR/>
+        <input style="margin-bottom:10px" name="rating" type="number" value="'.$student_survey["wage"].'"><BR/>
         Please choose the appropriate wage range for the experience:<br>
         <input type="radio" value="Unpaid" name = "wage" id="wageChoice1">
             <label for="wageChoice1">Unpaid</label><br>
@@ -209,7 +209,7 @@ function summer_survey_form($student_survey=""){
     $student_survey["company"] = "";
     $student_survey["title"] = "";
     $student_survey["timeFrame"] = "";
-    $student_survey["rate"] = "";
+    $student_survey["wage"] = "";
     $buttonString = "Submit Survey";
 
     echo '<form  method="post" action="survey.php" id="surveyForm2">
@@ -230,8 +230,8 @@ function summer_survey_form($student_survey=""){
         <label for="learnExp17">None</label><br><br>
 
     <div id="hiddenDiv2" class="nodisplay">
-    What is the Company/ School that you want to have the work-based learning experience with? <input style="margin-bottom:10px" name="company" type="text" value="'.$student_survey["company"].'"><BR/>
-    What will be your job title or the REU study name? <input style="margin-bottom:10px" name="title" type="text" value="'.$student_survey["title"].'"><BR/>
+    What is the Company/ School that you want to have the work-based learning experience with? <input style="margin-bottom:10px" name="summerCompany" type="text" value="'.$student_survey["summerCompany"].'"><BR/>
+    What will be your job title or the REU study name? <input style="margin-bottom:10px" name="summerTitle" type="text" value="'.$student_survey["summerTitle"].'"><BR/>
 
     Did you complete this experience for credit or an SLE?(Check all that apply):<br><br>
         <input name="summerReason" type="checkbox" value="For credit" id="oppCheck11">
