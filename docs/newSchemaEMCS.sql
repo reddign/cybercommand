@@ -33,6 +33,12 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`company` (
   `majorConcentrations` VARCHAR(120) NULL,
   `engagementLevel` VARCHAR(45) NULL,
   `etownPriorityPartner` TINYINT NULL,
+  `interest0` TINYINT NULL,
+  `interest1` TINYINT NULL,
+  `interest2` TINYINT NULL,
+  `interest3` TINYINT NULL,
+  `interest4` TINYINT NULL,
+  `interest5` TINYINT NULL,
   `notes` VARCHAR(500) NULL,
   PRIMARY KEY (`companyID`))
 ENGINE = InnoDB
@@ -65,12 +71,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`student` (
   `currentEmployer` INT NULL,
   `positionTitle` VARCHAR(75) NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`studentID`),
-  CONSTRAINT `fk_student_currentEmployer`
-    FOREIGN KEY (`currentEmployer`)
-    REFERENCES `emcsdb`.`company` (`companyID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`studentID`))
 ENGINE = InnoDB;
 
 
@@ -94,17 +95,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`first_destination` (
   `matchForCareerPath` INT NULL,
   `department` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`first_destinationID`),
-  CONSTRAINT `fk_first_landings_companyID`
-    FOREIGN KEY (`companyID`)
-    REFERENCES `emcsdb`.`company` (`companyID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_first_landings_studentID`
-    FOREIGN KEY (`studentID`)
-    REFERENCES `emcsdb`.`student` (`studentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`first_destinationID`))
 ENGINE = InnoDB;
 
 
@@ -134,7 +125,8 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`internship` (
   `title` VARCHAR(75) NULL,
   `department` VARCHAR(75) NULL,
   `workBasedLearning` VARCHAR(45) NULL,
-  `term` VARCHAR(45) NULL,
+  `startDate` VARCHAR(45) NULL,
+  `endDate` VARCHAR(45) NULL,
   `sle` VARCHAR(45) NULL,
   `careerPath` VARCHAR(45) NULL,
   `mode` VARCHAR(45) NULL,
@@ -142,17 +134,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`internship` (
   `wageRange` VARCHAR(45) NULL,
   `emcsNetwork` TINYINT NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`internshipID`),
-  CONSTRAINT `fk_internship_studentID`
-    FOREIGN KEY (`studentID`)
-    REFERENCES `emcsdb`.`student` (`studentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_internship_companyID`
-    FOREIGN KEY (`companyID`)
-    REFERENCES `emcsdb`.`company` (`companyID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`internshipID`))
 ENGINE = InnoDB;
 
 
@@ -175,12 +157,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`contact` (
   `companyDomain` VARCHAR(45) NULL,
   `industry` VARCHAR(45) NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`contactID`),
-  CONSTRAINT `fk_contact_companyID`
-    FOREIGN KEY (`companyID`)
-    REFERENCES `emcsdb`.`company` (`companyID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`contactID`))
 ENGINE = InnoDB;
 
 
@@ -201,12 +178,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`coaching` (
   `followUpTasks` VARCHAR(400) NULL,
   `deadline` DATE NULL,
   `notes` VARCHAR(500) NULL,
-  PRIMARY KEY (`coachingID`),
-  CONSTRAINT `fk_coaching_studentID`
-    FOREIGN KEY (`studentID`)
-    REFERENCES `emcsdb`.`student` (`studentID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`coachingID`))
 ENGINE = InnoDB;
 
 
@@ -220,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`user` (
   `email` VARCHAR(100) NULL,
   `firstName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NULL,
-  `passwordHash` VARCHAR(128) NULL,
+  `passwordHash` VARCHAR(512) NULL,
   `permissionLevel` INT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
@@ -241,17 +213,7 @@ CREATE TABLE IF NOT EXISTS `emcsdb`.`meeting` (
   `notes` VARCHAR(500) NULL,
   `tasks` VARCHAR(400) NULL,
   `taskDeadline` DATE NULL,
-  PRIMARY KEY (`meetingID`),
-  CONSTRAINT `fk_meeting_companyID`
-    FOREIGN KEY (`companyID`)
-    REFERENCES `emcsdb`.`company` (`companyID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_meeting_contactID`
-    FOREIGN KEY (`contactID`)
-    REFERENCES `emcsdb`.`contact` (`contactID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`meetingID`))
 ENGINE = InnoDB;
 
 
@@ -260,6 +222,9 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",md5(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2"))),10);
-INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("reddign@etown.edu","Nancy","Reddig",md5(CONCAT("SALT14PS",CONCAT("341mysqlEngineering","PSSALT2"))),10);
-INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("zegerss@etown.edu","Stephanie","Zegers",md5(CONCAT("SALT14PS",CONCAT("password","PSSALT2"))),10);
+
+
+INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",sha2(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2")),512),10);
+INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("user@etown.edu","Test","User",sha2(CONCAT("SALT14PS",CONCAT("password","PSSALT2")),512),1);
+INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("reddign@etown.edu","Nancy","Reddig",sha2(CONCAT("SALT14PS",CONCAT("341mysqlEngineering","PSSALT2")),512),10);
+INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("zegerss@etown.edu","Stephanie","Zegers",sha2(CONCAT("SALT14PS",CONCAT("password","PSSALT2")),512),10);

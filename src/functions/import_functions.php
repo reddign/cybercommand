@@ -105,7 +105,7 @@ function display_import_form($filePath) {
     echo '<script>';
     echo 'let tableNames = '.json_encode($tableNames, JSON_HEX_TAG).';';
     echo 'let tables = '.json_encode($tables, JSON_HEX_TAG).';';
-    echo 'console.log(tableNames);console.log(tables);';
+    echo 'let csvColumns = '.json_encode($csv_columns, JSON_HEX_TAG).';';
     echo '</script>';
     echo '<script src="js/import.js"></script>';
 
@@ -140,6 +140,7 @@ function display_import_form($filePath) {
 function completeImport($postData, $filePath) {
     $pdo = connect_to_db();
     $mapping = [];
+    $datatypes = [];
     $availRecs = json_decode($postData["availableRecords"], true);
     $fp = fopen($filePath,'r');
     $numCols = count(fgetcsv($fp));
@@ -153,77 +154,180 @@ function completeImport($postData, $filePath) {
     //Craft sql queries that will only be missing bound variables
     $queries = [];
     foreach($availRecs as $tableName => $options) {
-        $sqlpt1 = "INSERT INTO ".$tableName." (";
-        $sqlpt2 = ") VALUES (";
+        //Craft basic query structure accoring to "recordOptionX"
+        //create - insert statement
+        //update - update statement
+        //createupdate - select to check existence, then create or update
+        
+        //Step 1: identify record mode
+        $recordMode = $options["recordMode"];
+
+        $selectSql1 = "SELECT 1";
+        $selectSql2 = " FROM $tableName ";
+        $selectSql4 = " LIMIT 1;";
+
+        $updateSql1 = "UPDATE $tableName SET ";
+        $updateSql2 = " WHERE ";
+
+        $insertSql1 = "INSERT INTO ".$tableName." (";
+        $insertSql2 = ") VALUES (";
+
         $first = true;
 
+        //Construct WHERE clause based on constraints
+        if($recordMode != "create") {
+            //If there are no constraints, prevent a rogue query from modifying random records
+            if(count($options) == 1) {
+                $updateSql2 .= "FALSE";
+            }
+            else {
+                $updateSql2 .= "TRUE";
+                foreach($options as $csvColNum => $tableCol) {
+                    if($csvColNum == "recordMode") {
+                        continue;
+                    }
+                    //Prevent sql injection
+                    $col = $tables[$tableName]->getColumn($tableCol);
+                    if($col == NULL) {
+                        echo "Error: Column name not found in table ".$tableName;
+                        exit;
+                    }
+                    if(!is_numeric($csvColNum)) {
+                        echo "Error: Number expected for CSV column number";
+                        exit;
+                    }
+                    $datatypes[$csvColNum] = $col->datatype;
+
+                    $updateSql2 .= " AND UPPER($tableCol) = UPPER(:col$csvColNum)";
+                    addMapping($mapping, $csvColNum, $tableName);
+                }
+                unset($csvColNum, $tableCol);
+            }
+        }
+
+        //Add columns to sql
         for($i = 0; $i < $numCols; $i++) {
-            if($postData["chooseTable".$i] != $tableName)
+            if($postData["chooseTable".$i] != $tableName || $postData["chooseColumn".$i] == "")
                 continue;
             
-            $mapping[$i] = $tableName;
+            addMapping($mapping, $i, $tableName);
             $columnName = $postData["chooseColumn".$i];
-            if(!validColumn($tables[$tableName], $columnName)) {
+            $col = $tables[$tableName]->getColumn($columnName);
+            if($col == NULL) {
                 echo "Error: Column name not found in table ".$tableName;
                 exit;
             }
+            $datatypes[$i] = $col->datatype;
+
             if($first) {
                 $first = false;
             }
             else {
-                $sqlpt1 .= ',';
-                $sqlpt2 .= ',';
+                $insertSql1 .= ',';
+                $insertSql2 .= ',';
+                $updateSql1 .= ",";
             }
-            $sqlpt1 .= $columnName;
-            $sqlpt2 .= ":col".$i;
+            $insertSql1 .= $columnName;
+            $insertSql2 .= ":col".$i;
+            $updateSql1 .= "$columnName=:col$i";
+            $selectSql1 .= ",:col".$i; //This line is dumb and stupid but it will prevent the stupid bound variable mismatch error
         }
         //Add sql to list of queries if there is at least one piece of data to be inserted
         if(!$first) {
-            $queries[$tableName] = $pdo->prepare($sqlpt1.$sqlpt2.");");
+            $queries[$tableName] = [];
+            $queries[$tableName]['insert'] = $pdo->prepare($insertSql1.$insertSql2.");"); echo "INSERT: ".$insertSql1.$insertSql2.");<BR/>";
+            if($recordMode != "create") {
+                $queries[$tableName]['update'] = $pdo->prepare($updateSql1.$updateSql2.";"); echo "UPDATE: ".$updateSql1.$updateSql2.";<BR/>";
+                $queries[$tableName]['select'] = $pdo->prepare($selectSql1.$selectSql2.$updateSql2.$selectSql4); echo "SELECT: ".$selectSql1.$selectSql2.$updateSql2.$selectSql4."<BR/>";
+            }
         }
     }
     unset($tableName, $options);
     
     //Setup prototype for bound variable lists
     $boundVarsPrototype = [];
-    foreach($queries as $tableName => $stmt) {
+    foreach($queries as $tableName => $queryList) {
         $boundVarsPrototype[$tableName] = [];
     }
-    unset($tableName, $stmt);
+    unset($tableName, $queryList);
 
     while(!feof($fp)) {
         $csvRow = fgetcsv($fp);
         if(!is_array($csvRow))
             break;
+        
         $boundVars = $boundVarsPrototype;
         for($i = 0; $i < $numCols; $i++) {
-            if(!isset($mapping[$i]))
+            if(!isset($mapping[$i])) {
                 continue;
-            $boundVars[$mapping[$i]][":col".$i] = $csvRow[$i];
+            }
+            
+            foreach($mapping[$i] as $tbName) {
+                $boundVars[$tbName][":col".$i] = convertData($csvRow[$i],$datatypes[$i]);
+            }
+            unset($tbName);
         }
+        var_dump($boundVars);
+        echo "<BR/>";
 
-        foreach($queries as $tableName => $stmt) {
-            $stmt->execute($boundVars[$tableName]);
+        foreach($queries as $tableName => $queryList) {
+            $recordMode = $availRecs[$tableName]["recordMode"];
+            echo "MODE: $recordMode<BR/>";
+            if($recordMode == "create") {
+                $queryList['insert']->execute($boundVars[$tableName]);
+                echo "CREATE";
+            }
+            else if($recordMode == "update") {
+                $queryList['update']->execute($boundVars[$tableName]);
+                echo "UPDATE";
+            }
+            else if($recordMode == "createupdate") {
+                echo "SELECT";
+                $queryList['select']->execute($boundVars[$tableName]);
+                $res = $queryList['select']->fetchAll();
+                var_dump($res);
+                if(is_array($res) && count($res) > 0) {
+                    $queryList['update']->execute($boundVars[$tableName]);
+                    echo "UPDATE";
+                }
+                else {
+                    $queryList['insert']->execute($boundVars[$tableName]);
+                    echo "INSERT";
+                }
+            }
+            echo "<BR/>";
         }
-        unset($tableName, $stmt);
+        unset($tableName, $queryList);
     }
 }
-//Returns true if a column name is in fact in that table
-function validColumn($table, $columnName) {
-    return $table->getColumn($columnName) != NULL;
-}
-//TODO
 //Function that converts human-readable data to database-friendly data
 function convertData($data, $type) {
     if(substr_compare($type, "DATE",0,4,true) == 0) {
-        $row[] = date('m/d/Y', strtotime($tableRow[$column->name]));
-    }
-    else if(substr_compare($type, "TIME",0,4,true) == 0) {
-        //TODO
+        //Find and don't mess with dates in the correct format
+        $regex = "/[0-9]{4}-[0-9]{2}-[0-9]{2}/";
+        if(preg_match($regex, $data)) {
+            return $data;
+        }
+        // Needs to convert format mm/dd/yyyy to yyyy-mm-dd
+        $mm = strstr($data, '/',true);
+        $ddyyyy = substr($data, strpos($data, "/")+1);
+        $dd = strstr($ddyyyy, '/',true);
+        $yyyy = substr(strstr($ddyyyy, '/'), 1);
+        return $yyyy."-".$mm."-".$dd;
     }
     else if(substr_compare($type, "TINYINT",0,7,true) == 0) {
         return substr_compare($data,"YES",0,3,true) || ((int)$data) == 1;
     }
     return $data;
+}
+//Adds a mapping from a column number to a table. A colnum may map to multiple tables
+//This mapping is used to set up the parameterized queries
+function addMapping(&$mappingArr, $colNum, $tableName) {
+    if(!isset($mappingArr[$colNum])) {
+        $mappingArr[$colNum] = [];
+    }
+    if(!in_array($tableName,$mappingArr[$colNum])) {
+        $mappingArr[$colNum][] = $tableName;
+    }
 }
 ?>

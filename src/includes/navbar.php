@@ -3,8 +3,6 @@
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container ">
   <a href=index.php><img style="margin-bottom: -15px; margin-left:-10px" width="220px" src="<?php echo $path; ?>images/EMCSFD_Logo.png"></a>
-  <!-- <h3 class="w3-padding-34" style="line-height: 25px; font-weight: 90; margin-top: -1px; margin-left:-1px; font-size: 24.5 px; font-family:'Oswald', sans-serif;"> ENGINEERING, MATHEMATICS, & COMPUTER SCIENCE'S FLIGHT DECK</h3>-->
-  <!-- <h3 class="w3-padding-34"><b>Database</b></h3> -->
   </div>
   <div class="w3-bar-block">
     <br/>
@@ -14,10 +12,10 @@
     <a href="<?php echo $path; ?>first_destinations.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">First Destinations</a> 
     <a href="<?php echo $path; ?>survey.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student Survey</a> 
     <a href="<?php echo $path; ?>coaching.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Coaching</a>
-    <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Companies</a>  
+    <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Industry Partners</a>  
     <a href="<?php echo $path; ?>contacts.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Industry Contacts</a> 
     <a href="<?php echo $path; ?>meetings.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Meetings</a>
-    <a href="<?php echo $path; ?>reports.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Reports</a>
+    <!-- <a href="<?//php echo $path; ?>reports.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Reports</a> -->
     <a href="<?php echo $path; ?>import.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Data Export</a> 
     <a href="<?php echo $path; ?>about.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a>
     <a href="<?php echo $path; ?>profile.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a>

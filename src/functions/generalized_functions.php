@@ -1,16 +1,6 @@
 <?php
 require_once(__DIR__."/../../config.php");
 require_once(__DIR__."/database_functions.php");
-/*$pdo = connect_to_db();
-$data = $pdo->query("DESCRIBE INTERNSHIP")->fetchAll();
-for($i=0; $i < count($data); $i++) {
-    foreach($data[$i] as $key => $value) {
-        if(gettype($key) == 'integer')
-            continue;
-        echo $key." => ".$value.'<BR/>';
-    }
-    echo '<BR/>';
-}*/
 
 class Column {
     public $name;
@@ -18,6 +8,7 @@ class Column {
     public $datatype;
     public $pk;
     public $fk;
+    public $fkTable;
     public $searchable;
     public $options = NULL; //Possible values for this field that will appear as a dropdown
     
@@ -81,12 +72,19 @@ class Table {
                 return $column;
         }
     }
+    //Makes a select element show up with premade options
     public function addOptionsToCol($columnName, $options) {
         foreach($this->columns as $column) {
             if($column->name == $columnName) {
                 $column->options = $options;
             }
         }
+    }
+    //Marks a column of the specified name as a foreign key for the specified table
+    public function addForeignKey($columnName, $refTable) {
+        $col = $this->getColumn($columnName);
+        $col->fk = true;
+        $col->fkTable = $refTable;
     }
     // Name: Display Form Function
     // Params:
@@ -119,7 +117,7 @@ class Table {
 
             if($column->fk) {
                 // Query foreign key table for values
-                $fkTable = $this->getFKTable($column->name);
+                $fkTable = $this->getFKTable($column);
                 $records = $fkTable->get_all_records_from_db();
                 $pkName = $fkTable->getPrimaryKey()->name;
                 
@@ -279,10 +277,15 @@ class Table {
                 //Display foreign keys using their display columns instead of displaying ids
                 $column = $this->getColumn($dc[$i]);
                 if($column->fk) {
-                    $fkTable = $this->getFKTable($column->name);
-                    $fkRecord = $fkTable->get_record($row[$column->name]);
-                    if(!is_array($fkRecord))
+                    if($row[$column->name] == null || $row[$column->name] == "") {
                         continue;
+                    }
+                    $fkTable = $this->getFKTable($column);
+                    $fkRecord = $fkTable->get_record($row[$column->name]);
+                    if(!is_array($fkRecord)) {
+                        echo "DELETED";
+                        continue;
+                    }
                     $pkName = $fkTable->getPrimaryKey()->name;
 
                     $len = count($fkTable->dispColumns);
@@ -317,10 +320,15 @@ class Table {
                 
             else if($column->fk) {
                 echo "<h4><b>".$column->dispName.":</b> ";
-                $fkTable = $this->getFKTable($column->name);
-                $fkRecord = $fkTable->get_record($record[$column->name]);
-                if(!is_array($fkRecord))
+                if($record[$column->name] == null || $record[$column->name] == "") {
                     continue;
+                }
+                $fkTable = $this->getFKTable($column);
+                $fkRecord = $fkTable->get_record($record[$column->name]);
+                if(!is_array($fkRecord)) {
+                    echo "DELETED";
+                    continue;
+                }
                 $pkName = $fkTable->getPrimaryKey()->name;
 
                 echo '<a href="'.$fkTable->fileName.'?page=display&id='.$record[$column->name].'">';
@@ -459,7 +467,10 @@ class Table {
     }
 
     function getFKTable($fkColumn) {
-        global $database;
+        // Database no longer contains FK constraints to prevent errors when deleting
+        // As such, foreign key data is now configured in tables.php
+
+        /*global $database;
         $pdo = connect_to_db();
         $sql = 'SELECT REFERENCED_TABLE_NAME';
         $sql .= ' FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE';
@@ -468,11 +479,11 @@ class Table {
         $sql .= " TABLE_NAME = :tablename AND";
         $sql .= " COLUMN_NAME = :fkcolumn;";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':database' => $database, ':tablename' => $this->name, ':fkcolumn' => $fkColumn]);
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute([':database' => $database, ':tablename' => $this->name, ':fkcolumn' => $fkColumn->name]);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);*/
 
         require_once('tables.php');
-        return getTable($record['REFERENCED_TABLE_NAME']);
+        return getTable($fkColumn->fkTable);
     }
 }
 ?>

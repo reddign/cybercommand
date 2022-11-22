@@ -50,7 +50,7 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
 </head>
 <body style = "background-color:  #004B98">
 <div style = "text-align: center; margin: auto; width: 100%; height:50%; position: absolute; top:0; bottom:0; left:0; right:0; padding: 30px; background-color: #0A2240">
-<img  style=" position:static; margin-left: 75px; width: 250px; height:200px" src="images/EMCSD no background.png">
+<img  style=" position:static; margin-left: 75px; width: 250px; height:200px" src="images/EMCSFD_Logo.png">
 <!--<h3 class="w3-padding-34" style="text-align: center; margin-left: 20px; margin-top: -4px; font-size: 30px; color: white; font-family:'Oswald', sans-serif;">DATABASE LOGIN</h3>-->
     <div id="loginFormDiv" style="text-align: center; margin-top: 20px;">
     <form id="loginForm" method=post action=login.php>
