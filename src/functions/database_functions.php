@@ -9,7 +9,7 @@ function connect_to_db(){
 }
 function authorizeUser($username,$password){
     $loginString = "SALT14PS".$password."PSSALT2";
-    $sql = "SELECT * FROM user where email = :u and passwordHash = md5(:p) ;";
+    $sql = "SELECT * FROM user where email = :u and passwordHash = sha2(:p,512) ;";
     $params = [":u"=>$username,":p"=>$loginString];
     //send to database to check for user
     $rowInDB = false;
