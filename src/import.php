@@ -21,7 +21,7 @@ if(isset($_POST)) {
             header("location:download.php?path=".$filePath);  //Start actual download
         exit;
     }
-    
+
     //Data import
     if(isset($_POST["availableRecords"])) {
         completeImport($_POST, $_SESSION['filepath']);

@@ -28,7 +28,7 @@ function getTable($name) {
         return $contactTable;
 
     case 'first_destination':
-        $first_destinationTable = new Table('first_destination', ['First Destination ID','Company','BLue Jay','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
+        $first_destinationTable = new Table('first_destination', ['First Destination ID','Company','Blue Jay','Title','Location','Salary Range','Offer Date','What are you doing after graduation','In EMCS Network','Did you intern at this company?','Relationship to Major(s) and Minor(s)','Matches Career Path','Department','Notes'], ['title']);
         $first_destinationTable->fileName = "first_destinations.php";
         return $first_destinationTable;
 
