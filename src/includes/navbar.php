@@ -12,7 +12,7 @@
     <a href="<?php echo $path; ?>first_destinations.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">First Destinations</a> 
     <a href="<?php echo $path; ?>survey.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Student Survey</a> 
     <a href="<?php echo $path; ?>coaching.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Coaching</a>
-    <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Companies</a>  
+    <a href="<?php echo $path; ?>companies.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Industry Partners</a>  
     <a href="<?php echo $path; ?>contacts.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Industry Contacts</a> 
     <a href="<?php echo $path; ?>meetings.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Meetings</a>
     <!-- <a href="<?//php echo $path; ?>reports.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Reports</a> -->
