@@ -1,16 +1,6 @@
 <?php
 require_once(__DIR__."/../../config.php");
 require_once(__DIR__."/database_functions.php");
-/*$pdo = connect_to_db();
-$data = $pdo->query("DESCRIBE INTERNSHIP")->fetchAll();
-for($i=0; $i < count($data); $i++) {
-    foreach($data[$i] as $key => $value) {
-        if(gettype($key) == 'integer')
-            continue;
-        echo $key." => ".$value.'<BR/>';
-    }
-    echo '<BR/>';
-}*/
 
 class Column {
     public $name;

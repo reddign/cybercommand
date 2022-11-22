@@ -1,3 +1,5 @@
+// searchInput - called by search text boxes
+//  - Narrows down the options in a linked select element according to the search
 function searchInput(event) {
 	let select = id(event.target.id.substr(0,event.target.id.length-7));
     let searchStr = event.target.value.toUpperCase();

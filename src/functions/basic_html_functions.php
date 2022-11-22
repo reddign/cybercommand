@@ -21,3 +21,4 @@ function display_small_page_heading($mainHeading = "Change Main Heading",$subHea
     echo '<hr style="width:300px;border:5px solid #3DB5E6" class="w3-round">';
     echo '</div>';
 }
+?>

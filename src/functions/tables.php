@@ -1,5 +1,7 @@
 <?PHP
 require_once(__DIR__."/generalized_functions.php");
+// This file contains a partial representation of the database in the form of code. 
+// It pulls some data from the database, but most of the human readable data is stored here.
 
 function getTableNameDict() {
     return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays'];

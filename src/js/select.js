@@ -5,6 +5,8 @@ function init() {
     selects.forEach(elem => elem.addEventListener("change",selectChange));
 }
 
+// selectChange - called by certain select elements
+//  - fills the corresponding text box with the selected option 
 function selectChange() {
     let optionText = this.options[this.selectedIndex].value;
     if(optionText == "")
