@@ -72,6 +72,7 @@ function display_survey_form($student_survey=""){
 
 function student_survey_form($student_survey=""){
 
+    //NOT IN USE, the edit functionality was not able to be finished
     $formHTML = "<h2>Add Student</h2>";
     $student_survey = [];
     $student_survey["studentFirst"]= "";
@@ -148,7 +149,7 @@ function student_survey_form($student_survey=""){
         <option value = "Hybrid">Hybrid</option>
         </select><BR/><BR/>
         Rate this experience on a scale of 0 to 5 (0 being poor and 5 being excellent): 
-        <input style="margin-bottom:10px" name="rating" type="number" value="'.$student_survey["wage"].'"><BR/>
+        <input style="margin-bottom:10px" name="rating" type="number"><BR/>
         Please choose the appropriate wage range for the experience:<br>
         <input type="radio" value="Unpaid" name = "wage" id="wageChoice1">
             <label for="wageChoice1">Unpaid</label><br>
