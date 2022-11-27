@@ -20,7 +20,7 @@ function tableChange() {
     }
     tables[tableName].columns.forEach((col) => {
         if(col.fk) {
-
+            //TODO
         }
         else if(!col.pk) {
             colSel.innerHTML += '<option value="'+col.name+'">'+col.dispName+'</option>';
@@ -274,6 +274,8 @@ function addConstraint(event) {
     datSel.addEventListener("change",recalculateAvailRecs);
     datSel.options.add(document.createElement('option'));
     for(let i=0; i < table.columns.length; i++) {
+        if(table.columns[i].pk || table.columns[i].fk)
+            continue;
         let opt = document.createElement('option');
         opt.value = table.columns[i].name;
         opt.innerText = table.columns[i].dispName;

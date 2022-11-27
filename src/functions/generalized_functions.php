@@ -211,11 +211,12 @@ class Table {
     function get_all_records_from_db(){
         $pdo = connect_to_db();
         $dc = $this->dispColumns;
-        $sql = "SELECT * FROM ".$this->name." ORDER BY " . $dc[count($dc)-1];
+        $sql = "SELECT * FROM ".$this->name." ORDER BY " .$dc[count($dc)-1];
         for($i=count($dc)-2; $i >= 0; $i--) {
             $sql .= ",".$dc[$i];
         }
-        $data = $pdo->query($sql.";")->fetchAll();
+        $order = ($this->name == "survey") ? " DESC" : " ASC";
+        $data = $pdo->query($sql.$order.";")->fetchAll();
         return $data;
     }
 
@@ -384,7 +385,7 @@ class Table {
     // Description:
     // 	Updates an existing record or adds a record to the database
     // 	Redirects to a page displaying the record afterwards
-    function updateDatabase($data) {
+    function updateDatabase($data,$redirectURL="") {
         $regex = "/(<([^>]+)>)/i";
         $pdo = connect_to_db();
         $id = $data[$this->getPrimaryKey()->name];
@@ -414,7 +415,12 @@ class Table {
             $stmt = $pdo->prepare($stmtpt1.$stmtpt2.");");
             $stmt->execute($boundParams);
             $id = $pdo->lastInsertId();
-            header("location:".$this->fileName."?page=display&id=".$id."&message=".$this->getDispName()." Added");
+            if($redirectURL == "") {
+                header("location:".$this->fileName."?page=display&id=".$id."&message=".$this->getDispName()." Added");
+            }
+            else {
+                header("location:".$redirectURL);
+            }
         } 
         else { //Edit
             $regex = "/(<([^>]+)>)/i";

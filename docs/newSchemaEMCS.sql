@@ -106,9 +106,31 @@ DROP TABLE IF EXISTS `emcsdb`.`survey` ;
 
 CREATE TABLE IF NOT EXISTS `emcsdb`.`survey` (
   `surveyID` INT NOT NULL AUTO_INCREMENT,
+  `surveyType` VARCHAR(45) NULL,
+  `submitDate` VARCHAR(45) NULL,
+  `firstName` VARCHAR(45) NULL,
+  `lastName` VARCHAR(45) NULL,
   `etownID` INT NULL,
-  `interests` VARCHAR(200) NULL,
-  `careerGoals` VARCHAR(500) NULL,
+  `gradDate` VARCHAR(20) NULL,
+  `primaryMajor` VARCHAR(50) NULL,
+  `concentration` VARCHAR(45) NULL,
+  `classAssignment` VARCHAR(10) NULL,
+  `workType` VARCHAR(25) NULL,
+  `company` VARCHAR(30) NULL,
+  `title` VARCHAR(20) NULL,
+  `timeFrame` VARCHAR(40) NULL,
+  `reason` VARCHAR(200) NULL,
+  `careerPath` VARCHAR(10) NULL,
+  `mode` VARCHAR(10) NULL,
+  `rating` INT NULL,
+  `wage` VARCHAR(25) NULL,
+  `advisor` VARCHAR(150) NULL,
+  `summerWorkType` VARCHAR(25) NULL,
+  `summerCompany` VARCHAR(35) NULL,
+  `summerTitle` VARCHAR(20) NULL,
+  `summerReason` VARCHAR(200) NULL,
+  `summerWage` VARCHAR(25) NULL,
+  `summerAdvisor` VARCHAR(150) NULL,
   PRIMARY KEY (`surveyID`))
 ENGINE = InnoDB;
 

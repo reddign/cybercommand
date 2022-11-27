@@ -4,7 +4,7 @@ require_once(__DIR__."/generalized_functions.php");
 // It pulls some data from the database, but most of the human readable data is stored here.
 
 function getTableNameDict() {
-    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays'];
+    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays','survey'=>'Student Survey'];
 }
 
 // Returns a table object for the given table
@@ -63,6 +63,10 @@ function getTable($name) {
         $studentTable->fileName = "students.php";
         return $studentTable;
 
+    case 'survey':
+        $surveyTable = new Table('survey', ['Survey ID','Survey Type','Submit Date','First Name','Last Name','Student ID','Grad Date','Primary Major','Concentration','For Class Assignment','Work Type','Company','Title','Time Frame','Reason For Completion','Matches Career Path','Mode','Rating','Wage Range','Who Helped','Summer Work Type','Summer Company','Summer Title','Summer Reason For Completion','Summer Wage Range','Summer Who Helped'], ['submitDate','firstName','lastName']);
+        $surveyTable->fileName = "survey.php";
+        return $surveyTable;
     default:
         return NULL;
     }
