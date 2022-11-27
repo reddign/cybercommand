@@ -208,15 +208,14 @@ class Table {
     }
 
     // Get all records in the provided table
-    function get_all_records_from_db(){
+    function get_all_records_from_db($order="ASC"){
         $pdo = connect_to_db();
         $dc = $this->dispColumns;
-        $sql = "SELECT * FROM ".$this->name." ORDER BY " .$dc[count($dc)-1];
+        $sql = "SELECT * FROM ".$this->name." ORDER BY " .$dc[count($dc)-1]." ".$order;
         for($i=count($dc)-2; $i >= 0; $i--) {
-            $sql .= ",".$dc[$i];
+            $sql .= ",".$dc[$i]." ".$order;
         }
-        $order = ($this->name == "survey") ? " DESC" : " ASC";
-        $data = $pdo->query($sql.$order.";")->fetchAll();
+        $data = $pdo->query($sql.";")->fetchAll();
         return $data;
     }
 
@@ -231,21 +230,21 @@ class Table {
     }
 
     // Searches for records with display columns(name, title) that match $word
-    function get_records_by_dispCols($word){
+    function get_records_by_dispCols($word,$order="ASC"){
         if($word==""){
-            return $this->get_all_records_from_db($this);
+            return $this->get_all_records_from_db($order);
         }
         $sql = "";
         $dc = $this->dispColumns;
         if(count($this->dispColumns) == 1) {
-            $sql = "SELECT * FROM ".$this->name." WHERE ".$dc[0]." LIKE :word ORDER BY ".$this->dispColumns[0].";";
+            $sql = "SELECT * FROM ".$this->name." WHERE ".$dc[0]." LIKE :word ORDER BY ".$this->dispColumns[0]." ".$order.";";
         }
         else {
             $sqlpt1 = "SELECT * FROM ".$this->name." WHERE concat(".$this->dispColumns[0];
-            $sqlpt2 = ") LIKE :word ORDER BY ".$dc[count($dc)-1];
+            $sqlpt2 = ") LIKE :word ORDER BY ".$dc[count($dc)-1]." ".$order;
             for($i=1; $i <  count($dc); $i++) {
                 $sqlpt1 .= ", ' ', ".$dc[$i];
-                $sqlpt2 .= ",".$dc[count($dc)-1-$i];
+                $sqlpt2 .= ",".$dc[count($dc)-1-$i]." ".$order;
             }
             $sql = $sqlpt1.$sqlpt2.";";
         }

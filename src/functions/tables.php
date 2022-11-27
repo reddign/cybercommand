@@ -64,7 +64,7 @@ function getTable($name) {
         return $studentTable;
 
     case 'survey':
-        $surveyTable = new Table('survey', ['Survey ID','Survey Type','Submit Date','First Name','Last Name','Student ID','Grad Date','Primary Major','Concentration','For Class Assignment','Work Type','Company','Title','Time Frame','Reason For Completion','Matches Career Path','Mode','Rating','Wage Range','Who Helped','Summer Work Type','Summer Company','Summer Title','Summer Reason For Completion','Summer Wage Range','Summer Who Helped'], ['submitDate','firstName','lastName']);
+        $surveyTable = new Table('survey', ['Survey ID','Survey Type','Submit Date','First Name','Last Name','Student ID','Grad Date','Primary Major','Concentration','For Class Assignment','Work Type','Company','Title','Time Frame','Reason For Completion','Matches Career Path','Mode','Rating','Wage Range','Who Helped','Summer Work Type','Summer Company','Summer Title','Summer Reason For Completion','Summer Wage Range','Summer Who Helped'], ['firstName','lastName','submitDate']);
         $surveyTable->fileName = "survey.php";
         return $surveyTable;
     default:
