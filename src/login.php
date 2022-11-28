@@ -6,7 +6,7 @@ $messageStr = "";
 
 
 //Logout functionality
-if(isset($_GET['logout'])) {
+if(isset($_POST['logout'])) {
     session_destroy();
     session_start();
     $messageStr = "<h5 style='margin-left: 75px; color: white;'>You have successfully signed out</h5>";
@@ -62,5 +62,6 @@ if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
     <?php echo $messageStr ?>
     </div>
 </div>
+<script src="js/deletePostData.js" type="text/javascript"></script>
 </body>
 </html>

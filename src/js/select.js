@@ -1,6 +1,6 @@
-window.addEventListener("load",init);
+window.addEventListener("load",initSelect);
 
-function init() {
+function initSelect() {
     let selects = document.querySelectorAll("select.fillSelect");
     selects.forEach(elem => elem.addEventListener("change",selectChange));
 }

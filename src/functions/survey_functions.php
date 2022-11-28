@@ -241,19 +241,6 @@ function summer_survey_form($student_survey=""){
     <input style="margin:10px" type="submit" value="'.$buttonString.'" form="surveyForm">';
 }
 
-function addSurvey($arrayData){
-    $surveyID = $arrayData["surveyID"];
-    $interests = $arrayData["interests"];
-    $careerGoals = $arrayData["careerGoals"];
-    $sid = $arrayData["studentID"];
-    $pdo = connect_to_db();
-    $stmt = $pdo->prepare("insert into student_survey (surveyID,interests,careerGoals,studentID) VALUES (:surv,:inter,:caree,:stu)");
-    $stmt->execute([':surv' => $surveyID, ":inter"=> $interests, ":caree"=>$careerGoals,":stu"=>$studentID]);
-    $sid = $pdo->lastInsertId();
-    header("location:survey.php?page=survey&sid=".$sid."&message=Survey Accepted");
-    
-}
-
 function display_survey_page_navigation($currentPage){
     $navHTML  = '<h4><div style="margin-top:5px;margin-bottom:45px;">';
     $navHTML .= '<a href="survey.php?page=search"'.($currentPage == 'search' ? 'class="selected"' : "").'>Search</a>';

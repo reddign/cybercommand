@@ -19,7 +19,10 @@
     <a href="<?php echo $path; ?>import.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Data Export</a> 
     <a href="<?php echo $path; ?>about.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About</a>
     <a href="<?php echo $path; ?>profile.php" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a>
-    <a href="<?php echo $path; ?>login.php?logout=true" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white" style="color: #FF4444;">Logout</a>
+    <a href="javascript:{}" onclick="w3_close(); document.getElementById('logout_form').submit();" class="w3-bar-item w3-button w3-hover-white" style="color: #FF4444;">Logout</a>
+    <form id="logout_form" method="POST" action="login.php">
+    <input type="hidden" name="logout" value="true">
+    </form>
   </div>
 
 </nav>

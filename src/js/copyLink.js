@@ -1,6 +1,6 @@
-window.addEventListener("load",init);
+window.addEventListener("load",initCopyLink);
 
-function init() {
+function initCopyLink() {
     document.getElementById("copyLinkButton").addEventListener("click",copyToClipboard);
 }
 

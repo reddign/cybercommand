@@ -21,4 +21,5 @@ if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
 include __DIR__."/navbar.php";
 ?>
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+<body>
+<div class="w3-main" style="margin-left:300px;padding-right:40px;padding-left:40px;">
