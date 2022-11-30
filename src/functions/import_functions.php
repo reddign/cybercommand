@@ -235,10 +235,10 @@ function completeImport($postData, $filePath) {
         //Add sql to list of queries if there is at least one piece of data to be inserted
         if(!$first) {
             $queries[$tableName] = [];
-            $queries[$tableName]['insert'] = $pdo->prepare($insertSql1.$insertSql2.");"); echo "INSERT: ".$insertSql1.$insertSql2.");<BR/>";
+            $queries[$tableName]['insert'] = $pdo->prepare($insertSql1.$insertSql2.");"); //echo "INSERT: ".$insertSql1.$insertSql2.");<BR/>";
             if($recordMode != "create") {
-                $queries[$tableName]['update'] = $pdo->prepare($updateSql1.$updateSql2.";"); echo "UPDATE: ".$updateSql1.$updateSql2.";<BR/>";
-                $queries[$tableName]['select'] = $pdo->prepare($selectSql1.$selectSql2.$updateSql2.$selectSql4); echo "SELECT: ".$selectSql1.$selectSql2.$updateSql2.$selectSql4."<BR/>";
+                $queries[$tableName]['update'] = $pdo->prepare($updateSql1.$updateSql2.";"); //echo "UPDATE: ".$updateSql1.$updateSql2.";<BR/>";
+                $queries[$tableName]['select'] = $pdo->prepare($selectSql1.$selectSql2.$updateSql2.$selectSql4); //echo "SELECT: ".$selectSql1.$selectSql2.$updateSql2.$selectSql4."<BR/>";
             }
         }
     }
@@ -267,35 +267,27 @@ function completeImport($postData, $filePath) {
             }
             unset($tbName);
         }
-        var_dump($boundVars);
-        echo "<BR/>";
 
         foreach($queries as $tableName => $queryList) {
             $recordMode = $availRecs[$tableName]["recordMode"];
-            echo "MODE: $recordMode<BR/>";
+            
             if($recordMode == "create") {
                 $queryList['insert']->execute($boundVars[$tableName]);
-                echo "CREATE";
             }
             else if($recordMode == "update") {
                 $queryList['update']->execute($boundVars[$tableName]);
-                echo "UPDATE";
             }
             else if($recordMode == "createupdate") {
-                echo "SELECT";
                 $queryList['select']->execute($boundVars[$tableName]);
                 $res = $queryList['select']->fetchAll();
-                var_dump($res);
+                
                 if(is_array($res) && count($res) > 0) {
                     $queryList['update']->execute($boundVars[$tableName]);
-                    echo "UPDATE";
                 }
                 else {
                     $queryList['insert']->execute($boundVars[$tableName]);
-                    echo "INSERT";
                 }
             }
-            echo "<BR/>";
         }
         unset($tableName, $queryList);
     }

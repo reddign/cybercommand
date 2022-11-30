@@ -1,6 +1,7 @@
 let global_idnum = 1;
 let global_constraint_ids = [];
 let availableRecords = {};
+console.log(tables);
 
 window.addEventListener('load',function() {
     id('addTable').addEventListener("click",addTableOption);

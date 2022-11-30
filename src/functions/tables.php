@@ -4,7 +4,7 @@ require_once(__DIR__."/generalized_functions.php");
 // It pulls some data from the database, but most of the human readable data is stored here.
 
 function getTableNameDict() {
-    return ['coaching'=>'Coaching Sessions','company'=>"Companies",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays','survey'=>'Student Survey'];
+    return ['coaching'=>'Coaching Sessions','company'=>"Industry Partners",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays','survey'=>'Student Survey'];
 }
 
 // Returns a table object for the given table

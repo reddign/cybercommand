@@ -61,6 +61,7 @@ switch($page) {
             }
         }
         else {
+            echo '<i>Please upload a <u>CSV</u> file below</i>';
             echo '<form action="upload.php?redirect=import.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="csv_file" name="csv_file" accept=".csv"><BR/>
                 <input type="hidden" name="file_upload" value="yes">

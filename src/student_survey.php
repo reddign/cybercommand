@@ -38,8 +38,26 @@ if(isset($_POST)) {
         exit;
    }
 }
-echo "<div style='width: 60%; margin-left: 20%; margin-top: 10%; margin-bottom: 10%; padding: 2em; background-color: #004B98;'>";
-echo "<style>input[type=submit] {background-color:white; color:black;}</style>";
+//Mobile friendly CSS since students may access this page from their phone
+echo "<style>
+#formDiv {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    padding: 2em;
+    background-color: #004B98;
+}  
+@media only screen and (max-width: 1000px) {
+    #formDiv {
+        width: 100%;
+        margin: 0%;
+        margin-top: 100px;
+    }
+}
+input[type=submit] {background-color:white; color:black;}</style>";
+echo "<div id='formDiv'>";
+
 
 switch($page){
     case "fall":
