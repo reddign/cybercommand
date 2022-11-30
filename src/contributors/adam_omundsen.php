@@ -11,7 +11,8 @@ require("../includes/header.php");
   </div>
 
   Adam is a junior computer science major at Etown.
-  He is currently working with team Beta to provide access to industry contacts data.
+  He worked with team Beta to provide access to industry contacts data.
+  He was also part of the team that saw this project to completion and wrote most of the backend systems.
 
 <?PHP
 require("../includes/footer.php");

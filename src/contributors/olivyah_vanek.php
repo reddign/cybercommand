@@ -11,8 +11,8 @@ require("../includes/header.php");
   </div>
 
   Olivyah is a 5th year Information Systems major at Etown.
-  She is currently working with team Gamma to allow data to be imported via Excel or Microsoft Lists.
-  
+  She worked with team Gamma to allow data to be imported via Excel or Microsoft Lists.
+  She was also part of the team that saw this project to completion.
 
 <?PHP
 require("../includes/footer.php");

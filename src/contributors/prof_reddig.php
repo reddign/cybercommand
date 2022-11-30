@@ -10,8 +10,8 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-  Professor Reddig is just crazy enough to try to have 22 students in CS341 work on one project at the same time.
-  Hopefully students will learn a good deal about git and how to team together on a large software project.
+  Professor Reddig was just crazy enough to try to have 22 students in CS341 work on one project at the same time.
+  Hopefully students learned a good deal about git and how to team together on a large software project.
   
 <?PHP
 require("../includes/footer.php");

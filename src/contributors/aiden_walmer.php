@@ -11,7 +11,7 @@ require("../includes/header.php");
   </div>
 
   Aiden is a junior computer science major at Etown. 
-  He is currently working with team Beta to provide access to industry contacts data.
+  He worked with team Beta to provide access to industry contacts data.
 
 <?PHP
 require("../includes/footer.php");

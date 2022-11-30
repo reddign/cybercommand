@@ -11,7 +11,7 @@ require("../includes/header.php");
   </div>
 
   Seamus is a senior Computer Science major at Etown.
-  he is currently working with team Epsilon to implement some features for the site.
+  He worked with team epsilon to Provide access to company data.
 
 <?PHP
 require("../includes/footer.php");

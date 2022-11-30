@@ -11,6 +11,7 @@ require("../includes/header.php");
   </div>
 
   Joe is a senior engineering major at Etown.
+  He worked with team Epsilon to provide access to company data.
   
 <?PHP
 require("../includes/footer.php");

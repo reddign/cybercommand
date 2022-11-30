@@ -10,7 +10,8 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-  My name is Noah
+  Noah is a junior computer science major at Etown.
+  He worked with team Alpha to store information on student and company meetings.
   
 <?PHP
 require("../includes/footer.php");

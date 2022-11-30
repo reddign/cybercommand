@@ -10,7 +10,7 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-   I am a Junior in Computer Engineering at Etown. 
+   Adam Johnson is a Junior in Computer Engineering at Etown. He worked with team Beta to provide access to industry contacts data.
 
 <?PHP
 require("../includes/footer.php");

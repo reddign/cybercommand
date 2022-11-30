@@ -10,7 +10,8 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-  Gabe is a third year Computer Science major at Etown
+  Gabe is a third year Computer Science major at Etown.
+  He was a part of team Theta.
   
 <?PHP
 require("../includes/footer.php");

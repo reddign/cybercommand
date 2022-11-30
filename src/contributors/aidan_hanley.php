@@ -11,7 +11,7 @@ require("../includes/header.php");
   </div>
 
   Aidan is a senior mathematics and computer science major at Etown.
-  He is currently working with Team Gamma on creating a tool for importing Excel data.
+  He worked with team Gamma on creating a tool for importing Excel data.
 
 <?PHP
 require("../includes/footer.php");

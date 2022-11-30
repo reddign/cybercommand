@@ -11,7 +11,7 @@ require("../includes/header.php");
   </div>
 
   Nate is a computer science major at Etown.
-  He is currently working with team Delta to implement features for the site.
+  He worked with team Delta to provide access to student survey information.
 
 <?PHP
 require("../includes/footer.php");

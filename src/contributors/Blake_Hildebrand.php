@@ -11,6 +11,7 @@ require("../includes/header.php");
   </div>
 
   Blake is a senior computer science major at Etown. 
+  He worked with team Alpha to Store information on student and company meetings.
 
 <?PHP
 require("../includes/footer.php");

@@ -10,8 +10,8 @@ require("../includes/header.php");
     <hr style="width:50px;border:5px solid red" class="w3-round">
   </div>
 
-  Simon is a Junior Computer Science major.
-  He is currently working on excel data transfering.
-  The languages he knows are C and java.
+  Simon is a Junior Computer Science major at Etown.
+  He worked with team Gamma to allow data to be imported via Excel or Microsoft Lists.
+  
 <?PHP
 require("../includes/footer.php");

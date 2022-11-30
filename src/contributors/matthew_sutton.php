@@ -11,6 +11,7 @@ require("../includes/header.php");
   </div>
 
   Matthew is a junior computer science major from the class of 2024 at Etown.
+  He worked with team Delta to provide access to student survey information.
   
 <?PHP
 require("../includes/footer.php");
