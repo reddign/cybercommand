@@ -1,4 +1,5 @@
 <?PHP
+// This page is one of 8 pages dynamically generated using functions/generalized_functions.php
 $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("../config.php");
@@ -37,7 +38,7 @@ require("includes/header.php");
   switch($page){
     case "search":
       $string = isset($_GET["search"])?$_GET["search"]:"";
-      $records = $table->get_records_by_dispCols($string);
+      $records = $table->get_records_by_dispCols($string,"DESC");
       $table->display_search_form($itemName);
       $table->display_record_list($records);
       break;

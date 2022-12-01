@@ -1,3 +1,7 @@
+<?PHP
+// NOTE: This page is visible regardless of whether you are logged in or not since students need to access this page to submit their survey
+// Be very careful with what is put on this page
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

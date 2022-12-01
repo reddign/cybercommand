@@ -23,10 +23,15 @@ function displayAllAccounts() {
         echo "<span>".$user['firstName']." ".$user['lastName']."     </span>";
         echo "<span style='float: right;'>".$user['email']."</span>";
         echo "<BR/><span>Permission Level: ".$user['permissionLevel']."     </span>";
-        echo "<form method='POST' action='manage_accounts.php'>";
-        echo "<input type='hidden' name='userIDToDelete' value='".$user["userID"]."'>";
-        echo "<button type='button' style='float: right;' class='deleteUser'>Delete User</button>";
-        echo "</form>";
+        if($user['userID'] != $_SESSION["userID"]) {
+            echo "<form style='display: inline;' method='POST' action='manage_accounts.php'>";        
+            echo "<input type='hidden' name='userIDToDelete' value='".$user["userID"]."'>";
+            echo "<button type='button' style='float: right;' class='deleteUser'>Delete User</button>";
+            echo "</form>";
+        }
+        else {
+            echo "<span style='float: right;'><b>You</b></span>";
+        }
         echo "</td></tr>";
     }
     unset($user);

@@ -1,3 +1,9 @@
+-- //////////////////////////   WARNING   //////////////////////////
+-- This script will update and RESET the database.
+-- All data stored in the database will be gone.
+-- Ensure no valuable information is in the database before running
+-- //////////////////////////   WARNING   //////////////////////////
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -245,7 +251,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
-
+-- Add test accounts into database. Try to not delete these when updating the schema or you will have to make new test accounts
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("root@root","Root","",sha2(CONCAT("SALT14PS",CONCAT("diffPass32768","PSSALT2")),512),10);
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("user@etown.edu","Test","User",sha2(CONCAT("SALT14PS",CONCAT("password","PSSALT2")),512),1);
 INSERT INTO user (email, firstName, lastName, passwordHash, permissionLevel) VALUES ("reddign@etown.edu","Nancy","Reddig",sha2(CONCAT("SALT14PS",CONCAT("341mysqlEngineering","PSSALT2")),512),10);

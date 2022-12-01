@@ -14,7 +14,7 @@ if(!isset($_SESSION))
     session_start();
 
 if(isset($_POST)) {
-    //If the user has requested an export, generate a csv file and make them download it
+    //If the user has requested an export, generate a csv file in the export folder and make them download it
     if(isset($_POST["tableSelect"]) && array_key_exists($_POST["tableSelect"], $tables)){
         $filePath = exportToCSV($_POST["tableSelect"]);
         if($filePath != NULL)
@@ -61,6 +61,7 @@ switch($page) {
             }
         }
         else {
+            //Form that uploads the file to the uploads directory with some help from upload.php
             echo '<i>Please upload a <u>CSV</u> file below</i>';
             echo '<form action="upload.php?redirect=import.php" method="post" enctype="multipart/form-data">
                 <input type="file" id="csv_file" name="csv_file" accept=".csv"><BR/>

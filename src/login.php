@@ -23,6 +23,7 @@ if(isset($_POST['login']) && !$_SESSION['loggedIn']) {
     $user = authorizeUser($username,$password);
     $_SESSION["loggedIn"] = is_array($user);
     if($_SESSION['loggedIn']) {
+        $_SESSION['userID'] = $user['userID'];
         $_SESSION['firstName'] = $user['firstName'];
         $_SESSION['lastName'] = $user['lastName'];
         $_SESSION['email'] = $user['email'];

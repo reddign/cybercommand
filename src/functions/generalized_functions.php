@@ -4,7 +4,7 @@
 //Other data regarding tables is stored in tables.php
 
 //The functions below are capable of dynamically generating pages to add/edit/view records and get/store data in the database
-//List of pages powered by this file: coaching.php, companies.php, contacts.php, first_destinations.php, internships.php, meetings.php, student_survey.php, students.php, survey.php
+//List of pages powered by this file: coaching.php, companies.php, contacts.php, first_destinations.php, internships.php, meetings.php, students.php, survey.php
 require_once(__DIR__."/../../config.php");
 require_once(__DIR__."/database_functions.php");
 

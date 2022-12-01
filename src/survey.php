@@ -1,4 +1,5 @@
 <?PHP
+// This page is one of 8 pages dynamically generated using functions/generalized_functions.php
 $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("functions/database_functions.php");

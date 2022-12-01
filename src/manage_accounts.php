@@ -1,4 +1,6 @@
 <?PHP
+// This page should only be visible to users with a permission level of 10 or higher
+// This page is very powerful as it allows users to delete any account or add new accounts
 $path = '';
 require_once("functions/basic_html_functions.php");
 require_once("../config.php");
@@ -12,9 +14,10 @@ display_small_page_heading("Account Manager","");
 
 if($_SESSION['permissionLevel'] < 10) {
     echo "You do not have permission to view this page";
+    require("includes/footer.php");
+    exit;
 }
-
-if($_SESSION['permissionLevel'] >= 10 && isset($_POST["userIDToDelete"])) {
+else if($_SESSION['permissionLevel'] >= 10 && isset($_POST["userIDToDelete"])) {
     deleteAccount($_POST["userIDToDelete"]);
     echo "<p>Account Deleted</p>";
 }

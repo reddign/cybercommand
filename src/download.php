@@ -1,5 +1,14 @@
 <?php
-if(isset($_GET['path'])) {
+if(!isset($_SESSION))
+    session_start();
+//Unauthorized user protection
+if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
+    header("location:login.php");
+    exit;
+}
+
+// Allow user to download CSV file, but only from export directory
+if(isset($_GET['path'] && dirname($_GET['path']) == 'export')) {
     //Read the url
     $url = $_GET['path'];
     clearstatcache();

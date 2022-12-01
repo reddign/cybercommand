@@ -1,10 +1,16 @@
 <?PHP
+if(!isset($_SESSION))
+    session_start();
+//Unauthorized user protection
+if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
+    header("location:login.php");
+    exit;
+}
+
 //Make sure upload directory exists
 if (!file_exists('upload')) {
     mkdir('upload', 0777, true);
 }
-if(!isset($_SESSION))
-    session_start();
 
 if(isset($_POST["file_upload"]) && isset($_FILES["csv_file"])) {
     if($_FILES["csv_file"]["type"] != "text/csv")
