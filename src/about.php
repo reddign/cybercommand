@@ -30,7 +30,7 @@ display_small_page_heading("About","");
   <a href="contributors/aiden_walmer.php">Aiden Walmer</a>,
   <a href="contributors/alex_fox.php">Alex Fox</a>,  
   <a href="contributors/Adam_johnson.php">Adam Johnson</a>,   
-  Derek Baldwin, 
+  <a href="contributors/derek_baldwin.php">Derek Baldwin</a>, 
   <a href="contributors/august_bednar.php">August Bednar</a>, 
   <a href="contributors/Blake_Hildebrand.php">Blake Hildebrand</a>, 
   <a href="contributors/Nathan_Griffin.php">Nathan Griffin</a>,

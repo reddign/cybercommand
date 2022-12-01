@@ -3,6 +3,16 @@ require_once(__DIR__."/generalized_functions.php");
 // This file contains a partial representation of the database in the form of code. 
 // It pulls some data from the database, but most of the human readable data is stored here.
 
+// Notes about how the table objects are created
+// Creating a new table:
+//    - Argument 1 of the table constructor is the table name
+//    - Argument 2 of the table is an array containing human readable names for the database columns. NOTE: The order and number of these columns must match the database exactly
+//    - Argument 3 is an array of the names of the database columns that should be displayed to represent a record. IE first and last name for a student, title for a job, etc.
+//
+// - Adding options to a column makes a dropdown appear on the add/edit form that allows the user to easily select one of the options, or still type in their own
+// - Foreign key constraints in the database are disabled, so data regarding foreign keys must be added here
+// - The fileName is required so the add/edit form knows what page to redirect to after inserting a record
+
 function getTableNameDict() {
     return ['coaching'=>'Coaching Sessions','company'=>"Industry Partners",'first_destination'=>'First Destinations','internship'=>'Work-Based Learning Experiences','meeting'=>'Meetings','student'=>'Blue Jays','survey'=>'Student Survey'];
 }

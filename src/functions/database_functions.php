@@ -1,4 +1,9 @@
 <?php
+//This file obtains the database access credentials from config.php
+require_once(__DIR__."/../../config.php");
+//This file is used by many other files to connect to the database
+//This file is also used by login.php to authenticate users
+
 function connect_to_db(){
 
     global $database,$databasehost,$databaseuser,$databasepassword;

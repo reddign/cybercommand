@@ -1,4 +1,5 @@
 <?PHP
+//This file is used by manage_accounts.php to change passwords, add and delete accounts, etc.
 require_once("../config.php");
 require_once("functions/database_functions.php");
 

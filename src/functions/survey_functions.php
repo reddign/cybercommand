@@ -1,18 +1,9 @@
 <?PHP
 /*
-// called to send email to students who have not taken the survey
-function email_survey_send($student_email,$link) {
-$to = $student_email;
-$name = ""; # TODO Get name from DB via email, or get email from DB via name.
-$subject = "Student Interest Survey";
-$code = 0; # TODO generate access code, store it with the student DB entry?
-$txt = "Dear $name, \n\nYou have not completed your student interest survey. Please follow this link ($link)
-and complete the survey. Your access code is $code. \n\nThank you.\n Etown EMCS Department";
-
-mail($to,$subject,$txt);
-}
+SURVEY_FUNCTIONS.PHP
+ - contains functions to display a very pretty survey that is sent to the students
+ - has lots of unused code that was meant to allow editing of the survey, which was deemed unnecesary
 */
-
 
 
 function student_survey_form($actionFile="survey.php"){

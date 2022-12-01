@@ -1,4 +1,8 @@
 <?PHP
+//This file contains the functions to export data from the database to a CSV file
+//However, the majority of the functions are for the much more complicated import feature.
+//The import involves uploading a CSV file, displaying a very configurable import form, and constructing and running the custom queries that modify the database
+//The import form relies heavily on the javascript in js/import.js to dynamically adjust according to the user's input
 require_once("functions/tables.php");
 function exportToCSV($tableName) {
     //Get data from database

@@ -1,4 +1,5 @@
 <?PHP
+//This file is used by most pages to display the heading at the top of the page
 
 function display_page_heading($mainHeading = "Change Main Heading",$subHeading = ""){
     echo '<!-- Header -->';
